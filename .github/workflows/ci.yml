@@ -21,3 +21,13 @@ jobs:
       run: |
         qmake TicTacToe.pro
         make
+            - name: Run cppcheck
+        run: |
+          sudo apt-get install cppcheck -y||true
+          cppcheck --enable=all --inconclusive --quiet --std=c++11 --suppress=missingIncludeSystem .
+
+           - name: Check code formatting with clang-format
+        run: |
+          sudo apt-get install clang-format -y
+          clang-format --dry-run --Werror **/*.cpp **/*.h
+
