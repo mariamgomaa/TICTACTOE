@@ -33,7 +33,7 @@ jobs:
 
     - name: Run cppcheck
       run: |
-        choco install cppcheck -y
+        choco install cppcheck -y||true
         cppcheck --enable=all --inconclusive --quiet --std=c++11 --suppress=missingIncludeSystem .
 
     - name: Upload Windows .exe executable
