@@ -33,8 +33,8 @@ jobs:
 
     - name: Run cppcheck
       run: |
-        choco install cppcheck -y
-        "C:\Program Files\Cppcheck\cppcheck.exe" --enable=all --inconclusive --quiet --std=c++11 --suppress=missingIncludeSystem .
+          sudo apt-get install cppcheck -y||true
+          cppcheck --enable=all --inconclusive --quiet --std=c++11 --suppress=missingIncludeSystem .
 
     - name: Upload Windows .exe executable
       uses: actions/upload-artifact@v4
