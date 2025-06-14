@@ -23,8 +23,14 @@ jobs:
         make
     - name: Run cppcheck
       run: |
-          sudo apt-get install cppcheck -y||true
-          cppcheck --enable=all --inconclusive --quiet --std=c++11 --suppress=missingIncludeSystem .
+        sudo apt-get install cppcheck -y||true
+        cppcheck --enable=all --inconclusive --quiet --std=c++11 \
+          -Dslots= -Dsignals= -DQ_OBJECT= -DQ_DECLARE_METATYPE(x)= \
+          --suppress=missingIncludeSystem \
+          --exclude=build \
+          --exclude=moc_*.cpp \
+          --exclude=ui_*.h \
+          .
 
 
 
