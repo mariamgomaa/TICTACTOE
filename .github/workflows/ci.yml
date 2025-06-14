@@ -29,5 +29,6 @@ jobs:
     - name: Check code formatting with clang-format
       run: |
           sudo apt-get install clang-format -y
-          clang-format --dry-run --Werror **/*.cpp **/*.h
+          find . -name "*.cpp" -o -name "*.h" | xargs clang-format --dry-run --Werror
+
 
