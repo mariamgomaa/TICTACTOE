@@ -2,9 +2,9 @@ name: TICTACTOE CI/CD
 
 on:
   push:
-    branches: [ main ]
+
   pull_request:
-    branches: [ main ]
+
 
 jobs:
   build-windows:
@@ -13,7 +13,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-
+    - name: Check available Qt builds
+      run: |
+        pip install aqtinstall
+        python -m aqt list-qt windows desktop 5.15.2
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
