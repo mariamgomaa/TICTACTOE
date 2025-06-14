@@ -30,6 +30,21 @@ public:
     Player getCell(int row, int col) const;
     Player getCurrentPlayer() const { return currentPlayer; }
     void switchPlayer();
+    public:
+    std::pair<int, int> test_easyAI() { return easyAI(); }
+    std::pair<int, int> test_mediumAI() { return mediumAI(); }
+    std::pair<int, int> test_getBestMove(Player aiPlayer) { return getBestMove(aiPlayer); }
+    
+    int test_minimax(int depth, bool isMax, int alpha, int beta, Player ai, Player human) {
+        return minimax(depth, isMax, alpha, beta, ai, human);
+    }
+
+    int test_evaluateBoard(Player ai, Player human) {
+        return evaluateBoard(ai, human);
+    }
+
+
+
 
     // AI methods
     void setDifficulty(int level) { difficultyLevel = level; }
