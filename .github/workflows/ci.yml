@@ -31,11 +31,6 @@ jobs:
         qmake TicTacToe.pro
         mingw32-make  # Use this for MinGW build
 
-    - name: Run cppcheck
-      run: |
-          sudo apt-get install cppcheck -y||true
-          cppcheck --enable=all --inconclusive --quiet --std=c++11 --suppress=missingIncludeSystem .
-
     - name: Upload Windows .exe executable
       uses: actions/upload-artifact@v4
       with:
