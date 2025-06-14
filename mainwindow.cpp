@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-
+//the first version ------->fatma version<--------------
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), isPlayerX(true), isPvP(true), selectedDifficulty(1),
     humanPlayer(HUMAN), aiPlayer(AI), player1Name("Player 1"), player2Name("Player 2"),
