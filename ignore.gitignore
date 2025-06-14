@@ -1,0 +1,32 @@
+# === 1. Build artifacts ===
+build/
+*.o
+*.obj
+*.exe
+*.out
+*.app
+
+# === 2. Qt Creator user-specific settings ===
+*.pro.user
+*.pro.user.*
+
+# === 3. CMake (in case you use it later) ===
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# === 4. Qt's generated files (like MOC, UI compiled) ===
+*.moc
+*.qrc.depends
+*.qrc.cpp
+*.autosave
+
+# === 5. Backup/temporary/editor files ===
+*~
+*.swp
+*.bak
+*.tmp
+
+# === 6. OS-generated files ===
+Thumbs.db       # Windows
