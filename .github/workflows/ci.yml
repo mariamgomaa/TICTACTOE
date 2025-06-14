@@ -13,17 +13,14 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-    - name: Check available Qt builds
-      run: |
-        pip install aqtinstall
-        python -m aqt list-qt windows desktop 5.15.2
+      
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
         version: '5.15.2'
         host: 'windows'
         target: 'desktop'
-        arch: 'win64_mingw'
+        arch: 'win64_mingw81'
 
     - name: Install dependencies
       run: |
