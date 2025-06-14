@@ -1,12 +1,14 @@
-name: TICTACTOE ci_cd
+name: TICTACTOE CI/CD
 
 on:
   push:
+
   pull_request:
+
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout code
@@ -16,19 +18,22 @@ jobs:
       uses: jurplel/install-qt-action@v3
       with:
         version: '5.15.2'
+        arch: 'win64_mingw81'
 
     - name: Build project
       run: |
         qmake TicTacToe.pro
-        make
-    - name: Run cppcheck
+        mingw32-make
+    - name: Deploy Qt runtime
       run: |
-          sudo apt-get install cppcheck -y||true
-          cppcheck --enable=all --inconclusive --quiet --std=c++11 --suppress=missingIncludeSystem .
+        windeployqt release/TicTacToe.exe
+
+    - name: List built files
+      run: Get-ChildItem -Recurse -File | ForEach-Object { $_.FullName }
 
     - name: Upload built executable
       uses: actions/upload-artifact@v4
       with:
-       name: TicTacToeGame
-       path: ./TicTacToe
-
+        name: TicTacToeGame
+        path: release/**
+ # Adjust based on the previous step output
