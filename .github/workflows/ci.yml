@@ -7,35 +7,29 @@ on:
 
 
 jobs:
-  build-windows:
+  build:
     runs-on: windows-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      
+
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
         version: '5.15.2'
-        host: 'windows'
-        target: 'desktop'
         arch: 'win64_mingw81'
-
-    - name: Install dependencies
-      run: |
-        choco install mingw -y
-        choco install ninja -y
 
     - name: Build project
       run: |
         qmake TicTacToe.pro
         mingw32-make
 
+    - name: List built files
+      run: Get-ChildItem -Recurse -File | ForEach-Object { $_.FullName }
+
     - name: Upload built executable
       uses: actions/upload-artifact@v4
       with:
         name: TicTacToeGame
-        path: ./TicTacToe.exe
-    - name: List all files
-      run: dir /s /b
+        path: ./release/TicTacToe.exe  # Adjust based on the previous step output
