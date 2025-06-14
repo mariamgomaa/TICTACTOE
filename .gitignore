@@ -30,3 +30,5 @@ Makefile
 
 # === 6. OS-generated files ===
 Thumbs.db       # Windows
+# Ignore VSCode settings
+.vscode/
