@@ -24,6 +24,9 @@ jobs:
       run: |
         qmake TicTacToe.pro
         mingw32-make
+    - name: Deploy Qt runtime
+      run: |
+        windeployqt release/TicTacToe.exe
 
     - name: List built files
       run: Get-ChildItem -Recurse -File | ForEach-Object { $_.FullName }
@@ -32,4 +35,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: TicTacToeGame
-        path: ./release/TicTacToe.exe  # Adjust based on the previous step output
+        path: release/**
+ # Adjust based on the previous step output
