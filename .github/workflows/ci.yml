@@ -2,6 +2,8 @@ name: TICTACTOE ci_cd
 
 on:
   push:
+      branches:
+      - main
   pull_request:
 
 jobs:
@@ -23,8 +25,16 @@ jobs:
         make
     - name: Run cppcheck
       run: |
-          sudo apt-get install cppcheck -y||true
-          cppcheck --enable=all --inconclusive --quiet --std=c++11 --suppress=missingIncludeSystem .
+        sudo apt-get install cppcheck -y || true
+        cppcheck --enable=all --inconclusive --quiet --std=c++11 \
+          -Dslots= -Dsignals= -DQ_OBJECT= -DQ_DECLARE_METATYPE(x)= \
+          -I$Qt5_DIR/include \
+          -I$Qt5_DIR/include/QtCore \
+          -I$Qt5_DIR/include/QtGui \
+          -I$Qt5_DIR/include/QtWidgets \
+          --suppress=missingIncludeSystem \
+          -i moc_mainwindow.cpp \
+          .
 
 
 
