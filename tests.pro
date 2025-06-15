@@ -6,7 +6,9 @@ CONFIG -= app_bundle
 TEMPLATE = app
 TARGET = TicTacToeTests
 
-INCLUDEPATH += ./googletest/googletest/include
+INCLUDEPATH += \
+    ./googletest/googletest/include \
+    ./googletest/googlemock/include
 LIBS += -L./googletest/build/lib -lgtest -lgtest_main
 
 SOURCES += test_tictactoegame.cpp \
