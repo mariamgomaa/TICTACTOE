@@ -1,5 +1,4 @@
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include"tictactoegame.h" //file need to be tested
 
 // Test for makeMove function 
