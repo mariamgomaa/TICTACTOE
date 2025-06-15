@@ -2,9 +2,7 @@ name: TICTACTOE CI/CD
 
 on:
   push:
-
   pull_request:
-
 
 jobs:
   build:
@@ -24,7 +22,8 @@ jobs:
       run: |
         qmake TicTacToe.pro
         mingw32-make
-        - name: Install CMake
+
+    - name: Install CMake
       uses: lukka/get-cmake@v3.27.0
 
     - name: Clone and Build GoogleTest
@@ -55,4 +54,3 @@ jobs:
       with:
         name: TicTacToeGame
         path: release/**
- # Adjust based on the previous step output
