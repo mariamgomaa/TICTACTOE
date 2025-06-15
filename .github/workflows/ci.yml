@@ -5,7 +5,7 @@ on:
   pull_request:
 
 permissions:
-  contents: write  # ✅ Required for creating GitHub releases
+  contents: write
 
 jobs:
   build:
@@ -49,3 +49,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Show direct download link (tag only)
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        echo "Download: https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/TicTacToe.exe"
