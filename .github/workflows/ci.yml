@@ -33,7 +33,7 @@ jobs:
 
     - name: Build and run GoogleTest
       run: |
-        qmake test.pro
+        qmake test_tictactoe.pro 
         mingw32-make
         ./release/test_tictactoe.exe --gtest_color=yes
 
