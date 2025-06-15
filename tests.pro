@@ -1,8 +1,6 @@
-# tests.pro
-
 QT -= gui
-CONFIG += console c++17
-CONFIG -= app_bundle
+CONFIG += console
+CONFIG += c++17
 TEMPLATE = app
 TARGET = TicTacToeTests
 
@@ -12,11 +10,11 @@ INCLUDEPATH += \
 
 LIBS += -L$$PWD/googletest/build/lib -lgtest -lgtest_main
 
-
-SOURCES += test_tictactoegame.cpp \
-           tictactoegame.cpp \
-           user.cpp \
-           usermanager.cpp
+SOURCES += \
+    test_tictactoegame.cpp \
+    tictactoegame.cpp \
+    user.cpp \
+    usermanager.cpp
 
 HEADERS += \
     tictactoegame.h \
