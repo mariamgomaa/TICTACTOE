@@ -27,11 +27,17 @@ jobs:
         qmake TicTacToe.pro
         mingw32-make
 
-    - name: Build and run tests
+    - name: Build and run tests (with verbose output)
       run: |
         qmake test_tictactoe.pro
-        mingw32-make
+        mingw32-make VERBOSE=1 2>&1 | tee build.log
+        if ($LASTEXITCODE -ne 0) {
+          echo "Build failed. Last 50 lines of output:"
+          Get-Content build.log | Select-Object -Last 50
+          exit 1
+        }
         ./release/test_tictactoe.exe --gtest_color=yes
+
 
     - name: Deploy Qt runtime
       run: |
