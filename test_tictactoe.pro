@@ -12,7 +12,7 @@ INCLUDEPATH += $$ENV{GITHUB_WORKSPACE}/googletest/include
 LIBS += -L$$ENV{GITHUB_WORKSPACE}/googletest/lib -lgtest -lgtest_main
 
 SOURCES += \
-    test_tictactoegame.cpp \
+    test_tictactoe.cpp \
     tictactoegame.cpp \
     user.cpp \
     usermanager.cpp
