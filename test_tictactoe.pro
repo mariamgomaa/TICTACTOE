@@ -5,21 +5,25 @@ CONFIG -= app_bundle
 TEMPLATE = app
 TARGET = test_tictactoe
 
-SOURCES += test_tictactoe.cpp
+# Your test and source files
+SOURCES += test_tictactoe.cpp \
+           tictactoegame.cpp \
+           user.cpp \
+           usermanager.cpp
 
-# Path to GoogleTest installed by the action
+HEADERS += tictactoegame.h \
+           user.h \
+           usermanager.h
+
+# GoogleTest paths
+INCLUDEPATH += $$PWD/googletest/googletest/include \
+               $$PWD/googletest/googlemock/include
+
+# Build GoogleTest from source
 SOURCES += $$PWD/googletest/googletest/src/gtest-all.cc
 
-SOURCES += $$PWD/googletest/googlemock/src/gmock-all.cc
+# Internal GoogleTest includes
+INCLUDEPATH += $$PWD/googletest/googletest
 
-
-SOURCES += \
-    test_tictactoe.cpp \
-    tictactoegame.cpp \
-    user.cpp \
-    usermanager.cpp
-
-HEADERS += \
-    tictactoegame.h \
-    user.h \
-    usermanager.h
+# Threading support for Windows
+LIBS += -lpthread

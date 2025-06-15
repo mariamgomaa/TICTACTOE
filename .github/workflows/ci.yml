@@ -18,31 +18,24 @@ jobs:
         version: '5.15.2'
         arch: 'win64_mingw81'
 
-    - name: Install MSVC Build Tools
-      uses: ilammy/msvc-dev-cmd@v1
-
-    - name: Set up GoogleTest
-      uses: Bacondish2023/setup-googletest@v1
-      with:
-        tag: v1.14.0
-
+    - name: Download GoogleTest
+      run: |
+        git clone https://github.com/google/googletest.git
+        
     - name: Build main project
       run: |
         qmake TicTacToe.pro
         mingw32-make
 
-    - name: Build and run GoogleTest
+    - name: Build and run tests
       run: |
-        qmake test_tictactoe.pro 
+        qmake test_tictactoe.pro
         mingw32-make
         ./release/test_tictactoe.exe --gtest_color=yes
 
     - name: Deploy Qt runtime
       run: |
         windeployqt release/TicTacToe.exe
-
-    - name: List built files
-      run: Get-ChildItem -Recurse -File | ForEach-Object { $_.FullName }
 
     - name: Upload built executable
       uses: actions/upload-artifact@v4
