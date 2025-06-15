@@ -1,4 +1,5 @@
 QT -= gui
+QT += sql 
 CONFIG += console
 CONFIG -= app_bundle
 
