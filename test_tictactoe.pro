@@ -8,8 +8,10 @@ TARGET = test_tictactoe
 SOURCES += test_tictactoe.cpp
 
 # Path to GoogleTest installed by the action
-INCLUDEPATH += $$PWD/googletest/googletest/include/gtest
-INCLUDEPATH += $$PWD/googletest/googlemock/include/gmock
+SOURCES += $$PWD/googletest/googletest/src/gtest-all.cc
+
+SOURCES += $$PWD/googletest/googlemock/src/gmock-all.cc
+
 
 SOURCES += \
     test_tictactoe.cpp \
