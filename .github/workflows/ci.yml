@@ -1,8 +1,11 @@
 name: TICTACTOE CI/CD
 
 on:
-  push:       
-  pull_request:  
+  push:
+  pull_request:
+
+permissions:
+  contents: write  # ✅ Required for creating GitHub releases
 
 jobs:
   build:
@@ -36,12 +39,13 @@ jobs:
         name: TicTacToeGame
         path: release/**
 
-    - name: Upload to GitHub Release  
-      uses: softprops/action-gh-release@v2
+    - name: Upload to GitHub Release (on tag push only)
       if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v2
       with:
-        name: "Release ${{ github.ref_name }}"
+        name: "TicTacToe ${{ github.ref_name }}"
         tag_name: ${{ github.ref_name }}
-        files: release/**
+        files: release/TicTacToe.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
