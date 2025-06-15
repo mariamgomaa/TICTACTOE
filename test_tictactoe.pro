@@ -8,8 +8,7 @@ TARGET = test_tictactoe
 SOURCES += test_tictactoe.cpp
 
 # Path to GoogleTest installed by the action
-INCLUDEPATH += $$ENV{GITHUB_WORKSPACE}/googletest/include
-LIBS += -L$$ENV{GITHUB_WORKSPACE}/googletest/lib -lgtest -lgtest_main
+INCLUDEPATH += $$PWD/googletest/googletest/include
 
 SOURCES += \
     test_tictactoe.cpp \
