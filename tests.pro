@@ -8,7 +8,6 @@ INCLUDEPATH += \
     $$PWD/googletest/googletest/include \
     $$PWD/googletest/googlemock/include
 
-LIBS += -L$$PWD/googletest/build/lib -lgtest -lgtest_main
 
 SOURCES += \
     test_tictactoegame.cpp \
