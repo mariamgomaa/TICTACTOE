@@ -7,9 +7,11 @@ TEMPLATE = app
 TARGET = TicTacToeTests
 
 INCLUDEPATH += \
-    ./googletest/googletest/include \
-    ./googletest/googlemock/include
-LIBS += -L./googletest/build/lib -lgtest -lgtest_main
+    $$PWD/googletest/googletest/include \
+    $$PWD/googletest/googlemock/include
+
+LIBS += -L$$PWD/googletest/build/lib -lgtest -lgtest_main
+
 
 SOURCES += test_tictactoegame.cpp \
            tictactoegame.cpp \
