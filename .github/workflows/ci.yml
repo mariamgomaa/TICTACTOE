@@ -24,6 +24,25 @@ jobs:
       run: |
         qmake TicTacToe.pro
         mingw32-make
+        - name: Install CMake
+      uses: lukka/get-cmake@v3.27.0
+
+    - name: Clone and Build GoogleTest
+      run: |
+        git clone https://github.com/google/googletest.git
+        cd googletest
+        cmake -S . -B build
+        cmake --build build
+        cd ..
+
+    - name: Build Tests
+      run: |
+        qmake tests.pro
+        mingw32-make
+
+    - name: Run Unit Tests
+      run: ./release/TicTacToeTests.exe
+
     - name: Deploy Qt runtime
       run: |
         windeployqt release/TicTacToe.exe
