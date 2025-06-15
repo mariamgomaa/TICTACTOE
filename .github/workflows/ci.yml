@@ -18,30 +18,24 @@ jobs:
         version: '5.15.2'
         arch: 'win64_mingw81'
 
-    - name: Build project
+    - name: Install MSVC Build Tools
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Set up GoogleTest
+      uses: Bacondish2023/setup-googletest@v1
+      with:
+        tag: v1.14.0
+
+    - name: Build main project
       run: |
         qmake TicTacToe.pro
         mingw32-make
 
-    - name: Install CMake
-      uses: lukka/get-cmake@v3.27.0
-
-    - name: Clone and Build GoogleTest
+    - name: Build and run GoogleTest
       run: |
-        git clone https://github.com/google/googletest.git
-        cd googletest
-        cmake -S . -B build -DBUILD_GMOCK=ON -DCMAKE_CXX_COMPILER=g++
-        cmake --build build --config Release
-        cd ..
-
-
-    - name: Build Tests
-      run: |
-        qmake tests.pro
+        qmake test_tictactoe.pro
         mingw32-make
-
-    - name: Run Unit Tests
-      run: ./release/TicTacToeTests.exe
+        ./release/test_tictactoe.exe --gtest_color=yes
 
     - name: Deploy Qt runtime
       run: |

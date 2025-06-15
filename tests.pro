@@ -1,14 +1,15 @@
 QT -= gui
-QT += core sql testlib
-
 CONFIG += console
-CONFIG += c++17
-TEMPLATE = app
-TARGET = TicTacToeTests
+CONFIG -= app_bundle
 
-INCLUDEPATH += \
-    $$PWD/googletest/googletest/include \
-    $$PWD/googletest/googlemock/include
+TEMPLATE = app
+TARGET = test_tictactoe
+
+SOURCES += test_tictactoe.cpp
+
+# Path to GoogleTest installed by the action
+INCLUDEPATH += $$ENV{GITHUB_WORKSPACE}/googletest/include
+LIBS += -L$$ENV{GITHUB_WORKSPACE}/googletest/lib -lgtest -lgtest_main
 
 SOURCES += \
     test_tictactoegame.cpp \
