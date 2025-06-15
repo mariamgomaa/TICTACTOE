@@ -21,4 +21,11 @@ INCLUDEPATH += $$PWD/googletest/googletest/include \
                $$PWD/googletest/googletest \
                $$PWD/googletest/googlemock
 
-LIBS += -lpthread
+# Windows-specific fixes for MinGW
+win32 {
+    LIBS += -lws2_32 -lole32 -loleaut32 -luuid -lwinmm
+    DEFINES += GTEST_OS_WINDOWS
+}
+
+# Remove conflicting pthread - let Qt handle threading
+# LIBS += -lpthread  # Remove this line
