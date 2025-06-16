@@ -63,9 +63,6 @@ jobs:
        cmake --build . --config Release
        cd ..
        
-    - name: Debug:Show built Google Test libs
-      run: |
-        dir build_gtest\Release\*.a
 
 
     - name: Build and run tests
