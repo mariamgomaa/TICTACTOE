@@ -4,7 +4,7 @@ QT -= gui
 
 # All source and test files are in root directory
 SOURCES += test_tictactoe.cpp \
-           tictactoe.cpp
+           tictactoegame.cpp
 
 # Google Test include path
 INCLUDEPATH += googletest/googletest/include
