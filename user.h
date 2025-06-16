@@ -70,3 +70,4 @@ private:
 };
 
 #endif // USER_H
+
