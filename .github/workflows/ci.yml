@@ -37,3 +37,40 @@ jobs:
         name: TicTacToeGame
         path: release/**
  # Adjust based on the previous step output
+  test:
+   runs-on: windows-latest
+   needs: build
+
+   steps:
+   - name: Checkout code
+     uses: actions/checkout@v3
+     with:
+      submodules: true  # Very important to get googletest!
+
+   - name: Install Qt
+     uses: jurplel/install-qt-action@v3
+     with:
+       version: '5.15.2'
+       arch: 'win64_mingw81'
+
+   - name: Install CMake (for Google Test)
+     uses: jwlawson/actions-setup-cmake@v1
+
+   - name: Build Google Test
+     run: |
+      mkdir build_gtest
+      cd build_gtest
+      cmake ../googletest
+      cmake --build . --config Release
+
+   - name: Compile tests
+     run: |
+      g++ test_tictactoe.cpp -o test_tictactoe.exe `
+        -I googletest/googletest/include `
+        -I googletest/googletest `
+        -L build_gtest/Release `
+        -lgtest -lgtest_main -pthread
+
+   - name: Run tests
+     run: ./test_tictactoe.exe
+ 
