@@ -9,5 +9,5 @@ SOURCES += test_tictactoe.cpp \
 # Google Test include path
 INCLUDEPATH += googletest/googletest/include
 
-# Google Test build output directory
-LIBS += -Lbuild_gtest/Release -lgtest -lgtest_main -pthread
+# Link against Google Test (core only)
+LIBS += -Lbuild_gtest/Release -lgtest -pthread
