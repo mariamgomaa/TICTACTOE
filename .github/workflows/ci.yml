@@ -57,14 +57,16 @@ jobs:
 
     - name: Build Google Test
       run: |
-        mkdir build_gtest
-        cd build_gtest
-        cmake -G "MinGW Makefiles" ../googletest
-        cmake --build . --config Release
-        cd ..
+       mkdir build_gtest
+       cd build_gtest
+       cmake ../googletest -DCMAKE_BUILD_TYPE=Release -DBUILD_GMOCK=OFF -DBUILD_GTEST=ON
+       cmake --build . --config Release
+       cd ..
+       
+    - name: Debug:Show built Google Test libs
+      run: |
+        dir build_gtest\Release\*.a
 
-    - name: Debug:Show gtest output
-      run: Get-ChildItem -Recurse build_gtest
 
     - name: Build and run tests
       run: |
