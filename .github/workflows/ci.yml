@@ -2,9 +2,7 @@ name: TICTACTOE CI/CD
 
 on:
   push:
-
   pull_request:
-
 
 jobs:
   build:
@@ -24,6 +22,7 @@ jobs:
       run: |
         qmake TicTacToe.pro
         mingw32-make
+
     - name: Deploy Qt runtime
       run: |
         windeployqt release/TicTacToe.exe
@@ -36,38 +35,39 @@ jobs:
       with:
         name: TicTacToeGame
         path: release/**
- # Adjust based on the previous step output
+
   test:
-   runs-on: windows-latest
-   needs: build
+    runs-on: windows-latest
+    needs: build
 
-   steps:
-   - name: Checkout code
-     uses: actions/checkout@v3
-     with:
-      submodules: true
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        submodules: true  # Make sure googletest is included
 
-   - name: Install Qt
-     uses: jurplel/install-qt-action@v3
-     with:
-      version: '5.15.2'
-      arch: 'win64_mingw81'
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: '5.15.2'
+        arch: 'win64_mingw81'
 
-   - name: Install CMake (for Google Test)
-     uses: jwlawson/actions-setup-cmake@v1
+    - name: Install CMake (for Google Test)
+      uses: jwlawson/actions-setup-cmake@v1
 
-   - name: Build Google Test
-     run: |
-      mkdir build_gtest
-      cd build_gtest
-      cmake ../googletest
-      cmake --build . --config Release
-      cd ..
+    - name: Build Google Test
+      run: |
+        mkdir build_gtest
+        cd build_gtest
+        cmake -G "MinGW Makefiles" ../googletest
+        cmake --build . --config Release
+        cd ..
 
-   - name: Build and run tests
-     run: |
-      qmake TicTacToeTest.pro
-      mingw32-make
-      ./release/TicTacToeTest.exe
+    - name: Debug:Show gtest output
+      run: Get-ChildItem -Recurse build_gtest
 
- 
+    - name: Build and run tests
+      run: |
+        qmake TicTacToeTest.pro
+        mingw32-make
+        ./release/TicTacToeTest.exe
