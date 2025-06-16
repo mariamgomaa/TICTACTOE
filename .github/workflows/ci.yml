@@ -45,13 +45,13 @@ jobs:
    - name: Checkout code
      uses: actions/checkout@v3
      with:
-      submodules: true  # Very important to get googletest!
+      submodules: true
 
    - name: Install Qt
      uses: jurplel/install-qt-action@v3
      with:
-       version: '5.15.2'
-       arch: 'win64_mingw81'
+      version: '5.15.2'
+      arch: 'win64_mingw81'
 
    - name: Install CMake (for Google Test)
      uses: jwlawson/actions-setup-cmake@v1
@@ -62,15 +62,12 @@ jobs:
       cd build_gtest
       cmake ../googletest
       cmake --build . --config Release
+      cd ..
 
-   - name: Compile tests
+   - name: Build and run tests
      run: |
-      g++ test_tictactoe.cpp -o test_tictactoe.exe `
-        -I googletest/googletest/include `
-        -I googletest/googletest `
-        -L build_gtest/Release `
-        -lgtest -lgtest_main -pthread
+      qmake TicTacToeTest.pro
+      mingw32-make
+      ./release/TicTacToeTest.exe
 
-   - name: Run tests
-     run: ./test_tictactoe.exe
  
