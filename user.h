@@ -1,7 +1,6 @@
 #ifndef USER_H
 #define USER_H
 
-#include <QMetaType>
 #include <QString>
 #include <QDateTime>
 #include <QList>
@@ -69,6 +68,5 @@ private:
     int gamesTied;
     QList<GameRecord> gameHistory; // Now stores all games for database sync
 };
-Q_DECLARE_METATYPE(GameMove)
-Q_DECLARE_METATYPE(GameRecord)
+
 #endif // USER_H
