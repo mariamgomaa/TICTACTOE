@@ -2,9 +2,9 @@ name: TicTacToe CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, mariamgomaa-patch-1 ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ main, mariamgomaa-patch-1 ]
 
 env:
   # Define environment variables for consistent builds
