@@ -2,9 +2,7 @@ name: TICTACTOE CI/CD
 
 on:
   push:
-
   pull_request:
-
 
 jobs:
   build:
@@ -20,10 +18,20 @@ jobs:
         version: '5.15.2'
         arch: 'win64_mingw81'
 
+    - name: Install clang-format
+      run: choco install llvm -y
+
+    - name: Auto format all .cpp/.h files using clang-format
+      run: |
+        Get-ChildItem -Recurse -Include *.cpp,*.h | ForEach-Object {
+          clang-format -i $_.FullName
+        }
+
     - name: Build project
       run: |
         qmake TicTacToe.pro
         mingw32-make
+
     - name: Deploy Qt runtime
       run: |
         windeployqt release/TicTacToe.exe
@@ -36,4 +44,3 @@ jobs:
       with:
         name: TicTacToeGame
         path: release/**
- # Adjust based on the previous step output
