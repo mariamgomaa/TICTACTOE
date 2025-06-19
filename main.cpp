@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[])
 {
-        // Register custom types with Qt
+    // Register custom types with Qt
     qRegisterMetaType<GameMove>("GameMove");
     qRegisterMetaType<GameRecord>("GameRecord");
     
