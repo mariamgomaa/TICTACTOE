@@ -9,68 +9,66 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v3
-      with:
-        version: '5.15.2'
-        arch: 'win64_mingw81'
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '5.15.2'
+          arch: 'win64_mingw81'
 
-    - name: Build project
-      run: |
-        qmake TicTacToe.pro
-        mingw32-make
+      - name: Build project
+        run: |
+          qmake TicTacToe.pro
+          mingw32-make
 
-    - name: Deploy Qt runtime
-      run: |
-        windeployqt release/TicTacToe.exe
+      - name: Deploy Qt runtime
+        run: |
+          windeployqt release/TicTacToe.exe
 
-    - name: List built files
-      run: Get-ChildItem -Recurse -File | ForEach-Object { $_.FullName }
+      - name: List built files
+        run: Get-ChildItem -Recurse -File | ForEach-Object { $_.FullName }
 
-    - name: Upload built executable
-      uses: actions/upload-artifact@v4
-      with:
-        name: TicTacToeGame
-        path: release/**
+      - name: Upload built executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: TicTacToeGame
+          path: release/**
 
   test:
     runs-on: windows-latest
     needs: build
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-      with:
-        submodules: true  # Make sure googletest is included
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: true  # Make sure googletest is included
 
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v3
-      with:
-        version: '5.15.2'
-        arch: 'win64_mingw81'
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '5.15.2'
+          arch: 'win64_mingw81'
 
-    - name: Install CMake (for Google Test)
-      uses: jwlawson/actions-setup-cmake@v1
+      - name: Install CMake (for Google Test)
+        uses: jwlawson/actions-setup-cmake@v1
 
-    - name: Build Google Test
-    run: |
-     mkdir build_gtest
-     cd build_gtest
-      cmake ../googletest `
-       -G "MinGW Makefiles" `
-       -DCMAKE_C_COMPILER=gcc `
-       -DCMAKE_CXX_COMPILER=g++ `
-      -DCMAKE_BUILD_TYPE=Release
-     mingw32-make
+      - name: Build Google Test
+        run: |
+          mkdir build_gtest
+          cd build_gtest
+          cmake ../googletest ^
+            -G "MinGW Makefiles" ^
+            -DCMAKE_C_COMPILER=gcc ^
+            -DCMAKE_CXX_COMPILER=g++ ^
+            -DCMAKE_BUILD_TYPE=Release
+          mingw32-make
+          cd ..
 
-       
-
-
-    - name: Build and run tests
-      run: |
-        qmake TicTacToeTest.pro
-        mingw32-make
-        ./release/TicTacToeTest.exe
+      - name: Build and run tests
+        run: |
+          qmake TicTacToeTest.pro
+          mingw32-make
+          ./release/TicTacToeTest.exe
