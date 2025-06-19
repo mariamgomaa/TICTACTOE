@@ -2619,7 +2619,7 @@ void MainWindow::recordGameResult(const QString &result, const QString &opponent
     if (!user) return;
 
     GameRecord record(opponent, result, gameMode, playerSymbol);
-    record.moves = currentGameMoves;
+    record.moves = QVector<GameMove>::fromList(currentGameMoves);
     user->addGameToHistory(record);
     userManager->saveUserData();
 
