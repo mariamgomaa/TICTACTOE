@@ -56,12 +56,16 @@ jobs:
       uses: jwlawson/actions-setup-cmake@v1
 
     - name: Build Google Test
-      run: |
-       mkdir build_gtest
-       cd build_gtest
-       cmake ../googletest -DCMAKE_BUILD_TYPE=Release -DBUILD_GMOCK=OFF -DBUILD_GTEST=ON
-       cmake --build . --config Release
-       cd ..
+    run: |
+     mkdir build_gtest
+     cd build_gtest
+      cmake ../googletest `
+       -G "MinGW Makefiles" `
+       -DCMAKE_C_COMPILER=gcc `
+       -DCMAKE_CXX_COMPILER=g++ `
+      -DCMAKE_BUILD_TYPE=Release
+     mingw32-make
+
        
 
 
