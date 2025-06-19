@@ -26,6 +26,8 @@ struct GameRecord {
     GameRecord() = default;
     GameRecord(const QString &opp, const QString &res, const QString &mode, const QString &symbol)
         : timestamp(QDateTime::currentDateTime()), opponent(opp), result(res), gameMode(mode), playerSymbol(symbol) {}
+        Q_DECLARE_METATYPE(GameRecord)
+
 };
 
 class User {
