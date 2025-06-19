@@ -29,7 +29,7 @@ struct GameRecord {
         
 
 };
-Q_DECLARE_METATYPE(GameRecord)
+
 class User {
 public:
     User();
@@ -70,5 +70,5 @@ private:
     int gamesTied;
     QList<GameRecord> gameHistory; // Now stores all games for database sync
 };
-
+Q_DECLARE_METATYPE(GameRecord)
 #endif // USER_H
