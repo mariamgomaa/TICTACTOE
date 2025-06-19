@@ -27,6 +27,12 @@
 #include "tictactoegame.h"
 #include "usermanager.h"
 
+
+#include <QPropertyAnimation>
+#include <QGraphicsDropShadowEffect>
+#include <QRandomGenerator>
+#include <QtMath>
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -68,6 +74,14 @@ private slots:
     void onReplaySpeedChanged(int speed);
     void replayNextMove();
 
+    //
+    void updateAnimations();
+    void updateBackground();
+    void initializeAnimations();
+    void createFlyingElementsForWidget(QWidget *parentWidget);
+    void cleanupAnimations();
+    //
+
 private:
     void setupUI();
     void setupLoginUI();
@@ -91,18 +105,24 @@ private:
     void recordGameResult(const QString &result, const QString &opponent, const QString &gameMode, const QString &playerSymbol);
     void recordGameMove(int row, int col, int player);
 
+    //
+    QTimer *animationTimer;
+    QTimer *backgroundTimer;
+    QWidget *backgroundWidget;
+    QList<QLabel*> flyingElements;
+    int animationFrame;
+    QPropertyAnimation *glowAnimation;
+    QGraphicsOpacityEffect *titleOpacity;
+    //
+
     // Replay methods
     void initializeReplay(const GameRecord &record);
     void updateReplayBoard();
     void resetReplayBoard();
 
-    // Enhanced animation methods with decorations and crying emojis
-    void playWinAnimationWithDecorations(Player winner);
-    void playLossAnimationWithCrying();
-    void playTieAnimation();
+
     void animateButton(QPushButton *button);
-    void createFloatingDecorations();
-    void createCryingEmojis();
+
 
     TicTacToeGame *game;
     UserManager *userManager;
@@ -120,8 +140,8 @@ private:
     QGraphicsOpacityEffect *statusOpacityEffect;
 
     // Decoration and emoji labels
-    QVector<QLabel*> decorationLabels;
-    QVector<QLabel*> cryingEmojiLabels;
+    QList<QLabel*> decorationLabels;
+    QList<QLabel*> cryingEmojiLabels;
 
     // Login/Register widgets
     QWidget *loginWidget;
@@ -141,6 +161,23 @@ private:
     QLabel *userWelcomeLabel;
     QLabel *userStatsLabel;
 
+
+    //
+
+    // Game history UI components - FIXED
+    QList<QWidget*> gameBlocks;
+    QList<QLabel*> gameResultLabels;
+    QList<QLabel*> gameDetailLabels;
+
+    // Add this line to your member variables:
+    QTimer *replayTimer;
+
+    // Current game moves for replay - ADD THIS
+    QList<GameMove> currentGameMoves;  // You have QVector, change to QList
+
+    //
+
+
     // Game history widgets
     QWidget *gameHistoryWidget;
     QLabel *historyTitleLabel;
@@ -159,7 +196,7 @@ private:
     QLabel *replayStatusLabel;
     QLabel *replayInfoLabel;
     QPushButton *backFromReplayBtn;
-    QTimer *replayTimer;
+    // QTimer *replayTimer;
 
     // Player names widgets
     QWidget *playerNamesWidget;
@@ -209,7 +246,7 @@ private:
     QString player2Name;
 
     // Current game recording
-    QVector<GameMove> currentGameMoves;
+    //QVector<GameMove> currentGameMoves;
 
     // Replay state
     GameRecord currentReplayGame;
