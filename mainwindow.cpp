@@ -12,19 +12,23 @@ MainWindow::MainWindow(QWidget *parent)
     aiTimer->setSingleShot(true);
     connect(aiTimer, &QTimer::timeout, this, &MainWindow::makeAIMove);
 
+
     // Initialize animations
     celebrationAnimation = new QPropertyAnimation(this);
     winAnimationGroup = new QSequentialAnimationGroup(this);
     statusOpacityEffect = new QGraphicsOpacityEffect(this);
 
     // Initialize replay board
-    resetReplayBoard();
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            replayBoard[i][j] = 0;
+        }
+    }
 
     setupUI();
-
-    // Show login screen first
     showLoginScreen();
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -44,6 +48,7 @@ void MainWindow::setupUI()
     stackedWidget = new QStackedWidget();
     scrollArea->setWidget(stackedWidget);
 
+    // Setup all UI components with modern gaming aesthetics
     setupLoginUI();
     setupRegisterUI();
     setupUserProfileUI();
@@ -55,19 +60,19 @@ void MainWindow::setupUI()
     setupSymbolWidget();
     setupGameUI();
 
-    setWindowTitle("🎮 Tic Tac Toe - Sign In to Play!");
+    setWindowTitle("🎮 Tic Tac Toe - Epic Gaming Experience!");
 
-    // UPDATED: Use full screen size with small margins
+    // Professional window sizing and centering
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->availableGeometry();
 
-    // Use 95% of screen size for near full-screen experience
-    int windowWidth = static_cast<int>(screenGeometry.width() * 0.95);
-    int windowHeight = static_cast<int>(screenGeometry.height() * 0.95);
+    // Use 90% of screen size for immersive gaming experience
+    int windowWidth = static_cast<int>(screenGeometry.width() * 0.90);
+    int windowHeight = static_cast<int>(screenGeometry.height() * 0.90);
 
     // Ensure minimum size for very small screens
-    int minWidth = qMin(800, screenGeometry.width() - 50);
-    int minHeight = qMin(600, screenGeometry.height() - 50);
+    int minWidth = qMin(900, screenGeometry.width() - 50);
+    int minHeight = qMin(700, screenGeometry.height() - 50);
 
     // Use the larger of calculated or minimum
     windowWidth = qMax(windowWidth, minWidth);
@@ -77,20 +82,20 @@ void MainWindow::setupUI()
     setMinimumSize(minWidth, minHeight);
     resize(windowWidth, windowHeight);
 
-    // Center on screen
+    // Center window perfectly on screen
     int x = (screenGeometry.width() - windowWidth) / 2;
     int y = (screenGeometry.height() - windowHeight) / 2;
     move(qMax(0, x), qMax(0, y));
 
-    // Allow window to be resizable
+    // Modern window flags for professional appearance
     setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowCloseButtonHint |
                    Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint);
 
-    // Eye-comfortable soft gradient background
+    // Epic gaming gradient background with depth
     setStyleSheet(
         "QMainWindow, QWidget, QScrollArea, QStackedWidget {"
         "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, "
-        "stop:0 #e8f5e8, stop:0.5 #f0f8ff, stop:1 #fff0f5);"
+        "stop:0 #0f0f23, stop:0.3 #1a1a3a, stop:0.7 #2d1b69, stop:1 #3b2f87);"
         "border: none;"
         "}"
         "QScrollArea {"
@@ -99,219 +104,481 @@ void MainWindow::setupUI()
         "}"
         );
 
+    // Enable auto-fill background for smooth rendering
     setAutoFillBackground(true);
     scrollArea->setAutoFillBackground(true);
     stackedWidget->setAutoFillBackground(true);
 }
-
-
 void MainWindow::setupLoginUI()
 {
     loginWidget = new QWidget();
-    loginWidget->setStyleSheet(
-        "QWidget { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, "
-        "stop:0 #e8f5e8, stop:0.5 #f0f8ff, stop:1 #fff0f5);"
+    loginWidget->setStyleSheet("QWidget { background: transparent; }");
+
+    // Main layout for centering
+    QVBoxLayout *mainLayout = new QVBoxLayout(loginWidget);
+    mainLayout->setAlignment(Qt::AlignCenter);
+    mainLayout->setContentsMargins(50, 20, 50, 20);
+
+    // Create floating login container with proper sizing
+    QWidget *loginContainer = new QWidget();
+    loginContainer->setFixedSize(550, 700);
+    loginContainer->setStyleSheet(
+        "QWidget {"
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
+        "stop:0 rgba(255, 255, 255, 0.15), stop:1 rgba(255, 255, 255, 0.08));"
+        "border: 2px solid rgba(255, 255, 255, 0.3);"
+        "border-radius: 20px;"
         "}"
         );
-    loginWidget->setAutoFillBackground(true);
 
-    QVBoxLayout *loginLayout = new QVBoxLayout(loginWidget);
-    loginLayout->setSpacing(15);  // REDUCED spacing
-    loginLayout->setContentsMargins(20, 15, 20, 15);  // REDUCED margins
+    QVBoxLayout *containerLayout = new QVBoxLayout(loginContainer);
+    containerLayout->setSpacing(20);
+    containerLayout->setContentsMargins(40, 25, 40, 25);
 
-    // Compact login title
-    QLabel *loginTitle = new QLabel("🎮 Welcome to Tic Tac Toe! 🎮");
+    // PROFESSIONAL MAIN WELCOME TITLE
+    QLabel *welcomeTitle = new QLabel("⚡ WELCOME TO TIC TAC TOE ⚡");
+    welcomeTitle->setAlignment(Qt::AlignCenter);
+    welcomeTitle->setStyleSheet(
+        "QLabel {"
+        "font-size: 28px; font-weight: bold; color: #ffffff;"
+        "text-shadow: 0 0 15px #ffffff, 0 0 30px #00ffff;"
+        "background: transparent; padding: 15px;"
+        "margin-bottom: 5px;"
+        "}"
+        );
+
+    // Professional Ready to Play with modern styling
+    QLabel *readyLabel = new QLabel("🎯 Ready to Dominate the Grid? 🎯");
+    readyLabel->setAlignment(Qt::AlignCenter);
+    readyLabel->setMinimumHeight(60);
+    readyLabel->setStyleSheet(
+        "QLabel {"
+        "font-size: 18px; font-weight: bold; color: #ffffff;"
+        "background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 12px;"
+        "margin-bottom: 10px; min-height: 35px;"
+        "}"
+        );
+
+    // Professional gaming subtitle
+    QLabel *loginTitle = new QLabel("🔐 PLAYER AUTHENTICATION 🔐");
     loginTitle->setAlignment(Qt::AlignCenter);
+    loginTitle->setMinimumHeight(65);
     loginTitle->setStyleSheet(
         "QLabel {"
-        "font-size: 20px; font-weight: bold; color: #2c3e50;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.8); border-radius: 15px; padding: 12px;"  // REDUCED padding
-        "margin-bottom: 8px; border: 2px solid #b8c6db;"
+        "font-size: 22px; font-weight: bold; color: #00ffff;"
+        "text-shadow: 0 0 20px #00ffff, 0 0 40px #0080ff;"
+        "background: transparent; padding: 12px;"
+        "min-height: 40px;"
         "}"
         );
 
-    QLabel *loginSubtitle = new QLabel("Sign in to track your progress and compete! 🏆");
-    loginSubtitle->setAlignment(Qt::AlignCenter);
-    loginSubtitle->setStyleSheet(
-        "font-size: 12px; color: #34495e; margin-bottom: 12px; font-style: italic;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.6); border-radius: 10px; padding: 6px;"  // REDUCED padding
+    // Professional Username field
+    QLabel *usernameLabel = new QLabel("🆔 Username:");
+    usernameLabel->setStyleSheet(
+        "QLabel { font-size: 16px; font-weight: bold; color: #ffffff; margin: 6px; }"
         );
-
-    // Username field
-    QLabel *usernameLabel = new QLabel("👤 Username:");
-    usernameLabel->setStyleSheet("font-size: 12px; font-weight: bold; color: #2c3e50; margin: 3px;");  // REDUCED
 
     loginUsernameEdit = new QLineEdit();
     loginUsernameEdit->setPlaceholderText("Enter your username");
+    loginUsernameEdit->setMinimumHeight(55);
+    loginUsernameEdit->setMaximumHeight(55);
     loginUsernameEdit->setStyleSheet(
         "QLineEdit {"
-        "font-size: 11px; padding: 8px; border: 2px solid #bdc3c7; border-radius: 8px;"  // REDUCED
-        "background: rgba(255, 255, 255, 0.9); color: #2c3e50;"
+        "font-size: 16px; padding: 12px 20px;"
+        "background: rgba(255, 255, 255, 0.98);"
+        "border: 2px solid #00ffff;"
+        "border-radius: 12px; color: #1a1a3a;"
+        "min-height: 30px; max-height: 30px;"
         "}"
-        "QLineEdit:focus { border: 2px solid #3498db; }"
+        "QLineEdit:focus {"
+        "border: 2px solid #ff6b6b;"
+        "background: rgba(255, 255, 255, 1.0);"
+        "}"
         );
 
-    // Password field
-    QLabel *passwordLabel = new QLabel("🔒 Password:");
-    passwordLabel->setStyleSheet("font-size: 12px; font-weight: bold; color: #2c3e50; margin: 3px;");  // REDUCED
+    // Professional Password field
+    QLabel *passwordLabel = new QLabel("🔑 Password:");
+    passwordLabel->setStyleSheet(
+        "QLabel { font-size: 16px; font-weight: bold; color: #ffffff; margin: 6px; }"
+        );
 
     loginPasswordEdit = new QLineEdit();
     loginPasswordEdit->setPlaceholderText("Enter your password");
     loginPasswordEdit->setEchoMode(QLineEdit::Password);
-    loginPasswordEdit->setStyleSheet(
-        "QLineEdit {"
-        "font-size: 11px; padding: 8px; border: 2px solid #bdc3c7; border-radius: 8px;"  // REDUCED
-        "background: rgba(255, 255, 255, 0.9); color: #2c3e50;"
-        "}"
-        "QLineEdit:focus { border: 2px solid #3498db; }"
-        );
+    loginPasswordEdit->setMinimumHeight(55);
+    loginPasswordEdit->setMaximumHeight(55);
+    loginPasswordEdit->setStyleSheet(loginUsernameEdit->styleSheet());
 
-    // Login button
-    loginBtn = new QPushButton("🚀 Sign In");
+    // Professional gaming-style login button
+    loginBtn = new QPushButton("⚡ LAUNCH GAME ⚡");
+    loginBtn->setMinimumHeight(60);
+    loginBtn->setMaximumHeight(60);
     loginBtn->setStyleSheet(
         "QPushButton {"
-        "font-size: 12px; font-weight: bold; padding: 10px;"  // REDUCED
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #3498db, stop:1 #2980b9);"
-        "color: white; border: none; border-radius: 8px; margin: 6px;"  // REDUCED
+        "font-size: 18px; font-weight: bold; padding: 15px;"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #ff6b6b, stop:0.5 #ff8e53, stop:1 #ff6b6b);"
+        "color: white; border: none; border-radius: 12px;"
+        "text-shadow: 0 2px 4px rgba(0,0,0,0.3);"
+        "min-height: 30px; max-height: 30px;"
         "}"
         "QPushButton:hover {"
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #2980b9, stop:1 #1f618d);"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #ff5252, stop:0.5 #ff7043, stop:1 #ff5252);"
         "}"
         );
+
     connect(loginBtn, &QPushButton::clicked, this, &MainWindow::onLoginClicked);
 
-    // Register link
-    showRegisterBtn = new QPushButton("📝 Don't have an account? Register here!");
+    // Professional register link
+    showRegisterBtn = new QPushButton("💎 New Player? Join the Elite!");
+    showRegisterBtn->setMinimumHeight(50);
     showRegisterBtn->setStyleSheet(
         "QPushButton {"
-        "font-size: 10px; color: #3498db; background: transparent; border: none; padding: 6px;"  // REDUCED
-        "text-decoration: underline;"
+        "font-size: 15px; color: #00ffff; background: transparent;"
+        "border: none; padding: 10px; text-decoration: underline;"
+        "min-height: 25px;"
         "}"
-        "QPushButton:hover { color: #2980b9; }"
+        "QPushButton:hover { color: #ff6b6b; }"
         );
+
     connect(showRegisterBtn, &QPushButton::clicked, this, &MainWindow::showRegisterScreen);
 
-    // Add to layout
-    loginLayout->addWidget(loginTitle);
-    loginLayout->addWidget(loginSubtitle);
-    loginLayout->addWidget(usernameLabel);
-    loginLayout->addWidget(loginUsernameEdit);
-    loginLayout->addWidget(passwordLabel);
-    loginLayout->addWidget(loginPasswordEdit);
-    loginLayout->addWidget(loginBtn);
-    loginLayout->addWidget(showRegisterBtn);
-    loginLayout->addStretch();
+    // Add to container layout with proper spacing
+    containerLayout->addWidget(welcomeTitle);
+    containerLayout->addWidget(readyLabel);
+    containerLayout->addWidget(loginTitle);
+    containerLayout->addWidget(usernameLabel);
+    containerLayout->addWidget(loginUsernameEdit);
+    containerLayout->addWidget(passwordLabel);
+    containerLayout->addWidget(loginPasswordEdit);
+    containerLayout->addWidget(loginBtn);
+    containerLayout->addWidget(showRegisterBtn);
 
+    mainLayout->addWidget(loginContainer);
     stackedWidget->addWidget(loginWidget);
 }
+
+void MainWindow::setupPlayerNamesUI()
+{
+    playerNamesWidget = new QWidget();
+    playerNamesWidget->setStyleSheet("QWidget { background: transparent; }");
+
+    QVBoxLayout *mainLayout = new QVBoxLayout(playerNamesWidget);
+    mainLayout->setAlignment(Qt::AlignCenter);
+    mainLayout->setContentsMargins(20, 20, 20, 20);
+
+    // Professional container with increased height for better spacing
+    QWidget *namesContainer = new QWidget();
+    namesContainer->setFixedSize(650, 650); // Increased height from 580 to 650
+    namesContainer->setStyleSheet(
+        "QWidget {"
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
+        "stop:0 rgba(255, 255, 255, 0.15), stop:1 rgba(255, 255, 255, 0.08));"
+        "border: 2px solid rgba(255, 255, 255, 0.3);"
+        "border-radius: 20px;"
+        "}"
+        );
+
+    QVBoxLayout *containerLayout = new QVBoxLayout(namesContainer);
+    containerLayout->setSpacing(12); // Tight professional spacing
+    containerLayout->setContentsMargins(40, 30, 40, 30);
+
+    // Professional title - increased height to prevent cropping
+    QLabel *title = new QLabel("👥 Player Names 👥");
+    title->setAlignment(Qt::AlignCenter);
+    title->setFixedHeight(80); // Increased from 65 to 80
+    title->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    title->setWordWrap(false); // Disable wrap for clean look
+    title->setStyleSheet(
+        "QLabel {"
+        "font-size: 24px; font-weight: bold; color: #00ffff;"
+        "text-shadow: 0 0 15px #00ffff;"
+        "background: rgba(0, 255, 255, 0.08);"
+        "padding: 20px 25px;" // Increased padding from 18px to 20px
+        "border: 2px solid rgba(0, 255, 255, 0.4);"
+        "border-radius: 12px;"
+        "margin: 2px;"
+        "}"
+        );
+
+    // Player 1 Label - Increased height for better text visibility
+    QLabel *player1Label = new QLabel("🎯 Player 1 (X):");
+    player1Label->setFixedHeight(45); // Increased from 35 to 45
+    player1Label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    player1Label->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    player1Label->setStyleSheet(
+        "QLabel {"
+        "font-size: 16px; font-weight: bold; color: #ffffff;"
+        "padding: 10px 12px;" // Increased padding from 8px to 10px
+        "margin: 0px;"
+        "background: rgba(255, 255, 255, 0.08);"
+        "border: 1px solid rgba(255, 255, 255, 0.2);"
+        "border-radius: 6px;"
+        "}"
+        );
+
+    // Player 1 Input - Increased height for better text display
+    player1NameEdit = new QLineEdit();
+    player1NameEdit->setPlaceholderText("Enter Player 1 name");
+    player1NameEdit->setFixedHeight(58); // Increased from 48 to 58
+    player1NameEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    player1NameEdit->setStyleSheet(
+        "QLineEdit {"
+        "font-size: 15px; padding: 16px 16px;" // Increased padding from 12px to 16px
+        "background: rgba(255, 255, 255, 0.98);"
+        "border: 2px solid #00ffff;"
+        "border-radius: 8px;"
+        "color: #1a1a3a;"
+        "margin: 0px;"
+        "selection-background-color: #4ecdc4;"
+        "}"
+        "QLineEdit:focus {"
+        "border: 2px solid #ff6b6b;"
+        "background: rgba(255, 255, 255, 1.0);"
+        "box-shadow: 0 0 8px rgba(255, 107, 107, 0.3);"
+        "}"
+        "QLineEdit:hover {"
+        "border: 2px solid rgba(0, 255, 255, 0.8);"
+        "}"
+        );
+
+    // Player 2 Label - Matching increased style
+    QLabel *player2Label = new QLabel("🎯 Player 2 (O):");
+    player2Label->setFixedHeight(45); // Increased from 35 to 45
+    player2Label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    player2Label->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    player2Label->setStyleSheet(
+        "QLabel {"
+        "font-size: 16px; font-weight: bold; color: #ffffff;"
+        "padding: 10px 12px;" // Increased padding from 8px to 10px
+        "margin: 0px;"
+        "background: rgba(255, 255, 255, 0.08);"
+        "border: 1px solid rgba(255, 255, 255, 0.2);"
+        "border-radius: 6px;"
+        "}"
+        );
+
+    // Player 2 Input - Matching increased style
+    player2NameEdit = new QLineEdit();
+    player2NameEdit->setPlaceholderText("Enter Player 2 name");
+    player2NameEdit->setFixedHeight(58); // Increased from 48 to 58
+    player2NameEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    player2NameEdit->setStyleSheet(player1NameEdit->styleSheet());
+
+    // Professional Start Game Button - Increased height
+    QPushButton *confirmBtn = new QPushButton("🎮 Start Game!");
+    confirmBtn->setFixedHeight(65); // Increased from 55 to 65
+    confirmBtn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    confirmBtn->setStyleSheet(
+        "QPushButton {"
+        "font-size: 18px; font-weight: bold;"
+        "padding: 18px 25px;" // Increased padding from 15px to 18px
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #4ecdc4, stop:1 #44a08d);"
+        "color: white; border: none;"
+        "border-radius: 12px;"
+        "margin: 5px 0px;"
+        "text-shadow: 0 1px 3px rgba(0,0,0,0.4);"
+        "}"
+        "QPushButton:hover {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #26d0ce, stop:1 #1a2980);"
+        "transform: translateY(-1px);"
+        "box-shadow: 0 4px 12px rgba(78, 205, 196, 0.4);"
+        "}"
+        "QPushButton:pressed {"
+        "transform: translateY(0px);"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #2c9f96, stop:1 #2d5f5f);"
+        "}"
+        );
+    connect(confirmBtn, &QPushButton::clicked, this, &MainWindow::onPlayerNamesConfirmed);
+
+    // Professional Back Button - Increased height
+    QPushButton *backBtn = new QPushButton("⬅️ Back to Setup");
+    backBtn->setFixedHeight(55); // Increased from 45 to 55
+    backBtn->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    backBtn->setStyleSheet(
+        "QPushButton {"
+        "font-size: 15px; font-weight: bold;"
+        "padding: 15px 20px;" // Increased padding from 12px to 15px
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #b2bec3, stop:1 #636e72);"
+        "color: #2d3436; border: none;"
+        "border-radius: 10px;"
+        "margin: 2px 0px;"
+        "}"
+        "QPushButton:hover {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #636e72, stop:1 #b2bec3);"
+        "color: #fff;"
+        "transform: translateY(-1px);"
+        "box-shadow: 0 3px 8px rgba(99, 110, 114, 0.3);"
+        "}"
+        "QPushButton:pressed {"
+        "transform: translateY(0px);"
+        "}"
+        );
+    connect(backBtn, &QPushButton::clicked, this, &MainWindow::showGameSetup);
+
+    // Professional layout with adjusted spacing
+    containerLayout->addWidget(title);
+    containerLayout->addSpacing(10); // Slightly increased spacing
+    containerLayout->addWidget(player1Label);
+    containerLayout->addSpacing(5); // Increased gap between label and input
+    containerLayout->addWidget(player1NameEdit);
+    containerLayout->addSpacing(12); // Increased gap between players
+    containerLayout->addWidget(player2Label);
+    containerLayout->addSpacing(5); // Increased gap between label and input
+    containerLayout->addWidget(player2NameEdit);
+    containerLayout->addSpacing(18); // Increased gap before buttons
+    containerLayout->addWidget(confirmBtn);
+    containerLayout->addSpacing(8); // Increased gap between buttons
+    containerLayout->addWidget(backBtn);
+    containerLayout->addStretch(); // Push content up
+
+    mainLayout->addWidget(namesContainer);
+    stackedWidget->addWidget(playerNamesWidget);
+}
+
+void MainWindow::updateGameHistoryDisplay()
+{
+    User* user = userManager->getCurrentUser();
+    if (!user) return;
+
+    QList<GameRecord> history = user->getGameHistory();
+
+    // Update each of the 5 game blocks
+    for (int i = 0; i < 5; ++i) {
+        if (i < history.size()) {
+            const GameRecord &record = history[i];
+
+            QString resultEmoji;
+            QString resultColor;
+            if (record.result == "Won") {
+                resultEmoji = "🏆 WON";
+                resultColor = "#4ecdc4";
+            } else if (record.result == "Lost") {
+                resultEmoji = "😞 LOST";
+                resultColor = "#ff6b6b";
+            } else {
+                resultEmoji = "🤝 TIE";
+                resultColor = "#f39c12";
+            }
+
+            gameResultLabels[i]->setText(resultEmoji);
+            gameResultLabels[i]->setStyleSheet(
+                QString("QLabel {"
+                        "font-size: 14px; font-weight: bold; color: white;"
+                        "background: %1; border-radius: 8px; padding: 8px;"
+                        "}").arg(resultColor)
+                );
+
+            QString details = QString("vs %1\n%2\n%3")
+                                  .arg(record.opponent)
+                                  .arg(record.gameMode)
+                                  .arg(record.timestamp.toString("MMM dd"));
+
+            gameDetailLabels[i]->setText(details);
+        } else {
+            // Empty game slot
+            gameResultLabels[i]->setText("No Game");
+            gameResultLabels[i]->setStyleSheet(
+                "QLabel {"
+                "font-size: 14px; color: #ffffff;"
+                "background: rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 8px;"
+                "}"
+                );
+            gameDetailLabels[i]->setText("---");
+        }
+    }
+}
+
 
 void MainWindow::setupGameUI()
 {
     gameWidget = new QWidget();
-    gameWidget->setStyleSheet(
-        "QWidget { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, "
-        "stop:0 #e8f5e8, stop:0.5 #f0f8ff, stop:1 #fff0f5);"
-        "}"
-        );
-    gameWidget->setAutoFillBackground(true);
-    mainLayout = new QVBoxLayout(gameWidget);
+    gameWidget->setStyleSheet("QWidget { background: transparent; }");
 
-    // Larger status labels for full screen
-    statusLabel = new QLabel("🎉 Let's Play and Have Fun! 🎉", this);
+    // Main layout for centering everything
+    QVBoxLayout *mainLayout = new QVBoxLayout(gameWidget);
+    mainLayout->setAlignment(Qt::AlignCenter);
+    mainLayout->setSpacing(20);
+
+    // Game status with modern glow effect
+    statusLabel = new QLabel("🎉 GAME READY! 🎉");
     statusLabel->setAlignment(Qt::AlignCenter);
     statusLabel->setStyleSheet(
-        "font-size: 24px; font-weight: bold; color: #2c3e50; "  // INCREASED font size
-        "background: rgba(255, 255, 255, 0.8); border-radius: 15px; padding: 20px; margin: 15px;"  // INCREASED
-        "border: 2px solid #b8c6db;"
+        "QLabel {"
+        "font-size: 36px; font-weight: bold; color: #00ffff;"
+        "text-shadow: 0 0 20px #00ffff, 0 0 40px #0080ff;"
+        "background: rgba(255, 255, 255, 0.1);"
+        "border-radius: 15px; padding: 20px; margin: 20px;"
+        "border: 2px solid rgba(0, 255, 255, 0.3);"
+        "}"
         );
 
     statusLabel->setGraphicsEffect(statusOpacityEffect);
 
-    currentPlayerLabel = new QLabel("Current Player: X", this);
+    currentPlayerLabel = new QLabel("Current Player: X");
     currentPlayerLabel->setAlignment(Qt::AlignCenter);
     currentPlayerLabel->setStyleSheet(
-        "font-size: 18px; color: #2c3e50; background: rgba(255, 255, 255, 0.7); "  // INCREASED font size
-        "border-radius: 12px; padding: 15px; margin: 10px; font-weight: bold;"  // INCREASED
-        );
-
-    // Larger game controls
-    controlLayout = new QHBoxLayout();
-
-    newGameBtn = new QPushButton("🔄 Play Again!", this);
-    newGameBtn->setStyleSheet(
-        "QPushButton {"
-        "font-size: 16px; font-weight: bold; "  // INCREASED font size
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #d4edda, stop:1 #c3e6cb);"
-        "color: #2c3e50; border: 1px solid #28a745; border-radius: 12px; padding: 15px 25px;"  // INCREASED
-        "}"
-        "QPushButton:hover {"
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #c8e6c9, stop:1 #a5d6a7);"
+        "QLabel {"
+        "font-size: 24px; color: #ffffff; font-weight: bold;"
+        "background: rgba(255, 255, 255, 0.1);"
+        "border-radius: 12px; padding: 15px; margin: 10px;"
+        "border: 1px solid rgba(255, 255, 255, 0.2);"
         "}"
         );
-    connect(newGameBtn, &QPushButton::clicked, this, &MainWindow::newGame);
 
-    backToSetupBtn = new QPushButton("⚙️ New Adventure", this);
-    backToSetupBtn->setStyleSheet(
-        "QPushButton {"
-        "font-size: 16px; font-weight: bold; "  // INCREASED font size
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #ffecd2, stop:1 #fcb69f);"
-        "color: #2c3e50; border: 1px solid #f39c12; border-radius: 12px; padding: 15px 25px;"  // INCREASED
-        "}"
-        "QPushButton:hover {"
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #ffe0b2, stop:1 #ffab91);"
+    // Create centered game board container
+    QWidget *boardContainer = new QWidget();
+    boardContainer->setFixedSize(450, 450);
+    boardContainer->setStyleSheet(
+        "QWidget {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, "
+        "stop:0 rgba(255, 255, 255, 0.15), stop:1 rgba(255, 255, 255, 0.05));"
+        "border: 3px solid rgba(0, 255, 255, 0.4);"
+        "border-radius: 20px;"
         "}"
         );
-    connect(backToSetupBtn, &QPushButton::clicked, this, &MainWindow::startGameSetup);
 
-    controlLayout->addWidget(newGameBtn);
-    controlLayout->addStretch();
-    controlLayout->addWidget(backToSetupBtn);
+    // Center the board container
+    QHBoxLayout *boardCenterLayout = new QHBoxLayout();
+    boardCenterLayout->addStretch();
+    boardCenterLayout->addWidget(boardContainer);
+    boardCenterLayout->addStretch();
 
-    // Much larger game board for full screen
-    boardLayout = new QGridLayout();
-    boardLayout->setSpacing(15);  // INCREASED spacing
+    boardLayout = new QGridLayout(boardContainer);
+    boardLayout->setSpacing(10);
+    boardLayout->setContentsMargins(25, 25, 25, 25);
 
-    QScreen *screen = QGuiApplication::primaryScreen();
-    QRect screenGeometry = screen->availableGeometry();
-
-    // Much larger cell sizes for full screen experience
-    int cellSize;
-    if (screenGeometry.width() < 1024) {
-        cellSize = 100;  // Small screens
-    } else if (screenGeometry.width() < 1440) {
-        cellSize = 120;  // Medium screens
-    } else if (screenGeometry.width() < 1920) {
-        cellSize = 140;  // Large screens
-    } else {
-        cellSize = 160;  // Very large screens
-    }
-
+    // Create perfectly centered grid cells
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
-            cells[i][j] = new QPushButton("", this);
-            cells[i][j]->setFixedSize(cellSize, cellSize);
+            cells[i][j] = new QPushButton("");
+            cells[i][j]->setFixedSize(120, 120);
             cells[i][j]->setStyleSheet(
-                QString("QPushButton {"
-                        "font-size: %1px; font-weight: bold; "
-                        "background: rgba(255, 255, 255, 0.9); "
-                        "border: 3px solid #bdc3c7; "  // INCREASED border
-                        "border-radius: 20px; color: #2c3e50;"  // INCREASED radius
-                        "box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);"  // INCREASED shadow
-                        "}"
-                        "QPushButton:hover {"
-                        "background: rgba(255, 255, 255, 1.0); "
-                        "border: 3px solid #3498db;"
-                        "box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);"
-                        "}"
-                        "QPushButton:pressed { "
-                        "background: rgba(240, 248, 255, 1.0); "
-                        "}"
-                        "QPushButton:disabled { "
-                        "background: rgba(248, 249, 250, 0.8); "
-                        "}").arg(cellSize * 0.4)  // Larger font proportion
+                "QPushButton {"
+                "font-size: 48px; font-weight: bold;"
+                "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, "
+                "stop:0 rgba(255, 255, 255, 0.2), stop:1 rgba(255, 255, 255, 0.1));"
+                "border: 2px solid rgba(0, 255, 255, 0.3);"
+                "border-radius: 15px; color: #ffffff;"
+                "text-shadow: 0 0 10px currentColor;"
+                "}"
+                "QPushButton:hover {"
+                "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, "
+                "stop:0 rgba(255, 255, 255, 0.3), stop:1 rgba(255, 255, 255, 0.2));"
+                "border: 2px solid rgba(255, 107, 107, 0.6);"
+                "transform: scale(1.05);"
+                "}"
+                "QPushButton:pressed {"
+                "background: rgba(255, 107, 107, 0.3);"
+                "}"
                 );
+
             cells[i][j]->setProperty("row", i);
             cells[i][j]->setProperty("col", j);
             connect(cells[i][j], &QPushButton::clicked, this, &MainWindow::cellClicked);
@@ -319,283 +586,469 @@ void MainWindow::setupGameUI()
         }
     }
 
-    // Larger layout margins
+    // Modern game controls
+    QHBoxLayout *controlLayout = new QHBoxLayout();
+    controlLayout->setAlignment(Qt::AlignCenter);
+
+    newGameBtn = new QPushButton("🔄 PLAY AGAIN");
+    newGameBtn->setStyleSheet(
+        "QPushButton {"
+        "font-size: 20px; font-weight: bold; padding: 15px 25px;"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #4ecdc4, stop:1 #44a08d);"
+        "color: white; border: none; border-radius: 12px;"
+        "}"
+        "QPushButton:hover {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #26d0ce, stop:1 #1a2980);"
+        "transform: translateY(-2px);"
+        "}"
+        );
+
+    connect(newGameBtn, &QPushButton::clicked, this, &MainWindow::newGame);
+
+    backToSetupBtn = new QPushButton("⚙️ NEW ADVENTURE");
+    backToSetupBtn->setStyleSheet(
+        "QPushButton {"
+        "font-size: 20px; font-weight: bold; padding: 15px 25px;"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #ff6b6b, stop:0.5 #ff8e53, stop:1 #ff6b6b);"
+        "color: white; border: none; border-radius: 12px;"
+        "}"
+        "QPushButton:hover {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #ff5252, stop:0.5 #ff7043, stop:1 #ff5252);"
+        "transform: translateY(-2px);"
+        "}"
+        );
+
+    connect(backToSetupBtn, &QPushButton::clicked, this, &MainWindow::startGameSetup);
+
+    controlLayout->addWidget(newGameBtn);
+    controlLayout->addWidget(backToSetupBtn);
+
+    // Add all elements to main layout with proper spacing
     mainLayout->addWidget(statusLabel);
     mainLayout->addWidget(currentPlayerLabel);
+    mainLayout->addLayout(boardCenterLayout);
     mainLayout->addLayout(controlLayout);
-    mainLayout->addLayout(boardLayout);
-    mainLayout->setContentsMargins(30, 30, 30, 30);  // INCREASED margins
+    mainLayout->addStretch(); // Push everything up
 
     stackedWidget->addWidget(gameWidget);
 }
 
-
 void MainWindow::setupRegisterUI()
 {
     registerWidget = new QWidget();
-    registerWidget->setStyleSheet(
-        "QWidget { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, "
-        "stop:0 #e8f5e8, stop:0.5 #f0f8ff, stop:1 #fff0f5);"
+    registerWidget->setStyleSheet("QWidget { background: transparent; }");
+
+    QVBoxLayout *mainLayout = new QVBoxLayout(registerWidget);
+    mainLayout->setAlignment(Qt::AlignCenter);
+
+    // Create floating register container
+    QWidget *registerContainer = new QWidget();
+    registerContainer->setFixedSize(450, 650);
+    registerContainer->setStyleSheet(
+        "QWidget {"
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
+        "stop:0 rgba(255, 255, 255, 0.15), stop:1 rgba(255, 255, 255, 0.08));"
+        "border: 2px solid rgba(255, 255, 255, 0.3);"
+        "border-radius: 20px;"
         "}"
         );
-    registerWidget->setAutoFillBackground(true);
 
-    QVBoxLayout *registerLayout = new QVBoxLayout(registerWidget);
-    registerLayout->setSpacing(12);  // REDUCED spacing
-    registerLayout->setContentsMargins(20, 15, 20, 15);  // REDUCED margins
+    QVBoxLayout *containerLayout = new QVBoxLayout(registerContainer);
+    containerLayout->setSpacing(18);
+    containerLayout->setContentsMargins(35, 25, 35, 25);
 
-    // Compact register title
-    QLabel *registerTitle = new QLabel("📝 Create Your Account! 📝");
+    // Register title with proper height
+    QLabel *registerTitle = new QLabel("📝 JOIN THE GAME 📝");
     registerTitle->setAlignment(Qt::AlignCenter);
+    registerTitle->setMinimumHeight(60);
     registerTitle->setStyleSheet(
         "QLabel {"
-        "font-size: 18px; font-weight: bold; color: #2c3e50;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.8); border-radius: 12px; padding: 10px;"  // REDUCED padding
-        "margin-bottom: 6px; border: 2px solid #b8c6db;"
+        "font-size: 24px; font-weight: bold; color: #00ffff;"
+        "text-shadow: 0 0 20px #00ffff;"
+        "background: transparent; padding: 12px;"
+        "min-height: 35px;"
         "}"
         );
 
-    QLabel *registerSubtitle = new QLabel("Join the fun and start your gaming journey! 🌟");
+    QLabel *registerSubtitle = new QLabel("Create your account and start your journey! 🌟");
     registerSubtitle->setAlignment(Qt::AlignCenter);
+    registerSubtitle->setMinimumHeight(55);
     registerSubtitle->setStyleSheet(
-        "font-size: 11px; color: #34495e; margin-bottom: 10px; font-style: italic;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.6); border-radius: 8px; padding: 5px;"  // REDUCED padding
+        "QLabel {"
+        "font-size: 15px; color: #ffffff; margin-bottom: 10px;"
+        "background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 10px;"
+        "min-height: 30px;"
+        "}"
         );
 
-    // Username field
+    // Username field with proper sizing
     QLabel *regUsernameLabel = new QLabel("👤 Choose Username:");
-    regUsernameLabel->setStyleSheet("font-size: 11px; font-weight: bold; color: #2c3e50; margin: 2px;");  // REDUCED
+    regUsernameLabel->setStyleSheet(
+        "QLabel { font-size: 15px; font-weight: bold; color: #ffffff; margin: 3px; }"
+        );
 
     registerUsernameEdit = new QLineEdit();
     registerUsernameEdit->setPlaceholderText("Pick a unique username");
+    registerUsernameEdit->setMinimumHeight(50);
+    registerUsernameEdit->setMaximumHeight(50);
     registerUsernameEdit->setStyleSheet(
         "QLineEdit {"
-        "font-size: 10px; padding: 6px; border: 2px solid #bdc3c7; border-radius: 6px;"  // REDUCED
-        "background: rgba(255, 255, 255, 0.9); color: #2c3e50;"
+        "font-size: 15px; padding: 10px 15px;"
+        "background: rgba(255, 255, 255, 0.9);"
+        "border: 2px solid #00ffff; border-radius: 10px; color: #1a1a3a;"
+        "min-height: 25px; max-height: 25px;"
         "}"
-        "QLineEdit:focus { border: 2px solid #27ae60; }"
+        "QLineEdit:focus { border: 2px solid #ff6b6b; }"
         );
 
-    // Email field
+    // Email field with proper sizing
     QLabel *emailLabel = new QLabel("📧 Email (Optional):");
-    emailLabel->setStyleSheet("font-size: 11px; font-weight: bold; color: #2c3e50; margin: 2px;");  // REDUCED
+    emailLabel->setStyleSheet(
+        "QLabel { font-size: 15px; font-weight: bold; color: #ffffff; margin: 3px; }"
+        );
 
     registerEmailEdit = new QLineEdit();
     registerEmailEdit->setPlaceholderText("your.email@example.com");
-    registerEmailEdit->setStyleSheet(
-        "QLineEdit {"
-        "font-size: 10px; padding: 6px; border: 2px solid #bdc3c7; border-radius: 6px;"  // REDUCED
-        "background: rgba(255, 255, 255, 0.9); color: #2c3e50;"
-        "}"
-        "QLineEdit:focus { border: 2px solid #27ae60; }"
-        );
+    registerEmailEdit->setMinimumHeight(50);
+    registerEmailEdit->setMaximumHeight(50);
+    registerEmailEdit->setStyleSheet(registerUsernameEdit->styleSheet());
 
-    // Password field
+    // Password field with proper sizing
     QLabel *regPasswordLabel = new QLabel("🔒 Create Password:");
-    regPasswordLabel->setStyleSheet("font-size: 11px; font-weight: bold; color: #2c3e50; margin: 2px;");  // REDUCED
+    regPasswordLabel->setStyleSheet(
+        "QLabel { font-size: 15px; font-weight: bold; color: #ffffff; margin: 3px; }"
+        );
 
     registerPasswordEdit = new QLineEdit();
     registerPasswordEdit->setPlaceholderText("Create a secure password");
     registerPasswordEdit->setEchoMode(QLineEdit::Password);
-    registerPasswordEdit->setStyleSheet(
-        "QLineEdit {"
-        "font-size: 10px; padding: 6px; border: 2px solid #bdc3c7; border-radius: 6px;"  // REDUCED
-        "background: rgba(255, 255, 255, 0.9); color: #2c3e50;"
-        "}"
-        "QLineEdit:focus { border: 2px solid #27ae60; }"
-        );
+    registerPasswordEdit->setMinimumHeight(50);
+    registerPasswordEdit->setMaximumHeight(50);
+    registerPasswordEdit->setStyleSheet(registerUsernameEdit->styleSheet());
 
-    // Register button
-    registerBtn = new QPushButton("🎉 Create Account");
+    // Register button with proper height
+    registerBtn = new QPushButton("🎉 CREATE ACCOUNT");
+    registerBtn->setMinimumHeight(55);
+    registerBtn->setMaximumHeight(55);
     registerBtn->setStyleSheet(
         "QPushButton {"
-        "font-size: 11px; font-weight: bold; padding: 8px;"  // REDUCED
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #27ae60, stop:1 #229954);"
-        "color: white; border: none; border-radius: 8px; margin: 5px;"  // REDUCED
+        "font-size: 16px; font-weight: bold; padding: 12px;"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #4ecdc4, stop:1 #44a08d);"
+        "color: white; border: none; border-radius: 12px;"
+        "min-height: 25px; max-height: 25px;"
         "}"
         "QPushButton:hover {"
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #229954, stop:1 #1e8449);"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #26d0ce, stop:1 #1a2980);"
         "}"
         );
+
     connect(registerBtn, &QPushButton::clicked, this, &MainWindow::onRegisterClicked);
 
-    // Login link
-    showLoginBtn = new QPushButton("🔙 Already have an account? Sign in here!");
+    // Login link with proper height
+    showLoginBtn = new QPushButton("🔙 Already have an account? Sign in!");
+    showLoginBtn->setMinimumHeight(45);
     showLoginBtn->setStyleSheet(
         "QPushButton {"
-        "font-size: 9px; color: #27ae60; background: transparent; border: none; padding: 4px;"  // REDUCED
-        "text-decoration: underline;"
+        "font-size: 13px; color: #00ffff; background: transparent;"
+        "border: none; padding: 8px; text-decoration: underline;"
+        "min-height: 20px;"
         "}"
-        "QPushButton:hover { color: #229954; }"
+        "QPushButton:hover { color: #ff6b6b; }"
         );
+
     connect(showLoginBtn, &QPushButton::clicked, this, &MainWindow::showLoginScreen);
 
-    // Add to layout
-    registerLayout->addWidget(registerTitle);
-    registerLayout->addWidget(registerSubtitle);
-    registerLayout->addWidget(regUsernameLabel);
-    registerLayout->addWidget(registerUsernameEdit);
-    registerLayout->addWidget(emailLabel);
-    registerLayout->addWidget(registerEmailEdit);
-    registerLayout->addWidget(regPasswordLabel);
-    registerLayout->addWidget(registerPasswordEdit);
-    registerLayout->addWidget(registerBtn);
-    registerLayout->addWidget(showLoginBtn);
-    registerLayout->addStretch();
+    // Add to container layout
+    containerLayout->addWidget(registerTitle);
+    containerLayout->addWidget(registerSubtitle);
+    containerLayout->addWidget(regUsernameLabel);
+    containerLayout->addWidget(registerUsernameEdit);
+    containerLayout->addWidget(emailLabel);
+    containerLayout->addWidget(registerEmailEdit);
+    containerLayout->addWidget(regPasswordLabel);
+    containerLayout->addWidget(registerPasswordEdit);
+    containerLayout->addWidget(registerBtn);
+    containerLayout->addWidget(showLoginBtn);
 
+    mainLayout->addWidget(registerContainer);
     stackedWidget->addWidget(registerWidget);
 }
 
 void MainWindow::setupUserProfileUI()
 {
     userProfileWidget = new QWidget();
-    userProfileWidget->setStyleSheet(
-        "QWidget { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, "
-        "stop:0 #e8f5e8, stop:0.5 #f0f8ff, stop:1 #fff0f5);"
+    userProfileWidget->setStyleSheet("QWidget { background: transparent; }");
+
+    QVBoxLayout *mainLayout = new QVBoxLayout(userProfileWidget);
+    mainLayout->setAlignment(Qt::AlignCenter);
+    mainLayout->setContentsMargins(20, 20, 20, 20);
+
+    // Create floating profile container - ORIGINAL SIZE
+    QWidget *profileContainer = new QWidget();
+    profileContainer->setFixedSize(600, 700); // Back to original size
+    profileContainer->setStyleSheet(
+        "QWidget {"
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
+        "stop:0 rgba(255, 255, 255, 0.15), stop:1 rgba(255, 255, 255, 0.08));"
+        "border: 2px solid rgba(255, 255, 255, 0.3);"
+        "border-radius: 20px;"
         "}"
         );
-    userProfileWidget->setAutoFillBackground(true);
 
-    QVBoxLayout *profileLayout = new QVBoxLayout(userProfileWidget);
-    profileLayout->setSpacing(15);  // REDUCED spacing
-    profileLayout->setContentsMargins(20, 15, 20, 15);  // REDUCED margins
+    QVBoxLayout *containerLayout = new QVBoxLayout(profileContainer);
+    containerLayout->setSpacing(3); // Minimal spacing
+    containerLayout->setContentsMargins(30, 20, 30, 20);
 
-    // Compact profile title
-    QLabel *profileTitle = new QLabel("👤 Your Gaming Profile 👤");
+    // Profile title - Bigger with larger font
+    QLabel *profileTitle = new QLabel("👤 PLAYER PROFILE 👤");
     profileTitle->setAlignment(Qt::AlignCenter);
+    profileTitle->setFixedHeight(70); // Increased height
     profileTitle->setStyleSheet(
         "QLabel {"
-        "font-size: 18px; font-weight: bold; color: #2c3e50;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.8); border-radius: 12px; padding: 10px;"  // REDUCED padding
-        "margin-bottom: 8px; border: 2px solid #b8c6db;"
+        "font-size: 28px; font-weight: bold; color: #00ffff;" // Larger font
+        "text-shadow: 0 0 20px #00ffff;"
+        "background: transparent; padding: 15px;" // More padding
         "}"
         );
 
-    // Welcome label
-    userWelcomeLabel = new QLabel("Welcome back, Player!");
+    // Welcome label - Bigger with larger font
+    userWelcomeLabel = new QLabel("Welcome back, Champion!");
     userWelcomeLabel->setAlignment(Qt::AlignCenter);
+    userWelcomeLabel->setFixedHeight(55); // Increased height
     userWelcomeLabel->setStyleSheet(
-        "font-size: 12px; color: #2c3e50; margin-bottom: 10px; font-weight: bold;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.6); border-radius: 8px; padding: 8px;"  // REDUCED padding
+        "QLabel {"
+        "font-size: 18px; color: #ffffff;" // Larger font
+        "background: rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px;" // More padding
+        "}"
         );
 
-    // Stats label
-    userStatsLabel = new QLabel("📊 Your Game Statistics");
-    userStatsLabel->setAlignment(Qt::AlignCenter);
+    // Stats label - Bigger with larger font
+    userStatsLabel = new QLabel("📊 Your Gaming Statistics");
+    userStatsLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    userStatsLabel->setWordWrap(true);
+    userStatsLabel->setFixedHeight(220); // Increased height
     userStatsLabel->setStyleSheet(
-        "font-size: 10px; color: #34495e; margin-bottom: 10px;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 8px;"  // REDUCED padding
-        "border: 1px solid #bdc3c7;"
+        "QLabel {"
+        "font-size: 16px; color: #ffffff;" // Larger font
+        "background: rgba(0, 255, 255, 0.1); border-radius: 10px; padding: 20px;" // More padding
+        "border: 1px solid rgba(0, 255, 255, 0.3);"
+        "line-height: 1.5;" // Better line spacing
+        "}"
         );
 
-    // Game History button
-    QPushButton *historyBtn = new QPushButton("📜 View Game History");
+    // Modern buttons - Bigger with larger fonts
+    QPushButton *historyBtn = new QPushButton("📜 VIEW GAME HISTORY");
+    historyBtn->setFixedHeight(55); // Increased height
+    historyBtn->setMinimumWidth(520);
     historyBtn->setStyleSheet(
         "QPushButton {"
-        "font-size: 10px; font-weight: bold; padding: 8px;"  // REDUCED
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #9b59b6, stop:1 #8e44ad);"
-        "color: white; border: none; border-radius: 8px; margin: 4px;"  // REDUCED
+        "font-size: 18px; font-weight: bold; padding: 15px;" // Larger font and padding
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #9b59b6, stop:1 #8e44ad);"
+        "color: white; border: none; border-radius: 10px; margin: 2px 0px;" // Minimal margin
+        "text-align: center;"
         "}"
         "QPushButton:hover {"
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #8e44ad, stop:1 #7d3c98);"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #8e44ad, stop:1 #7d3c98);"
+        "}"
+        "QPushButton:pressed {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #7d3c98, stop:1 #6c2c91);"
         "}"
         );
+
     connect(historyBtn, &QPushButton::clicked, this, &MainWindow::showGameHistory);
 
-    // Continue to game button
-    QPushButton *continueBtn = new QPushButton("🎮 Continue to Game");
+    QPushButton *continueBtn = new QPushButton("🎮 CONTINUE TO GAME");
+    continueBtn->setFixedHeight(55);
+    continueBtn->setMinimumWidth(520);
     continueBtn->setStyleSheet(
         "QPushButton {"
-        "font-size: 10px; font-weight: bold; padding: 8px;"  // REDUCED
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #3498db, stop:1 #2980b9);"
-        "color: white; border: none; border-radius: 8px; margin: 4px;"  // REDUCED
+        "font-size: 18px; font-weight: bold; padding: 15px;"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #4ecdc4, stop:1 #44a08d);"
+        "color: white; border: none; border-radius: 10px; margin: 2px 0px;"
+        "text-align: center;"
         "}"
         "QPushButton:hover {"
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #2980b9, stop:1 #1f618d);"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #26d0ce, stop:1 #1a2980);"
+        "}"
+        "QPushButton:pressed {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #1a2980, stop:1 #0f1419);"
         "}"
         );
+
     connect(continueBtn, &QPushButton::clicked, this, &MainWindow::showGameSetup);
 
-    // Logout button
-    logoutBtn = new QPushButton("🚪 Logout");
+    logoutBtn = new QPushButton("🚪 LOGOUT");
+    logoutBtn->setFixedHeight(55);
+    logoutBtn->setMinimumWidth(520);
     logoutBtn->setStyleSheet(
         "QPushButton {"
-        "font-size: 9px; font-weight: bold; padding: 6px;"  // REDUCED
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #e74c3c, stop:1 #c0392b);"
-        "color: white; border: none; border-radius: 6px; margin: 3px;"  // REDUCED
+        "font-size: 18px; font-weight: bold; padding: 15px;"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #ff6b6b, stop:1 #ff5252);"
+        "color: white; border: none; border-radius: 10px; margin: 2px 0px;"
+        "text-align: center;"
         "}"
         "QPushButton:hover {"
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #c0392b, stop:1 #a93226);"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #ff5252, stop:1 #ff3838);"
+        "}"
+        "QPushButton:pressed {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #ff3838, stop:1 #e53935);"
         "}"
         );
+
     connect(logoutBtn, &QPushButton::clicked, this, &MainWindow::onLogoutClicked);
 
-    // Add to layout
-    profileLayout->addWidget(profileTitle);
-    profileLayout->addWidget(userWelcomeLabel);
-    profileLayout->addWidget(userStatsLabel);
-    profileLayout->addWidget(historyBtn);
-    profileLayout->addWidget(continueBtn);
-    profileLayout->addWidget(logoutBtn);
-    profileLayout->addStretch();
+    // Remove extra spacers to save space
 
+    // Add to container layout with tight spacing
+    containerLayout->addWidget(profileTitle);
+    containerLayout->addWidget(userWelcomeLabel);
+    containerLayout->addWidget(userStatsLabel);
+    containerLayout->addWidget(historyBtn);
+    containerLayout->addWidget(continueBtn);
+    containerLayout->addWidget(logoutBtn);
+
+    mainLayout->addWidget(profileContainer);
     stackedWidget->addWidget(userProfileWidget);
 }
 
 void MainWindow::setupGameHistoryUI()
 {
     gameHistoryWidget = new QWidget();
-    gameHistoryWidget->setStyleSheet(
-        "QWidget { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, "
-        "stop:0 #e8f5e8, stop:0.5 #f0f8ff, stop:1 #fff0f5);"
+    gameHistoryWidget->setStyleSheet("QWidget { background: transparent; }");
+
+    QVBoxLayout *mainLayout = new QVBoxLayout(gameHistoryWidget);
+    mainLayout->setAlignment(Qt::AlignCenter);
+    mainLayout->setContentsMargins(30, 30, 30, 30);
+
+    // Create floating history container
+    QWidget *historyContainer = new QWidget();
+    historyContainer->setFixedSize(900, 700);
+    historyContainer->setStyleSheet(
+        "QWidget {"
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
+        "stop:0 rgba(255, 255, 255, 0.15), stop:1 rgba(255, 255, 255, 0.08));"
+        "border: 2px solid rgba(255, 255, 255, 0.3);"
+        "border-radius: 20px;"
         "}"
         );
-    gameHistoryWidget->setAutoFillBackground(true);
 
-    QVBoxLayout *historyLayout = new QVBoxLayout(gameHistoryWidget);
-    historyLayout->setSpacing(12);  // REDUCED spacing
-    historyLayout->setContentsMargins(20, 15, 20, 15);  // REDUCED margins
+    QVBoxLayout *containerLayout = new QVBoxLayout(historyContainer);
+    containerLayout->setSpacing(20);
+    containerLayout->setContentsMargins(40, 30, 40, 30);
 
-    // Compact history title
+    // History title
     historyTitleLabel = new QLabel("📜 Your Game History 📜");
     historyTitleLabel->setAlignment(Qt::AlignCenter);
     historyTitleLabel->setStyleSheet(
         "QLabel {"
-        "font-size: 16px; font-weight: bold; color: #2c3e50;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.8); border-radius: 10px; padding: 8px;"  // REDUCED padding
-        "margin-bottom: 6px; border: 2px solid #b8c6db;"
+        "font-size: 28px; font-weight: bold; color: #ffffff;"
+        "text-shadow: 0 0 20px #ffffff;"
+        "background: transparent; padding: 15px;"
         "}"
         );
 
     QLabel *historySubtitle = new QLabel("Your last 5 games - Track your progress! 📊");
     historySubtitle->setAlignment(Qt::AlignCenter);
     historySubtitle->setStyleSheet(
-        "font-size: 10px; color: #34495e; margin-bottom: 8px; font-style: italic;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.6); border-radius: 6px; padding: 4px;"  // REDUCED padding
-        );
-
-    // History content
-    historyContentLabel = new QLabel("No games played yet. Start playing to see your history!");
-    historyContentLabel->setAlignment(Qt::AlignTop | Qt::AlignLeft);
-    historyContentLabel->setWordWrap(true);
-    historyContentLabel->setStyleSheet(
         "QLabel {"
-        "font-size: 9px; color: #2c3e50; line-height: 1.4;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.9); border-radius: 8px; padding: 8px;"  // REDUCED padding
-        "border: 1px solid #bdc3c7; margin: 4px;"
+        "font-size: 18px; color: #ffffff; margin-bottom: 20px;"
+        "background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 12px;"
         "}"
         );
 
-    // Replay button
+    // 5 BLOCKS LAYOUT - HORIZONTAL
+    QHBoxLayout *gamesLayout = new QHBoxLayout();
+    gamesLayout->setSpacing(15);
+
+    // Initialize the lists
+    gameBlocks.clear();
+    gameResultLabels.clear();
+    gameDetailLabels.clear();
+
+    // Create 5 game blocks
+    for (int i = 0; i < 5; ++i) {
+        QWidget *gameBlock = new QWidget();
+        gameBlock->setFixedSize(150, 200);
+        gameBlock->setStyleSheet(
+            "QWidget {"
+            "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
+            "stop:0 rgba(255, 255, 255, 0.2), stop:1 rgba(255, 255, 255, 0.1));"
+            "border: 2px solid rgba(0, 255, 255, 0.3);"
+            "border-radius: 15px;"
+            "}"
+            );
+
+        QVBoxLayout *blockLayout = new QVBoxLayout(gameBlock);
+        blockLayout->setSpacing(8);
+        blockLayout->setContentsMargins(10, 10, 10, 10);
+
+        // Game number
+        QLabel *gameNumber = new QLabel(QString("Game %1").arg(i + 1));
+        gameNumber->setAlignment(Qt::AlignCenter);
+        gameNumber->setStyleSheet(
+            "QLabel {"
+            "font-size: 16px; font-weight: bold; color: #00ffff;"
+            "background: transparent; padding: 5px;"
+            "}"
+            );
+
+        // Game result placeholder
+        QLabel *gameResult = new QLabel("No Game");
+        gameResult->setAlignment(Qt::AlignCenter);
+        gameResult->setStyleSheet(
+            "QLabel {"
+            "font-size: 14px; color: #ffffff;"
+            "background: rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 8px;"
+            "}"
+            );
+
+        // Game details placeholder
+        QLabel *gameDetails = new QLabel("---");
+        gameDetails->setAlignment(Qt::AlignCenter);
+        gameDetails->setWordWrap(true);
+        gameDetails->setStyleSheet(
+            "QLabel {"
+            "font-size: 12px; color: #ffffff;"
+            "background: transparent; padding: 5px;"
+            "}"
+            );
+
+        blockLayout->addWidget(gameNumber);
+        blockLayout->addWidget(gameResult);
+        blockLayout->addWidget(gameDetails);
+        blockLayout->addStretch();
+
+        gamesLayout->addWidget(gameBlock);
+
+        // Store references for updating
+        gameBlocks.append(gameBlock);
+        gameResultLabels.append(gameResult);
+        gameDetailLabels.append(gameDetails);
+    }
+
+    // Buttons - BIGGER
     replayBtn = new QPushButton("🎬 Watch Game Replays");
+    replayBtn->setMinimumHeight(50);
     replayBtn->setStyleSheet(
         "QPushButton {"
-        "font-size: 10px; font-weight: bold; padding: 8px;"  // REDUCED
+        "font-size: 18px; font-weight: bold; padding: 15px;"
         "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #e67e22, stop:1 #d35400);"
-        "color: white; border: none; border-radius: 8px; margin: 4px;"  // REDUCED
+        "color: white; border: none; border-radius: 12px; margin: 10px;"
         "}"
         "QPushButton:hover {"
         "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #d35400, stop:1 #c0392b);"
@@ -603,13 +1056,13 @@ void MainWindow::setupGameHistoryUI()
         );
     connect(replayBtn, &QPushButton::clicked, this, &MainWindow::showGameReplay);
 
-    // Back button
     backFromHistoryBtn = new QPushButton("🔙 Back to Profile");
+    backFromHistoryBtn->setMinimumHeight(50);
     backFromHistoryBtn->setStyleSheet(
         "QPushButton {"
-        "font-size: 10px; font-weight: bold; padding: 8px;"  // REDUCED
+        "font-size: 18px; font-weight: bold; padding: 15px;"
         "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #3498db, stop:1 #2980b9);"
-        "color: white; border: none; border-radius: 8px; margin: 4px;"  // REDUCED
+        "color: white; border: none; border-radius: 12px; margin: 10px;"
         "}"
         "QPushButton:hover {"
         "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #2980b9, stop:1 #1f618d);"
@@ -617,134 +1070,125 @@ void MainWindow::setupGameHistoryUI()
         );
     connect(backFromHistoryBtn, &QPushButton::clicked, this, &MainWindow::showUserProfile);
 
-    // Add to layout
-    historyLayout->addWidget(historyTitleLabel);
-    historyLayout->addWidget(historySubtitle);
-    historyLayout->addWidget(historyContentLabel);
-    historyLayout->addWidget(replayBtn);
-    historyLayout->addWidget(backFromHistoryBtn);
-    historyLayout->addStretch();
+    // Add to container layout
+    containerLayout->addWidget(historyTitleLabel);
+    containerLayout->addWidget(historySubtitle);
+    containerLayout->addLayout(gamesLayout);
+    containerLayout->addWidget(replayBtn);
+    containerLayout->addWidget(backFromHistoryBtn);
 
+    mainLayout->addWidget(historyContainer);
     stackedWidget->addWidget(gameHistoryWidget);
 }
 
 void MainWindow::setupGameReplayUI()
 {
     gameReplayWidget = new QWidget();
-    gameReplayWidget->setStyleSheet(
-        "QWidget { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, "
-        "stop:0 #e8f5e8, stop:0.5 #f0f8ff, stop:1 #fff0f5);"
+    gameReplayWidget->setStyleSheet("QWidget { background: transparent; }");
+
+    QVBoxLayout *mainLayout = new QVBoxLayout(gameReplayWidget);
+    mainLayout->setAlignment(Qt::AlignCenter);
+    mainLayout->setContentsMargins(30, 30, 30, 30);
+
+    // Create floating replay container
+    QWidget *replayContainer = new QWidget();
+    replayContainer->setFixedSize(800, 700);
+    replayContainer->setStyleSheet(
+        "QWidget {"
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
+        "stop:0 rgba(255, 255, 255, 0.15), stop:1 rgba(255, 255, 255, 0.08));"
+        "border: 2px solid rgba(255, 255, 255, 0.3);"
+        "border-radius: 20px;"
         "}"
         );
-    gameReplayWidget->setAutoFillBackground(true);
 
-    QHBoxLayout *replayMainLayout = new QHBoxLayout(gameReplayWidget);
-    replayMainLayout->setSpacing(10);  // REDUCED spacing
-    replayMainLayout->setContentsMargins(10, 10, 10, 10);  // REDUCED margins
+    QVBoxLayout *containerLayout = new QVBoxLayout(replayContainer);
+    containerLayout->setSpacing(15);
+    containerLayout->setContentsMargins(30, 25, 30, 25);
 
-    // Left side - Game list
-    QVBoxLayout *leftLayout = new QVBoxLayout();
+    // Replay title
+    QLabel *replayTitle = new QLabel("🎬 Game Replay 🎬");
+    replayTitle->setAlignment(Qt::AlignCenter);
+    replayTitle->setMinimumHeight(55);
+    replayTitle->setStyleSheet(
+        "QLabel {"
+        "font-size: 24px; font-weight: bold; color: #ffffff;"
+        "text-shadow: 0 0 20px #ffffff;"
+        "background: transparent; padding: 12px;"
+        "min-height: 30px;"
+        "}"
+        );
 
-    QLabel *selectGameLabel = new QLabel("🎬 Select Game to Replay");
-    selectGameLabel->setStyleSheet(
-        "font-size: 12px; font-weight: bold; color: #2c3e50; margin-bottom: 5px;"  // REDUCED
-        "background: rgba(255, 255, 255, 0.8); border-radius: 6px; padding: 5px;"  // REDUCED
+    // Create horizontal layout for main content (left panel and right grid)
+    QHBoxLayout *mainContentLayout = new QHBoxLayout();
+    mainContentLayout->setSpacing(20);
+
+    // LEFT PANEL - Controls and Info
+    QWidget *leftPanel = new QWidget();
+    leftPanel->setFixedWidth(400);
+    leftPanel->setStyleSheet("QWidget { background: transparent; }");
+
+    QVBoxLayout *leftPanelLayout = new QVBoxLayout(leftPanel);
+    leftPanelLayout->setSpacing(15);
+    leftPanelLayout->setContentsMargins(10, 10, 10, 10);
+
+    // Game list
+    QLabel *gameListLabel = new QLabel("📋 Select Game:");
+    gameListLabel->setStyleSheet(
+        "QLabel { font-size: 16px; font-weight: bold; color: #ffffff; margin: 5px; }"
         );
 
     gameListWidget = new QListWidget();
+    gameListWidget->setFixedHeight(150);
     gameListWidget->setStyleSheet(
         "QListWidget {"
-        "background: rgba(255, 255, 255, 0.9); border: 1px solid #bdc3c7; border-radius: 6px;"
-        "font-size: 9px; padding: 3px;"  // REDUCED
+        "background: rgba(255, 255, 255, 0.1);"
+        "border: 2px solid rgba(0, 255, 255, 0.3);"
+        "border-radius: 10px; color: #ffffff;"
+        "font-size: 13px; padding: 8px;"
         "}"
         "QListWidget::item {"
-        "padding: 4px; margin: 1px; border-radius: 3px;"  // REDUCED
+        "padding: 6px; border-radius: 5px; margin: 1px;"
         "}"
         "QListWidget::item:selected {"
-        "background: #3498db; color: white;"
-        "}"
-        "QListWidget::item:hover {"
-        "background: #ecf0f1;"
+        "background: rgba(0, 255, 255, 0.3);"
         "}"
         );
+
     connect(gameListWidget, &QListWidget::itemClicked, this, &MainWindow::onGameSelected);
 
-    leftLayout->addWidget(selectGameLabel);
-    leftLayout->addWidget(gameListWidget);
-
-    // Right side - Replay board and controls
-    QVBoxLayout *rightLayout = new QVBoxLayout();
-
-    replayInfoLabel = new QLabel("Select a game to start replay");
-    replayInfoLabel->setAlignment(Qt::AlignCenter);
-    replayInfoLabel->setStyleSheet(
-        "font-size: 10px; font-weight: bold; color: #2c3e50; margin-bottom: 5px;"  // REDUCED
-        "background: rgba(255, 255, 255, 0.8); border-radius: 6px; padding: 5px;"  // REDUCED
+    // Replay controls
+    QLabel *controlsLabel = new QLabel("🎮 Controls:");
+    controlsLabel->setStyleSheet(
+        "QLabel { font-size: 16px; font-weight: bold; color: #ffffff; margin: 5px; }"
         );
 
-    replayStatusLabel = new QLabel("🎬 Ready to Replay");
-    replayStatusLabel->setAlignment(Qt::AlignCenter);
-    replayStatusLabel->setStyleSheet(
-        "font-size: 9px; color: #34495e; margin-bottom: 8px;"  // REDUCED
-        "background: rgba(255, 255, 255, 0.7); border-radius: 4px; padding: 4px;"  // REDUCED
-        );
-
-    // Compact replay board
-    QGridLayout *replayBoardLayout = new QGridLayout();
-    replayBoardLayout->setSpacing(3);  // REDUCED spacing
-
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
-            replayCells[i][j] = new QPushButton("", this);
-            replayCells[i][j]->setFixedSize(40, 40);  // REDUCED size
-            replayCells[i][j]->setStyleSheet(
-                "QPushButton {"
-                "font-size: 16px; font-weight: bold; "  // REDUCED font size
-                "background: rgba(255, 255, 255, 0.9); "
-                "border: 1px solid #bdc3c7; "
-                "border-radius: 8px; color: #2c3e50;"
-                "}"
-                );
-            replayCells[i][j]->setEnabled(false);
-            replayBoardLayout->addWidget(replayCells[i][j], i, j);
-        }
-    }
-
-    // Compact replay controls
     QHBoxLayout *controlsLayout = new QHBoxLayout();
+    controlsLayout->setSpacing(10);
 
     playBtn = new QPushButton("▶️ Play");
-    playBtn->setStyleSheet(
-        "QPushButton {"
-        "font-size: 9px; font-weight: bold; padding: 6px 8px;"  // REDUCED
-        "background: #27ae60; color: white; border: none; border-radius: 4px; margin: 2px;"  // REDUCED
-        "}"
-        "QPushButton:hover { background: #229954; }"
-        "QPushButton:disabled { background: #95a5a6; }"
-        );
-    connect(playBtn, &QPushButton::clicked, this, &MainWindow::onReplayPlay);
-
     pauseBtn = new QPushButton("⏸️ Pause");
-    pauseBtn->setStyleSheet(
-        "QPushButton {"
-        "font-size: 9px; font-weight: bold; padding: 6px 8px;"  // REDUCED
-        "background: #f39c12; color: white; border: none; border-radius: 4px; margin: 2px;"  // REDUCED
-        "}"
-        "QPushButton:hover { background: #e67e22; }"
-        "QPushButton:disabled { background: #95a5a6; }"
-        );
-    connect(pauseBtn, &QPushButton::clicked, this, &MainWindow::onReplayPause);
-
     resetBtn = new QPushButton("🔄 Reset");
-    resetBtn->setStyleSheet(
+
+    QString buttonStyle =
         "QPushButton {"
-        "font-size: 9px; font-weight: bold; padding: 6px 8px;"  // REDUCED
-        "background: #e74c3c; color: white; border: none; border-radius: 4px; margin: 2px;"  // REDUCED
+        "font-size: 14px; font-weight: bold; padding: 8px 12px;"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #4ecdc4, stop:1 #44a08d);"
+        "color: white; border: none; border-radius: 8px;"
+        "min-height: 20px; max-height: 35px;"
         "}"
-        "QPushButton:hover { background: #c0392b; }"
-        "QPushButton:disabled { background: #95a5a6; }"
-        );
+        "QPushButton:hover {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #26d0ce, stop:1 #1a2980);"
+        "}";
+
+    playBtn->setStyleSheet(buttonStyle);
+    pauseBtn->setStyleSheet(buttonStyle);
+    resetBtn->setStyleSheet(buttonStyle);
+
+    connect(playBtn, &QPushButton::clicked, this, &MainWindow::onReplayPlay);
+    connect(pauseBtn, &QPushButton::clicked, this, &MainWindow::onReplayPause);
     connect(resetBtn, &QPushButton::clicked, this, &MainWindow::onReplayReset);
 
     controlsLayout->addWidget(playBtn);
@@ -752,289 +1196,219 @@ void MainWindow::setupGameReplayUI()
     controlsLayout->addWidget(resetBtn);
 
     // Speed control
-    QLabel *speedLabel = new QLabel("⚡ Replay Speed:");
-    speedLabel->setStyleSheet("font-size: 8px; font-weight: bold; color: #2c3e50;");  // REDUCED
+    QLabel *speedLabel = new QLabel("⚡ Speed:");
+    speedLabel->setStyleSheet("color: #ffffff; font-size: 14px; font-weight: bold;");
 
     speedSlider = new QSlider(Qt::Horizontal);
     speedSlider->setRange(1, 5);
     speedSlider->setValue(3);
+    speedSlider->setFixedHeight(30);
     speedSlider->setStyleSheet(
         "QSlider::groove:horizontal {"
-        "border: 1px solid #bdc3c7; height: 4px; background: #ecf0f1; border-radius: 2px;"  // REDUCED
+        "border: 1px solid #bdc3c7; height: 8px;"
+        "background: rgba(255, 255, 255, 0.3); border-radius: 4px;"
         "}"
         "QSlider::handle:horizontal {"
-        "background: #3498db; border: 1px solid #2980b9; width: 12px; margin: -3px 0; border-radius: 6px;"  // REDUCED
+        "background: #00ffff; border: 1px solid #00ffff;"
+        "width: 18px; margin: -5px 0; border-radius: 9px;"
         "}"
         );
+
     connect(speedSlider, &QSlider::valueChanged, this, &MainWindow::onReplaySpeedChanged);
 
-    // Back button
-    backFromReplayBtn = new QPushButton("🔙 Back to History");
-    backFromReplayBtn->setStyleSheet(
-        "QPushButton {"
-        "font-size: 9px; font-weight: bold; padding: 6px 10px;"  // REDUCED
-        "background: #95a5a6; color: white; border: none; border-radius: 6px; margin: 4px;"  // REDUCED
-        "}"
-        "QPushButton:hover { background: #7f8c8d; }"
-        );
-    connect(backFromReplayBtn, &QPushButton::clicked, this, &MainWindow::showGameHistory);
-
-    // Setup replay timer
-    replayTimer = new QTimer(this);
-    connect(replayTimer, &QTimer::timeout, this, &MainWindow::replayNextMove);
-
-    // Add to right layout
-    rightLayout->addWidget(replayInfoLabel);
-    rightLayout->addWidget(replayStatusLabel);
-    rightLayout->addLayout(replayBoardLayout);
-    rightLayout->addLayout(controlsLayout);
-    rightLayout->addWidget(speedLabel);
-    rightLayout->addWidget(speedSlider);
-    rightLayout->addWidget(backFromReplayBtn);
-    rightLayout->addStretch();
-
-    // Add to main layout
-    replayMainLayout->addLayout(leftLayout, 1);
-    replayMainLayout->addLayout(rightLayout, 2);
-
-    stackedWidget->addWidget(gameReplayWidget);
-
-    // Initialize replay state
-    currentReplayMoveIndex = 0;
-    isReplaying = false;
-    resetReplayBoard();
-}
-
-void MainWindow::setupPlayerNamesUI()
-{
-    playerNamesWidget = new QWidget();
-    playerNamesWidget->setStyleSheet(
-        "QWidget { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, "
-        "stop:0 #e8f5e8, stop:0.5 #f0f8ff, stop:1 #fff0f5);"
-        "}"
-        );
-    playerNamesWidget->setAutoFillBackground(true);
-
-    QVBoxLayout *playerNamesLayout = new QVBoxLayout(playerNamesWidget);
-    playerNamesLayout->setSpacing(12);  // REDUCED spacing
-    playerNamesLayout->setContentsMargins(20, 15, 20, 15);  // REDUCED margins
-
-    // Compact player names title
-    QLabel *playerNamesTitle = new QLabel("👥 Enter Player Names! 👥");
-    playerNamesTitle->setAlignment(Qt::AlignCenter);
-    playerNamesTitle->setStyleSheet(
+    // Info labels
+    replayInfoLabel = new QLabel("Select a game to replay");
+    replayInfoLabel->setAlignment(Qt::AlignCenter);
+    replayInfoLabel->setMinimumHeight(45);
+    replayInfoLabel->setStyleSheet(
         "QLabel {"
-        "font-size: 16px; font-weight: bold; color: #2c3e50;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.8); border-radius: 10px; padding: 8px;"  // REDUCED padding
-        "margin-bottom: 6px; border: 2px solid #b8c6db;"
+        "font-size: 14px; color: #ffffff;"
+        "background: rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 8px;"
+        "min-height: 25px;"
         "}"
         );
 
-    QLabel *playerNamesSubtitle = new QLabel("Let's personalize your gaming experience! 🎮");
-    playerNamesSubtitle->setAlignment(Qt::AlignCenter);
-    playerNamesSubtitle->setStyleSheet(
-        "font-size: 10px; color: #34495e; margin-bottom: 8px; font-style: italic;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.6); border-radius: 6px; padding: 4px;"  // REDUCED padding
-        );
-
-    // Player 1 name field
-    QLabel *player1Label = new QLabel("🎯 Player 1 Name (X):");
-    player1Label->setStyleSheet("font-size: 11px; font-weight: bold; color: #2c3e50; margin: 2px;");  // REDUCED
-
-    player1NameEdit = new QLineEdit();
-    player1NameEdit->setPlaceholderText("Enter Player 1's name");
-    player1NameEdit->setText("Player 1");
-    player1NameEdit->setStyleSheet(
-        "QLineEdit {"
-        "font-size: 10px; padding: 6px; border: 2px solid #e74c3c; border-radius: 6px;"  // REDUCED
-        "background: rgba(255, 255, 255, 0.9); color: #2c3e50;"
+    replayStatusLabel = new QLabel("Ready");
+    replayStatusLabel->setAlignment(Qt::AlignCenter);
+    replayStatusLabel->setMinimumHeight(40);
+    replayStatusLabel->setStyleSheet(
+        "QLabel {"
+        "font-size: 13px; color: #00ffff;"
+        "background: rgba(0, 255, 255, 0.1); border-radius: 8px; padding: 6px;"
+        "min-height: 20px;"
         "}"
-        "QLineEdit:focus { border: 2px solid #c0392b; }"
         );
 
-    // Player 2 name field
-    QLabel *player2Label = new QLabel("⭕ Player 2 Name (O):");
-    player2Label->setStyleSheet("font-size: 11px; font-weight: bold; color: #2c3e50; margin: 2px;");  // REDUCED
-
-    player2NameEdit = new QLineEdit();
-    player2NameEdit->setPlaceholderText("Enter Player 2's name");
-    player2NameEdit->setText("Player 2");
-    player2NameEdit->setStyleSheet(
-        "QLineEdit {"
-        "font-size: 10px; padding: 6px; border: 2px solid #3498db; border-radius: 6px;"  // REDUCED
-        "background: rgba(255, 255, 255, 0.9); color: #2c3e50;"
-        "}"
-        "QLineEdit:focus { border: 2px solid #2980b9; }"
-        );
-
-    // Confirm button
-    confirmNamesBtn = new QPushButton("✅ Let's Play!");
-    confirmNamesBtn->setStyleSheet(
+    // Back button
+    QPushButton *backBtn = new QPushButton("🔙 Back to History");
+    backBtn->setMinimumHeight(50);
+    backBtn->setMaximumHeight(50);
+    backBtn->setStyleSheet(
         "QPushButton {"
-        "font-size: 11px; font-weight: bold; padding: 8px;"  // REDUCED
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #27ae60, stop:1 #229954);"
-        "color: white; border: none; border-radius: 8px; margin: 5px;"  // REDUCED
+        "font-size: 15px; font-weight: bold; padding: 10px;"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #ff6b6b, stop:1 #ff5252);"
+        "color: white; border: none; border-radius: 8px;"
+        "min-height: 25px; max-height: 25px;"
         "}"
         "QPushButton:hover {"
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #229954, stop:1 #1e8449);"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #ff5252, stop:1 #ff3838);"
         "}"
         );
-    connect(confirmNamesBtn, &QPushButton::clicked, this, &MainWindow::onPlayerNamesConfirmed);
+    connect(backBtn, &QPushButton::clicked, this, &MainWindow::showGameHistory);
 
-    // Back button
-    QPushButton *backToModeBtn = new QPushButton("⬅️ Back to Mode Selection");
-    backToModeBtn->setStyleSheet(
-        "QPushButton {"
-        "font-size: 9px; background: rgba(149, 165, 166, 0.8); color: white; font-weight: bold;"  // REDUCED
-        "border: none; border-radius: 6px; padding: 6px 10px; margin: 4px;"  // REDUCED
-        "}"
-        "QPushButton:hover { background: rgba(127, 140, 141, 0.9); }"
+    // Add all left panel components
+    leftPanelLayout->addWidget(gameListLabel);
+    leftPanelLayout->addWidget(gameListWidget);
+    leftPanelLayout->addWidget(controlsLabel);
+    leftPanelLayout->addLayout(controlsLayout);
+    leftPanelLayout->addWidget(speedLabel);
+    leftPanelLayout->addWidget(speedSlider);
+    leftPanelLayout->addWidget(replayInfoLabel);
+    leftPanelLayout->addWidget(replayStatusLabel);
+    leftPanelLayout->addWidget(backBtn);
+    leftPanelLayout->addStretch(); // Push everything up
+
+    // RIGHT PANEL - Game Board
+    QWidget *rightPanel = new QWidget();
+    rightPanel->setFixedWidth(340);
+    rightPanel->setStyleSheet("QWidget { background: transparent; }");
+
+    QVBoxLayout *rightPanelLayout = new QVBoxLayout(rightPanel);
+    rightPanelLayout->setAlignment(Qt::AlignCenter);
+    rightPanelLayout->setContentsMargins(10, 10, 10, 10);
+
+    QLabel *boardLabel = new QLabel("🎯 Game Board");
+    boardLabel->setAlignment(Qt::AlignCenter);
+    boardLabel->setStyleSheet(
+        "QLabel { font-size: 18px; font-weight: bold; color: #ffffff; margin: 10px; }"
         );
-    connect(backToModeBtn, &QPushButton::clicked, this, &MainWindow::showGameSetup);
 
-    // Add to layout
-    playerNamesLayout->addWidget(playerNamesTitle);
-    playerNamesLayout->addWidget(playerNamesSubtitle);
-    playerNamesLayout->addWidget(player1Label);
-    playerNamesLayout->addWidget(player1NameEdit);
-    playerNamesLayout->addWidget(player2Label);
-    playerNamesLayout->addWidget(player2NameEdit);
-    playerNamesLayout->addWidget(confirmNamesBtn);
-    playerNamesLayout->addWidget(backToModeBtn);
-    playerNamesLayout->addStretch();
-
-    stackedWidget->addWidget(playerNamesWidget);
-}
-
-void MainWindow::setupGameSetupUI()
-{
-    setupWidget = new QWidget();
-    setupWidget->setStyleSheet(
-        "QWidget { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, "
-        "stop:0 #e8f5e8, stop:0.5 #f0f8ff, stop:1 #fff0f5);"
-        "}"
-        );
-    setupWidget->setAutoFillBackground(true);
-
-    setupLayout = new QVBoxLayout(setupWidget);
-    setupLayout->setSpacing(12);  // REDUCED spacing
-    setupLayout->setContentsMargins(20, 15, 20, 15);  // REDUCED margins
-
-    // Compact user info header
-    QLabel *userInfoLabel = new QLabel();
-    userInfoLabel->setAlignment(Qt::AlignCenter);
-    userInfoLabel->setStyleSheet(
-        "QLabel {"
-        "font-size: 10px; font-weight: bold; color: #2c3e50;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.7); border-radius: 6px; padding: 5px;"  // REDUCED padding
-        "margin-bottom: 5px; border: 1px solid #bdc3c7;"
+    // Replay board
+    QWidget *replayBoardContainer = new QWidget();
+    replayBoardContainer->setFixedSize(300, 300);
+    replayBoardContainer->setStyleSheet(
+        "QWidget {"
+        "background: rgba(255, 255, 255, 0.1);"
+        "border: 2px solid rgba(0, 255, 255, 0.3);"
+        "border-radius: 15px;"
         "}"
         );
 
-    // Profile and logout buttons
-    QHBoxLayout *userControlLayout = new QHBoxLayout();
+    QGridLayout *replayBoardLayout = new QGridLayout(replayBoardContainer);
+    replayBoardLayout->setSpacing(5);
+    replayBoardLayout->setContentsMargins(15, 15, 15, 15);
 
-    profileBtn = new QPushButton("👤 Profile");
-    profileBtn->setStyleSheet(
-        "QPushButton {"
-        "font-size: 8px; background: rgba(52, 152, 219, 0.8); color: white; font-weight: bold;"  // REDUCED
-        "border: none; border-radius: 4px; padding: 4px 6px; margin: 1px;"  // REDUCED
-        "}"
-        "QPushButton:hover { background: rgba(41, 128, 185, 0.9); }"
-        );
-    connect(profileBtn, &QPushButton::clicked, this, &MainWindow::showUserProfile);
-
-    QPushButton *logoutBtnSmall = new QPushButton("🚪 Logout");
-    logoutBtnSmall->setStyleSheet(
-        "QPushButton {"
-        "font-size: 8px; background: rgba(231, 76, 60, 0.8); color: white; font-weight: bold;"  // REDUCED
-        "border: none; border-radius: 4px; padding: 4px 6px; margin: 1px;"  // REDUCED
-        "}"
-        "QPushButton:hover { background: rgba(192, 57, 43, 0.9); }"
-        );
-    connect(logoutBtnSmall, &QPushButton::clicked, this, &MainWindow::onLogoutClicked);
-
-    userControlLayout->addWidget(profileBtn);
-    userControlLayout->addStretch();
-    userControlLayout->addWidget(logoutBtnSmall);
-
-    // Update user info display
-    if (userManager->isUserLoggedIn()) {
-        User* user = userManager->getCurrentUser();
-        userInfoLabel->setText(QString("🎮 Player: %1 | 🏆 Wins: %2 | 📊 Win Rate: %3%")
-                                   .arg(user->getUsername())
-                                   .arg(user->getGamesWon())
-                                   .arg(QString::number(user->getWinRate(), 'f', 1)));
+    // Create replay board cells
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            replayCells[i][j] = new QPushButton("");
+            replayCells[i][j]->setFixedSize(80, 80);
+            replayCells[i][j]->setEnabled(false);
+            replayCells[i][j]->setStyleSheet(
+                "QPushButton {"
+                "font-size: 24px; font-weight: bold;"
+                "background: rgba(255, 255, 255, 0.9);"
+                "border: 1px solid #bdc3c7; border-radius: 8px;"
+                "color: #2c3e50;"
+                "}"
+                );
+            replayBoardLayout->addWidget(replayCells[i][j], i, j);
+        }
     }
 
-    // Compact title
-    setupTitleLabel = new QLabel("🌟 Welcome to Tic Tac Toe! 🌟");
-    setupTitleLabel->setAlignment(Qt::AlignCenter);
-    setupTitleLabel->setStyleSheet(
-        "QLabel {"
-        "font-size: 16px; font-weight: bold; color: #2c3e50;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.8); border-radius: 10px; padding: 8px;"  // REDUCED padding
-        "margin-bottom: 6px; border: 2px solid #b8c6db;"
+    rightPanelLayout->addWidget(boardLabel);
+    rightPanelLayout->addWidget(replayBoardContainer);
+    rightPanelLayout->addStretch(); // Center the board
+
+    // Add left and right panels to main content layout
+    mainContentLayout->addWidget(leftPanel);
+    mainContentLayout->addWidget(rightPanel);
+
+    // Initialize replay timer
+    replayTimer = new QTimer(this);
+    replayTimer->setSingleShot(false);
+    connect(replayTimer, &QTimer::timeout, this, &MainWindow::replayNextMove);
+
+    // Add to container layout
+    containerLayout->addWidget(replayTitle);
+    containerLayout->addLayout(mainContentLayout);
+
+    mainLayout->addWidget(replayContainer);
+    stackedWidget->addWidget(gameReplayWidget);
+}
+
+void MainWindow::setupGameSetupUI() {
+    setupWidget = new QWidget();
+    setupWidget->setStyleSheet("QWidget { background: transparent; }");
+
+    QVBoxLayout *mainLayout = new QVBoxLayout(setupWidget);
+    mainLayout->setAlignment(Qt::AlignCenter);
+
+    QWidget *setupContainer = new QWidget();
+    setupContainer->setFixedSize(500, 450); // Increased height from 400 to 450
+    setupContainer->setStyleSheet(
+        "QWidget {"
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
+        "stop:0 rgba(255, 255, 255, 0.15), stop:1 rgba(255, 255, 255, 0.08));"
+        "border: 2px solid rgba(255, 255, 255, 0.3);"
+        "border-radius: 20px;"
         "}"
         );
 
-    // Gentle instruction
-    QLabel *instructionLabel = new QLabel("Ready for some awesome fun? Let's get started! 🚀");
-    instructionLabel->setAlignment(Qt::AlignCenter);
-    instructionLabel->setStyleSheet(
-        "font-size: 11px; color: #34495e; margin-bottom: 8px; font-style: italic;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.6); border-radius: 6px; padding: 4px;"  // REDUCED padding
+    QVBoxLayout *containerLayout = new QVBoxLayout(setupContainer);
+    containerLayout->setSpacing(25);
+    containerLayout->setContentsMargins(50, 40, 50, 40);
+
+    // Fixed title label with proper sizing and frame
+    QLabel *setupTitle = new QLabel("⚙️ Game Setup ⚙️");
+    setupTitle->setAlignment(Qt::AlignCenter);
+    setupTitle->setMinimumHeight(70); // Ensure minimum height for emojis
+    setupTitle->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    setupTitle->setWordWrap(true); // Allow text wrapping if needed
+    setupTitle->setStyleSheet(
+        "QLabel {"
+        "font-size: 28px; font-weight: bold; color: #00ffff;"
+        "text-shadow: 0 0 20px #00ffff;"
+        "background: transparent; padding: 15px;"
+        "border: 2px solid rgba(0, 255, 255, 0.5);" // Added frame back
+        "border-radius: 12px;" // Rounded corners for the frame
+        "}"
         );
 
-    // Compact mode selection
-    QLabel *modeLabel = new QLabel("🎯 Choose Your Fun Adventure!");
+    QLabel *modeLabel = new QLabel("🎮 Choose Game Mode:");
+    modeLabel->setMinimumHeight(35); // Ensure proper height
     modeLabel->setStyleSheet(
-        "font-size: 12px; font-weight: bold; color: #2c3e50; "  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 6px; margin: 4px;"  // REDUCED
-        "border: 1px solid #d5dbdb;"
+        "QLabel { font-size: 18px; font-weight: bold; color: #ffffff; margin: 8px; }"
         );
 
     modeButtonGroup = new QButtonGroup(this);
 
-    pvpModeBtn = new QRadioButton("👫 Play with a Friend - Double the Fun!");
-    pvpModeBtn->setStyleSheet(
-        "QRadioButton {"
-        "font-size: 10px; padding: 8px; color: #2c3e50; font-weight: bold;"  // REDUCED
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #ffecd2, stop:1 #fcb69f);"
-        "border-radius: 8px; margin: 4px; border: 1px solid #f39c12;"  // REDUCED
-        "}"
-        "QRadioButton::indicator { width: 16px; height: 16px; }"  // REDUCED
-        "QRadioButton::indicator::unchecked {"
-        "border: 2px solid #95a5a6; border-radius: 8px; background: white;"
-        "}"
-        "QRadioButton::indicator::checked {"
-        "border: 2px solid #27ae60; border-radius: 8px; background: #27ae60;"
-        "}"
-        "QRadioButton:hover { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #ffe0b2, stop:1 #ffab91);"
-        "}"
-        );
+    pvpModeBtn = new QRadioButton("👥 Player vs Player");
+    pvaiModeBtn = new QRadioButton("🤖 Player vs AI");
 
-    pvaiModeBtn = new QRadioButton("🤖 Challenge the Smart AI - Test Your Skills!");
-    pvaiModeBtn->setStyleSheet(
+    QString radioStyle =
         "QRadioButton {"
-        "font-size: 10px; padding: 8px; color: #2c3e50; font-weight: bold;"  // REDUCED
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #d4edda, stop:1 #c3e6cb);"
-        "border-radius: 8px; margin: 4px; border: 1px solid #28a745;"  // REDUCED
+        "font-size: 16px; color: #ffffff; padding: 8px;"
+        "min-height: 25px;" // Ensure minimum height for radio buttons
         "}"
-        "QRadioButton::indicator { width: 16px; height: 16px; }"  // REDUCED
-        "QRadioButton::indicator::unchecked {"
-        "border: 2px solid #95a5a6; border-radius: 8px; background: white;"
+        "QRadioButton::indicator {"
+        "width: 18px; height: 18px;"
         "}"
-        "QRadioButton::indicator::checked {"
-        "border: 2px solid #27ae60; border-radius: 8px; background: #27ae60;"
+        "QRadioButton::indicator:unchecked {"
+        "border: 2px solid #00ffff; border-radius: 9px;"
+        "background: rgba(255, 255, 255, 0.1);"
         "}"
-        "QRadioButton:hover { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #c8e6c9, stop:1 #a5d6a7);"
-        "}"
-        );
+        "QRadioButton::indicator:checked {"
+        "border: 2px solid #00ffff; border-radius: 9px;"
+        "background: #00ffff;"
+        "}";
+
+    pvpModeBtn->setStyleSheet(radioStyle);
+    pvpModeBtn->setMinimumHeight(35);
+    pvaiModeBtn->setStyleSheet(radioStyle);
+    pvaiModeBtn->setMinimumHeight(35);
 
     modeButtonGroup->addButton(pvpModeBtn);
     modeButtonGroup->addButton(pvaiModeBtn);
@@ -1042,116 +1416,90 @@ void MainWindow::setupGameSetupUI()
     connect(pvpModeBtn, &QRadioButton::clicked, this, &MainWindow::onModeSelected);
     connect(pvaiModeBtn, &QRadioButton::clicked, this, &MainWindow::onModeSelected);
 
-    // Add to layout
-    setupLayout->addWidget(userInfoLabel);
-    setupLayout->addLayout(userControlLayout);
-    setupLayout->addWidget(setupTitleLabel);
-    setupLayout->addWidget(instructionLabel);
-    setupLayout->addWidget(modeLabel);
-    setupLayout->addWidget(pvpModeBtn);
-    setupLayout->addWidget(pvaiModeBtn);
-    setupLayout->addStretch();
+    // Elegant Back Button
+    QPushButton *backBtn = new QPushButton("⬅️ Back");
+    backBtn->setMinimumHeight(40);
+    backBtn->setStyleSheet(
+        "QPushButton {"
+        "font-size: 15px; font-weight: bold; padding: 8px 18px;"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #b2bec3, stop:1 #636e72);"
+        "color: #222; border: none; border-radius: 10px; margin-top: 10px;"
+        "}"
+        "QPushButton:hover {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #636e72, stop:1 #b2bec3);"
+        "color: #fff;"
+        "}"
+        );
+    connect(backBtn, &QPushButton::clicked, this, &MainWindow::showUserProfile);
 
+    containerLayout->addWidget(setupTitle);
+    containerLayout->addWidget(modeLabel);
+    containerLayout->addWidget(pvpModeBtn);
+    containerLayout->addWidget(pvaiModeBtn);
+    containerLayout->addWidget(backBtn);
+
+    mainLayout->addWidget(setupContainer);
     stackedWidget->addWidget(setupWidget);
 }
-
 void MainWindow::setupDifficultyWidget()
 {
     difficultyWidget = new QWidget();
-    difficultyWidget->setStyleSheet(
-        "QWidget { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, "
-        "stop:0 #e8f5e8, stop:0.5 #f0f8ff, stop:1 #fff0f5);"
+    difficultyWidget->setStyleSheet("QWidget { background: transparent; }");
+
+    QVBoxLayout *mainLayout = new QVBoxLayout(difficultyWidget);
+    mainLayout->setAlignment(Qt::AlignCenter);
+
+    QWidget *difficultyContainer = new QWidget();
+    difficultyContainer->setFixedSize(500, 450);
+    difficultyContainer->setStyleSheet(
+        "QWidget {"
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
+        "stop:0 rgba(255, 255, 255, 0.15), stop:1 rgba(255, 255, 255, 0.08));"
+        "border: 2px solid rgba(255, 255, 255, 0.3);"
+        "border-radius: 20px;"
         "}"
         );
-    difficultyWidget->setAutoFillBackground(true);
 
-    QVBoxLayout *difficultyLayout = new QVBoxLayout(difficultyWidget);
-    difficultyLayout->setSpacing(12);  // REDUCED spacing
-    difficultyLayout->setContentsMargins(20, 15, 20, 15);  // REDUCED margins
+    QVBoxLayout *containerLayout = new QVBoxLayout(difficultyContainer);
+    containerLayout->setSpacing(25);
+    containerLayout->setContentsMargins(50, 40, 50, 40);
 
-    // Compact difficulty title
-    QLabel *difficultyTitle = new QLabel("🎯 Choose Your Challenge Level! 🎯");
+    QLabel *difficultyTitle = new QLabel("🎯 Choose Difficulty 🎯");
     difficultyTitle->setAlignment(Qt::AlignCenter);
     difficultyTitle->setStyleSheet(
         "QLabel {"
-        "font-size: 16px; font-weight: bold; color: #2c3e50;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.8); border-radius: 10px; padding: 8px;"  // REDUCED padding
-        "margin-bottom: 6px; border: 2px solid #b8c6db;"
+        "font-size: 28px; font-weight: bold; color: #00ffff;"
+        "text-shadow: 0 0 20px #00ffff;"
+        "background: transparent; padding: 15px;"
         "}"
-        );
-
-    QLabel *difficultyLabel = new QLabel("🌟 How challenging do you want it to be?");
-    difficultyLabel->setStyleSheet(
-        "font-size: 12px; font-weight: bold; color: #2c3e50; "  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 6px; margin: 4px;"  // REDUCED
-        );
-
-    QLabel *difficultyHint = new QLabel("Don't worry - you can always try a different level later! 😊");
-    difficultyHint->setAlignment(Qt::AlignCenter);
-    difficultyHint->setStyleSheet(
-        "font-size: 10px; color: #34495e; font-style: italic; margin: 4px;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.6); border-radius: 6px; padding: 4px;"  // REDUCED padding
         );
 
     difficultyButtonGroup = new QButtonGroup(this);
 
-    easyBtn = new QRadioButton("😊 Easy Peasy - Perfect for Learning!");
-    easyBtn->setStyleSheet(
-        "QRadioButton {"
-        "font-size: 10px; padding: 8px; color: #2c3e50; font-weight: bold;"  // REDUCED
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #d4edda, stop:1 #c3e6cb);"
-        "border-radius: 8px; margin: 4px; border: 1px solid #28a745;"  // REDUCED
-        "}"
-        "QRadioButton::indicator { width: 16px; height: 16px; }"  // REDUCED
-        "QRadioButton::indicator::unchecked {"
-        "border: 2px solid #95a5a6; border-radius: 8px; background: white;"
-        "}"
-        "QRadioButton::indicator::checked {"
-        "border: 2px solid #27ae60; border-radius: 8px; background: #27ae60;"
-        "}"
-        "QRadioButton:hover { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #c8e6c9, stop:1 #a5d6a7);"
-        "}"
-        );
+    easyBtn = new QRadioButton("🟢 Easy - Good for beginners");
+    mediumBtn = new QRadioButton("🟡 Medium - Balanced challenge");
+    hardBtn = new QRadioButton("🔴 Hard - Expert level");
 
-    mediumBtn = new QRadioButton("😎 Medium Challenge - Bring It On!");
-    mediumBtn->setStyleSheet(
+    QString radioStyle =
         "QRadioButton {"
-        "font-size: 10px; padding: 8px; color: #2c3e50; font-weight: bold;"  // REDUCED
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #fff3cd, stop:1 #ffeaa7);"
-        "border-radius: 8px; margin: 4px; border: 1px solid #ffc107;"  // REDUCED
+        "font-size: 16px; color: #ffffff; padding: 10px;"
         "}"
-        "QRadioButton::indicator { width: 16px; height: 16px; }"  // REDUCED
-        "QRadioButton::indicator::unchecked {"
-        "border: 2px solid #95a5a6; border-radius: 8px; background: white;"
+        "QRadioButton::indicator {"
+        "width: 18px; height: 18px;"
         "}"
-        "QRadioButton::indicator::checked {"
-        "border: 2px solid #f39c12; border-radius: 8px; background: #f39c12;"
+        "QRadioButton::indicator:unchecked {"
+        "border: 2px solid #00ffff; border-radius: 9px;"
+        "background: rgba(255, 255, 255, 0.1);"
         "}"
-        "QRadioButton:hover { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #ffe8a1, stop:1 #fdd835);"
-        "}"
-        );
+        "QRadioButton::indicator:checked {"
+        "border: 2px solid #00ffff; border-radius: 9px;"
+        "background: #00ffff;"
+        "}";
 
-    hardBtn = new QRadioButton("🔥 Expert Mode - Ultimate Challenge!");
-    hardBtn->setStyleSheet(
-        "QRadioButton {"
-        "font-size: 10px; padding: 8px; color: #2c3e50; font-weight: bold;"  // REDUCED
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #f8d7da, stop:1 #f5c6cb);"
-        "border-radius: 8px; margin: 4px; border: 1px solid #dc3545;"  // REDUCED
-        "}"
-        "QRadioButton::indicator { width: 16px; height: 16px; }"  // REDUCED
-        "QRadioButton::indicator::unchecked {"
-        "border: 2px solid #95a5a6; border-radius: 8px; background: white;"
-        "}"
-        "QRadioButton::indicator::checked {"
-        "border: 2px solid #e74c3c; border-radius: 8px; background: #e74c3c;"
-        "}"
-        "QRadioButton:hover { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #f1b0b7, stop:1 #f8cecc);"
-        "}"
-        );
+    easyBtn->setStyleSheet(radioStyle);
+    mediumBtn->setStyleSheet(radioStyle);
+    hardBtn->setStyleSheet(radioStyle);
 
     difficultyButtonGroup->addButton(easyBtn);
     difficultyButtonGroup->addButton(mediumBtn);
@@ -1161,69 +1509,75 @@ void MainWindow::setupDifficultyWidget()
     connect(mediumBtn, &QRadioButton::clicked, this, &MainWindow::onDifficultySelected);
     connect(hardBtn, &QRadioButton::clicked, this, &MainWindow::onDifficultySelected);
 
-    // Compact back button
-    QPushButton *difficultyBackBtn = new QPushButton("⬅️ Oops, Go Back");
-    difficultyBackBtn->setStyleSheet(
+    // Elegant Back Button
+    QPushButton *backBtn = new QPushButton("⬅️ Back");
+    backBtn->setMinimumHeight(40);
+    backBtn->setStyleSheet(
         "QPushButton {"
-        "font-size: 10px; background: rgba(255, 255, 255, 0.8); color: #2c3e50; font-weight: bold;"  // REDUCED
-        "border: 1px solid #bdc3c7; border-radius: 8px; padding: 6px 10px; margin: 6px;"  // REDUCED
+        "font-size: 15px; font-weight: bold; padding: 8px 18px;"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #b2bec3, stop:1 #636e72);"
+        "color: #222; border: none; border-radius: 10px; margin-top: 10px;"
         "}"
-        "QPushButton:hover { "
-        "background: rgba(255, 255, 255, 0.9); "
-        "border: 1px solid #95a5a6;"
+        "QPushButton:hover {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #636e72, stop:1 #b2bec3);"
+        "color: #fff;"
         "}"
         );
-    connect(difficultyBackBtn, &QPushButton::clicked, this, &MainWindow::showGameSetup);
+    connect(backBtn, &QPushButton::clicked, this, &MainWindow::showGameSetup);
 
-    difficultyLayout->addWidget(difficultyTitle);
-    difficultyLayout->addWidget(difficultyLabel);
-    difficultyLayout->addWidget(difficultyHint);
-    difficultyLayout->addWidget(easyBtn);
-    difficultyLayout->addWidget(mediumBtn);
-    difficultyLayout->addWidget(hardBtn);
-    difficultyLayout->addWidget(difficultyBackBtn);
-    difficultyLayout->addStretch();
+    containerLayout->addWidget(difficultyTitle);
+    containerLayout->addWidget(easyBtn);
+    containerLayout->addWidget(mediumBtn);
+    containerLayout->addWidget(hardBtn);
+    containerLayout->addWidget(backBtn);
 
+    mainLayout->addWidget(difficultyContainer);
     stackedWidget->addWidget(difficultyWidget);
 }
 
 void MainWindow::setupSymbolWidget()
 {
     symbolWidget = new QWidget();
-    symbolWidget->setStyleSheet(
-        "QWidget { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:1, "
-        "stop:0 #e8f5e8, stop:0.5 #f0f8ff, stop:1 #fff0f5);"
+    symbolWidget->setStyleSheet("QWidget { background: transparent; }"); // Changed to transparent like other widgets
+
+    QVBoxLayout *mainLayout = new QVBoxLayout(symbolWidget);
+    mainLayout->setAlignment(Qt::AlignCenter);
+
+    // Create floating symbol container like difficulty widget
+    QWidget *symbolContainer = new QWidget();
+    symbolContainer->setFixedSize(500, 450); // Same size as difficulty widget
+    symbolContainer->setStyleSheet(
+        "QWidget {"
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
+        "stop:0 rgba(255, 255, 255, 0.15), stop:1 rgba(255, 255, 255, 0.08));"
+        "border: 2px solid rgba(255, 255, 255, 0.3);"
+        "border-radius: 20px;"
         "}"
         );
-    symbolWidget->setAutoFillBackground(true);
 
-    QVBoxLayout *symbolLayout = new QVBoxLayout(symbolWidget);
-    symbolLayout->setSpacing(12);  // REDUCED spacing
-    symbolLayout->setContentsMargins(20, 15, 20, 15);  // REDUCED margins
+    QVBoxLayout *containerLayout = new QVBoxLayout(symbolContainer);
+    containerLayout->setSpacing(25);
+    containerLayout->setContentsMargins(50, 40, 50, 40);
 
-    // Compact symbol title
+    // Title with consistent styling
     QLabel *symbolTitle = new QLabel("⭐ Pick Your Lucky Symbol! ⭐");
     symbolTitle->setAlignment(Qt::AlignCenter);
     symbolTitle->setStyleSheet(
         "QLabel {"
-        "font-size: 16px; font-weight: bold; color: #2c3e50;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.8); border-radius: 10px; padding: 8px;"  // REDUCED padding
-        "margin-bottom: 6px; border: 2px solid #b8c6db;"
+        "font-size: 28px; font-weight: bold; color: #00ffff;"
+        "text-shadow: 0 0 20px #00ffff;"
+        "background: transparent; padding: 15px;"
         "}"
         );
 
     QLabel *symbolLabel = new QLabel("✨ Which symbol represents YOU?");
+    symbolLabel->setAlignment(Qt::AlignCenter);
     symbolLabel->setStyleSheet(
-        "font-size: 12px; font-weight: bold; color: #2c3e50; "  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 6px; margin: 4px;"  // REDUCED
-        );
-
-    QLabel *symbolHint = new QLabel("Remember: X always gets the first move! 🎯");
-    symbolHint->setAlignment(Qt::AlignCenter);
-    symbolHint->setStyleSheet(
-        "font-size: 10px; color: #34495e; font-style: italic; margin: 4px;"  // REDUCED font size
-        "background: rgba(255, 255, 255, 0.6); border-radius: 6px; padding: 4px;"  // REDUCED padding
+        "QLabel {"
+        "font-size: 18px; color: #ffffff; margin-bottom: 15px;"
+        "background: rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 12px;"
+        "}"
         );
 
     symbolButtonGroup = new QButtonGroup(this);
@@ -1231,38 +1585,36 @@ void MainWindow::setupSymbolWidget()
     xSymbolBtn = new QRadioButton("❌ X - I Love Going First!");
     xSymbolBtn->setStyleSheet(
         "QRadioButton {"
-        "font-size: 10px; padding: 8px; color: #2c3e50; font-weight: bold;"  // REDUCED
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #f8d7da, stop:1 #f5c6cb);"
-        "border-radius: 8px; margin: 4px; border: 1px solid #dc3545;"  // REDUCED
+        "font-size: 16px; color: #ffffff; padding: 10px;"
         "}"
-        "QRadioButton::indicator { width: 16px; height: 16px; }"  // REDUCED
-        "QRadioButton::indicator::unchecked {"
-        "border: 2px solid #95a5a6; border-radius: 8px; background: white;"
+        "QRadioButton::indicator {"
+        "width: 18px; height: 18px;"
         "}"
-        "QRadioButton::indicator::checked {"
-        "border: 2px solid #e74c3c; border-radius: 8px; background: #e74c3c;"
+        "QRadioButton::indicator:unchecked {"
+        "border: 2px solid #00ffff; border-radius: 9px;"
+        "background: rgba(255, 255, 255, 0.1);"
         "}"
-        "QRadioButton:hover { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #f1b0b7, stop:1 #f8cecc);"
+        "QRadioButton::indicator:checked {"
+        "border: 2px solid #00ffff; border-radius: 9px;"
+        "background: #00ffff;"
         "}"
         );
 
     oSymbolBtn = new QRadioButton("⭕ O - I'm Patient and Strategic!");
     oSymbolBtn->setStyleSheet(
         "QRadioButton {"
-        "font-size: 10px; padding: 8px; color: #2c3e50; font-weight: bold;"  // REDUCED
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #cce5ff, stop:1 #b3d9ff);"
-        "border-radius: 8px; margin: 4px; border: 1px solid #007bff;"  // REDUCED
+        "font-size: 16px; color: #ffffff; padding: 10px;"
         "}"
-        "QRadioButton::indicator { width: 16px; height: 16px; }"  // REDUCED
-        "QRadioButton::indicator::unchecked {"
-        "border: 2px solid #95a5a6; border-radius: 8px; background: white;"
+        "QRadioButton::indicator {"
+        "width: 18px; height: 18px;"
         "}"
-        "QRadioButton::indicator::checked {"
-        "border: 2px solid #3498db; border-radius: 8px; background: #3498db;"
+        "QRadioButton::indicator:unchecked {"
+        "border: 2px solid #00ffff; border-radius: 9px;"
+        "background: rgba(255, 255, 255, 0.1);"
         "}"
-        "QRadioButton:hover { "
-        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #99ccff, stop:1 #80bfff);"
+        "QRadioButton::indicator:checked {"
+        "border: 2px solid #00ffff; border-radius: 9px;"
+        "background: #00ffff;"
         "}"
         );
 
@@ -1272,32 +1624,59 @@ void MainWindow::setupSymbolWidget()
     connect(xSymbolBtn, &QRadioButton::clicked, this, &MainWindow::onSymbolSelected);
     connect(oSymbolBtn, &QRadioButton::clicked, this, &MainWindow::onSymbolSelected);
 
-    // Compact back button
-    QPushButton *symbolBackBtn = new QPushButton("⬅️ Let Me Reconsider");
-    symbolBackBtn->setStyleSheet(
+    // Elegant Back and Cancel buttons in a horizontal layout
+    QHBoxLayout *buttonRow = new QHBoxLayout();
+    buttonRow->setSpacing(20);
+
+    QPushButton *backBtn = new QPushButton("⬅️ Back");
+    backBtn->setMinimumHeight(40);
+    backBtn->setStyleSheet(
         "QPushButton {"
-        "font-size: 10px; background: rgba(255, 255, 255, 0.8); color: #2c3e50; font-weight: bold;"  // REDUCED
-        "border: 1px solid #bdc3c7; border-radius: 8px; padding: 6px 10px; margin: 6px;"  // REDUCED
+        "font-size: 15px; font-weight: bold; padding: 8px 18px;"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #b2bec3, stop:1 #636e72);"
+        "color: #222; border: none; border-radius: 10px;"
         "}"
-        "QPushButton:hover { "
-        "background: rgba(255, 255, 255, 0.9); "
-        "border: 1px solid #95a5a6;"
+        "QPushButton:hover {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #636e72, stop:1 #b2bec3);"
+        "color: #fff;"
         "}"
         );
-    connect(symbolBackBtn, &QPushButton::clicked, [this]() {
+    connect(backBtn, &QPushButton::clicked, [this]() {
         stackedWidget->setCurrentWidget(difficultyWidget);
     });
 
-    symbolLayout->addWidget(symbolTitle);
-    symbolLayout->addWidget(symbolLabel);
-    symbolLayout->addWidget(symbolHint);
-    symbolLayout->addWidget(xSymbolBtn);
-    symbolLayout->addWidget(oSymbolBtn);
-    symbolLayout->addWidget(symbolBackBtn);
-    symbolLayout->addStretch();
+    QPushButton *cancelBtn = new QPushButton("❌ Cancel");
+    cancelBtn->setMinimumHeight(40);
+    cancelBtn->setStyleSheet(
+        "QPushButton {"
+        "font-size: 15px; font-weight: bold; padding: 8px 18px;"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #ff6b6b, stop:1 #ff5252);"
+        "color: white; border: none; border-radius: 10px;"
+        "}"
+        "QPushButton:hover {"
+        "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+        "stop:0 #ff5252, stop:1 #ff3838);"
+        "}"
+        );
+    connect(cancelBtn, &QPushButton::clicked, [this]() {
+        stackedWidget->setCurrentWidget(setupWidget);
+    });
 
+    buttonRow->addWidget(backBtn);
+    buttonRow->addWidget(cancelBtn);
+
+    containerLayout->addWidget(symbolTitle);
+    containerLayout->addWidget(symbolLabel);
+    containerLayout->addWidget(xSymbolBtn);
+    containerLayout->addWidget(oSymbolBtn);
+    containerLayout->addLayout(buttonRow);
+
+    mainLayout->addWidget(symbolContainer);
     stackedWidget->addWidget(symbolWidget);
 }
+
 
 void MainWindow::showLoginScreen()
 {
@@ -1362,18 +1741,32 @@ void MainWindow::onLoginClicked()
     QString password = loginPasswordEdit->text();
 
     if (username.isEmpty() || password.isEmpty()) {
-        QMessageBox::warning(this, "❌ Login Failed",
-                             "Please enter both username and password! 📝");
+        // With this:
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("❌ Login Failed");
+        msgBox.setText("Please enter both username and password! 📝");
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setStyleSheet("background-color: white; color: black;");
+        msgBox.exec();
         return;
     }
 
     if (userManager->loginUser(username, password)) {
-        QMessageBox::information(this, "✅ Welcome Back!",
-                                 QString("Hello %1! Ready to play? 🎮").arg(username));
-        showUserProfile();
+        // With this:
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("✅ Welcome Back!");
+        msgBox.setText(QString("Hello %1! Ready to play? 🎮").arg(username));
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setStyleSheet("background-color: white; color: black;");
+        msgBox.exec();     showUserProfile();
     } else {
-        QMessageBox::warning(this, "❌ Login Failed",
-                             "Invalid username or password. Please try again! 🔐");
+        // With this:
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("❌ Login Failed");
+        msgBox.setText("Invalid username or password. Please try again! 🔐");
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setStyleSheet("background-color: white; color: black;");
+        msgBox.exec();
         loginPasswordEdit->clear();
         loginPasswordEdit->setFocus();
     }
@@ -1386,42 +1779,69 @@ void MainWindow::onRegisterClicked()
     QString email = registerEmailEdit->text().trimmed();
 
     if (username.isEmpty() || password.isEmpty()) {
-        QMessageBox::warning(this, "❌ Registration Failed",
-                             "Please enter both username and password! 📝");
-        return;
+        // Replace username/password empty warning:
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("❌ Registration Failed");
+        msgBox.setText("Please enter both username and password! 📝");
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setStyleSheet("background-color: white; color: black;");
+        msgBox.exec();    return;
     }
 
     if (username.length() < 3) {
-        QMessageBox::warning(this, "❌ Registration Failed",
-                             "Username must be at least 3 characters long! 📏");
+        // Replace username length warning:
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("❌ Registration Failed");
+        msgBox.setText("Username must be at least 3 characters long! 📏");
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setStyleSheet("background-color: white; color: black;");
+        msgBox.exec();
         return;
     }
 
     if (password.length() < 4) {
-        QMessageBox::warning(this, "❌ Registration Failed",
-                             "Password must be at least 4 characters long! 🔒");
+        // Replace password length warning:
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("❌ Registration Failed");
+        msgBox.setText("Password must be at least 4 characters long! 🔒");
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setStyleSheet("background-color: white; color: black;");
+        msgBox.exec();
         return;
     }
 
     if (userManager->userExists(username)) {
-        QMessageBox::warning(this, "❌ Registration Failed",
-                             "Username already exists. Please choose another! 👤");
+        // Replace username exists warning:
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("❌ Registration Failed");
+        msgBox.setText("Username already exists. Please choose another! 👤");
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setStyleSheet("background-color: white; color: black;");
+        msgBox.exec();
         registerUsernameEdit->setFocus();
         return;
     }
 
     if (userManager->registerUser(username, password, email)) {
-        QMessageBox::information(this, "🎉 Registration Successful!",
-                                 QString("Welcome to Tic Tac Toe, %1! Your account has been created. Please sign in to start playing! 🎮").arg(username));
-
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("🎉 Registration Successful!");
+        msgBox.setText(QString("Welcome to Tic Tac Toe, %1! Your account has been created. Please sign in to start playing! 🎮").arg(username));
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setStyleSheet("background-color: white; color: black;");
+        msgBox.exec();
         // Pre-fill login form
         loginUsernameEdit->setText(username);
         loginPasswordEdit->clear();
         showLoginScreen();
         loginPasswordEdit->setFocus();
     } else {
-        QMessageBox::warning(this, "❌ Registration Failed",
-                             "Failed to create account. Please try again! 🔄");
+        // Replace registration failed message:
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("❌ Registration Failed");
+        msgBox.setText("Failed to create account. Please try again! 🔄");
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setStyleSheet("background-color: white; color: black;");
+        msgBox.exec();
     }
 }
 
@@ -1430,11 +1850,17 @@ void MainWindow::onLogoutClicked()
     if (userManager->isUserLoggedIn()) {
         QString username = userManager->getCurrentUser()->getUsername();
         userManager->logoutUser();
-        QMessageBox::information(this, "👋 Goodbye!",
-                                 QString("See you later, %1! Thanks for playing! 🎮").arg(username));
+
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("👋 Goodbye!");
+        msgBox.setText(QString("See you later, %1! Thanks for playing! 🎮").arg(username));
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setStyleSheet("background-color: white; color: black;");
+        msgBox.exec();
     }
     showLoginScreen();
 }
+
 
 void MainWindow::updateUserStats(bool won, bool lost, bool tied)
 {
@@ -1457,65 +1883,6 @@ void MainWindow::showGameHistory()
     updateGameHistoryDisplay();
     stackedWidget->setCurrentWidget(gameHistoryWidget);
     setWindowTitle("📜 Tic Tac Toe - Game History");
-}
-
-void MainWindow::updateGameHistoryDisplay()
-{
-    User* user = userManager->getCurrentUser();
-    if (!user) return;
-
-    QList<GameRecord> history = user->getGameHistory();
-
-    if (history.isEmpty()) {
-        historyContentLabel->setText(
-            "🎮 No games played yet!\n\n"
-            "Start playing to see your game history here.\n"
-            "Your last 5 games will be displayed with details about:\n"
-            "• When you played\n"
-            "• Who you played against\n"
-            "• What the result was\n"
-            "• Which symbol you used\n"
-            "• What game mode you played"
-            );
-        return;
-    }
-
-    QString historyText = "🎮 **Your Recent Games** 🎮\n\n";
-
-    for (int i = 0; i < history.size(); ++i) {
-        const GameRecord &record = history[i];
-
-        QString resultEmoji;
-        if (record.result == "Won") {
-            resultEmoji = "🏆";
-        } else if (record.result == "Lost") {
-            resultEmoji = "😞";
-        } else {
-            resultEmoji = "🤝";
-        }
-
-        historyText += QString(
-                           "**Game %1** %2\n"
-                           "📅 **Date:** %3\n"
-                           "👤 **Opponent:** %4\n"
-                           "🎯 **Result:** %5 %6\n"
-                           "🎮 **Mode:** %7\n"
-                           "🎲 **Your Symbol:** %8\n\n"
-                           ).arg(i + 1)
-                           .arg(resultEmoji)
-                           .arg(record.timestamp.toString("MMM dd, yyyy hh:mm AP"))
-                           .arg(record.opponent)
-                           .arg(resultEmoji)
-                           .arg(record.result)
-                           .arg(record.gameMode)
-                           .arg(record.playerSymbol);
-    }
-
-    if (history.size() < 5) {
-        historyText += QString("\n💡 **Tip:** Play %1 more game(s) to fill your complete history!").arg(5 - history.size());
-    }
-
-    historyContentLabel->setText(historyText);
 }
 
 void MainWindow::recordGameResult(const QString &result, const QString &opponent, const QString &gameMode, const QString &playerSymbol)

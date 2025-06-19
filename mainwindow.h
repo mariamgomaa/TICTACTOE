@@ -120,8 +120,8 @@ private:
     QGraphicsOpacityEffect *statusOpacityEffect;
 
     // Decoration and emoji labels
-    QVector<QLabel*> decorationLabels;
-    QVector<QLabel*> cryingEmojiLabels;
+    QList<QLabel*> decorationLabels;
+    QList<QLabel*> cryingEmojiLabels;
 
     // Login/Register widgets
     QWidget *loginWidget;
@@ -141,6 +141,23 @@ private:
     QLabel *userWelcomeLabel;
     QLabel *userStatsLabel;
 
+
+    //
+
+    // Game history UI components - FIXED
+    QList<QWidget*> gameBlocks;
+    QList<QLabel*> gameResultLabels;
+    QList<QLabel*> gameDetailLabels;
+
+    // Add this line to your member variables:
+    QTimer *replayTimer;
+
+    // Current game moves for replay - ADD THIS
+    QList<GameMove> currentGameMoves;  // You have QVector, change to QList
+
+    //
+
+
     // Game history widgets
     QWidget *gameHistoryWidget;
     QLabel *historyTitleLabel;
@@ -159,7 +176,7 @@ private:
     QLabel *replayStatusLabel;
     QLabel *replayInfoLabel;
     QPushButton *backFromReplayBtn;
-    QTimer *replayTimer;
+    // QTimer *replayTimer;
 
     // Player names widgets
     QWidget *playerNamesWidget;
@@ -209,7 +226,7 @@ private:
     QString player2Name;
 
     // Current game recording
-    QVector<GameMove> currentGameMoves;
+    //QVector<GameMove> currentGameMoves;
 
     // Replay state
     GameRecord currentReplayGame;
