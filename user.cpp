@@ -44,9 +44,7 @@ void User::addGameToHistory(const GameRecord& record) {
 
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
 >>>>>>> Merna
-=======
-void User::addGameToHistory(const GameRecord &record)
-{
-  gameHistory.prepend(record);
+  == == == = void User::addGameToHistory(const GameRecord& record) {
+    gameHistory.prepend(record);
 >>>>>>> Merna
-}
+  }

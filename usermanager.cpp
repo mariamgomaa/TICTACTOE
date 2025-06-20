@@ -1,16 +1,19 @@
 #include "usermanager.h"
+
 #include <QSqlQuery>
 <<<<<<< HEAD
 
 <<<<<<< HEAD == == == =
-=======
+    == == ==
+    =
 #include <QSqlError>
->>>>>>> Merna
+        >>>>>>> Merna
 
 >>>>>>> Merna
-               /// @brief Constructs the UserManager object.
-               /// Initializes the SQLite database and sets up necessary paths.
-    UserManager::UserManager() : currentUser(nullptr) {
+    /// @brief Constructs the UserManager object.
+    /// Initializes the SQLite database and sets up necessary paths.
+    UserManager::UserManager()
+    : currentUser(nullptr) {
 <<<<<<< HEAD
   // Set database path in user's documents folder
   QString documentsPath =
@@ -37,500 +40,500 @@
              /// Saves user data and cleans up the database and memory.
     UserManager::~UserManager() {
 <<<<<<< HEAD
-=======
-/// @brief Destructor for UserManager.
-/// Saves user data and cleans up the database and memory.
-UserManager::~UserManager()
-{
+  == == == =
+               /// @brief Destructor for UserManager.
+               /// Saves user data and cleans up the database and memory.
+      UserManager::~UserManager() {
 >>>>>>> Merna
-  if (currentUser) {
-    saveUserData();
-    delete currentUser;
+    if (currentUser) {
+      saveUserData();
+      delete currentUser;
+    }
+
+    if (db.isOpen()) {
+      db.close();
+    }
+    == == == = if (currentUser) {
+      saveUserData();
+      delete currentUser;
+    }
+
+<<<<<<< HEAD
+    == == == =
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
+                 if (db.isOpen()) {
+      db.close();
+    }
+>>>>>>> Merna
   }
 
-  if (db.isOpen()) {
-    db.close();
-  }
-  == == == = if (currentUser) {
-    saveUserData();
-    delete currentUser;
+  /// @brief Initializes the SQLite database connection.
+  /// @return True if the database was opened and tables created successfully.
+  bool UserManager::initializeDatabase() {
+<<<<<<< HEAD
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(dbPath);
+    == == == = db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(dbPath);
+>>>>>>> Merna
+
+    if (!db.open()) {
+      qDebug() << "Error opening database:" << db.lastError().text();
+      return false;
+    }
+
+    return createTables();
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   == == == =
 
->>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
-               if (db.isOpen()) {
-    db.close();
-  }
 >>>>>>> Merna
-}
-
-/// @brief Initializes the SQLite database connection.
-/// @return True if the database was opened and tables created successfully.
-bool UserManager::initializeDatabase() {
+               /// @brief Creates required database tables if they do not exist.
+               /// @return True if tables were created or already exist.
+      bool UserManager::createTables() {
 <<<<<<< HEAD
-  db = QSqlDatabase::addDatabase("QSQLITE");
-  db.setDatabaseName(dbPath);
-  == == == = db = QSqlDatabase::addDatabase("QSQLITE");
-  db.setDatabaseName(dbPath);
+    == == ==
+        =
+            /// @brief Creates required database tables if they do not exist.
+            /// @return True if tables were created or already exist.
+        bool UserManager::createTables() {
 >>>>>>> Merna
+      QSqlQuery query(db);
 
-  if (!db.open()) {
-    qDebug() << "Error opening database:" << db.lastError().text();
-    return false;
-  }
+      // Create users table
+      QString createUsersTable = R"(...)";  // See code for full definition
 
-  return createTables();
-}
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-== == == =
-
->>>>>>> Merna
-             /// @brief Creates required database tables if they do not exist.
-             /// @return True if tables were created or already exist.
-    bool UserManager::createTables() {
-<<<<<<< HEAD
-=======
-/// @brief Creates required database tables if they do not exist.
-/// @return True if tables were created or already exist.
-bool UserManager::createTables()
-{
->>>>>>> Merna
-  QSqlQuery query(db);
-
-  // Create users table
-  QString createUsersTable = R"(...)";  // See code for full definition
-
-  if (!query.exec(createUsersTable)) {
-    qDebug() << "Error creating users table:" << query.lastError().text();
-    return false;
-  }
+      if (!query.exec(createUsersTable)) {
+        qDebug() << "Error creating users table:" << query.lastError().text();
+        return false;
+      }
 <<<<<<< HEAD
 
-  // Create game_history table with moves_data column
-  QString createHistoryTable = R"(...)";
-  == == == = QSqlQuery query(db);
-
-  // Create users table
-  QString createUsersTable = R"(...)";  // See code for full definition
-
-<<<<<<< HEAD
-  == == == =
-
->>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
-               if (!query.exec(createUsersTable)) {
-    qDebug() << "Error creating users table:" << query.lastError().text();
-    return false;
-  }
-<<<<<<< HEAD
-  == == == =
-=======
->>>>>>> Merna
-
->>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
->>>>>>> Merna
-
-               // Create game_history table with moves_data column
+      // Create game_history table with moves_data column
       QString createHistoryTable = R"(...)";
+      == == == = QSqlQuery query(db);
 
-  if (!query.exec(createHistoryTable)) {
-    qDebug() << "Error creating game_history table:"
-             << query.lastError().text();
-    return false;
-  }
-
-  // Try to add moves_data column if missing
-  QString alterTable = "ALTER TABLE game_history ADD COLUMN moves_data TEXT";
-  query.exec(alterTable);  // Silent fail if column exists
-
-  // Add index for performance
-  QString createIndex =
-      "CREATE INDEX IF NOT EXISTS idx_game_history_username "
-      "ON game_history(username)";
-  if (!query.exec(createIndex)) {
-    qDebug() << "Error creating index:" << query.lastError().text();
-  }
+      // Create users table
+      QString createUsersTable = R"(...)";  // See code for full definition
 
 <<<<<<< HEAD
-<<<<<<< HEAD
-  == == == =
+      == == == =
 
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
-               return true;
-=======
-  return true;
->>>>>>> Merna
-}
-
-/// @brief Registers a new user by inserting into the database.
-/// @param username The new username.
-/// @param password The new plain-text password.
-/// @param email Optional email address.
-/// @return True if registration was successful.
-bool UserManager::registerUser(const QString& username, const QString& password,
-                               const QString& email) {
-  if (username.isEmpty() || password.isEmpty()) {
-    return false;
-  }
-
-  if (userExists(username)) {
-    return false;
-  }
-
+                   if (!query.exec(createUsersTable)) {
+        qDebug() << "Error creating users table:" << query.lastError().text();
+        return false;
+      }
 <<<<<<< HEAD
-  == == == =
-
-               if (userExists(username)) {
-    return false;
-  }
+      == == == = == == ==
+          =
+>>>>>>> Merna
 
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
-=======
 >>>>>>> Merna
-  QString hashedPassword = hashPassword(password);
 
-  QSqlQuery query(db);
-  query.prepare("INSERT INTO users (...)");
-  query.addBindValue(username);
-  query.addBindValue(hashedPassword);
-  query.addBindValue(email);
+              // Create game_history table with moves_data column
+          QString createHistoryTable = R"(...)";
 
-  if (!query.exec()) {
-    qDebug() << "Error registering user:" << query.lastError().text();
-    return false;
-  }
+      if (!query.exec(createHistoryTable)) {
+        qDebug() << "Error creating game_history table:"
+                 << query.lastError().text();
+        return false;
+      }
+
+      // Try to add moves_data column if missing
+      QString alterTable =
+          "ALTER TABLE game_history ADD COLUMN moves_data TEXT";
+      query.exec(alterTable);  // Silent fail if column exists
+
+      // Add index for performance
+      QString createIndex =
+          "CREATE INDEX IF NOT EXISTS idx_game_history_username "
+          "ON game_history(username)";
+      if (!query.exec(createIndex)) {
+        qDebug() << "Error creating index:" << query.lastError().text();
+      }
 
 <<<<<<< HEAD
-  == == == =
-
-               if (!query.exec()) {
-    qDebug() << "Error registering user:" << query.lastError().text();
-    return false;
-  }
+<<<<<<< HEAD
+      == == == =
 
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
-=======
+                   return true;
+      == == == = return true;
 >>>>>>> Merna
-  return true;
-}
+    }
 
-/// @brief Logs in a user if credentials are valid.
-/// @param username The username to log in.
-/// @param password The plain-text password to verify.
-/// @return True if login was successful.
-bool UserManager::loginUser(const QString& username, const QString& password) {
-<<<<<<< HEAD
-  if (!userExists(username)) {
-    return false;
-  }
+    /// @brief Registers a new user by inserting into the database.
+    /// @param username The new username.
+    /// @param password The new plain-text password.
+    /// @param email Optional email address.
+    /// @return True if registration was successful.
+    bool UserManager::registerUser(const QString& username,
+                                   const QString& password,
+                                   const QString& email) {
+      if (username.isEmpty() || password.isEmpty()) {
+        return false;
+      }
 
-  QString hashedPassword = hashPassword(password);
-
-  QSqlQuery query(db);
-  query.prepare("SELECT password FROM users WHERE username = ?");
-  query.addBindValue(username);
-
-  if (!query.exec() || !query.next()) {
-    return false;
-  }
-
-  QString storedPassword = query.value(0).toString();
-  if (storedPassword != hashedPassword) {
-    return false;
-  }
+      if (userExists(username)) {
+        return false;
+      }
 
 <<<<<<< HEAD
-  // Update last login timestamp
-=======
-          // Update last login timestamp
+      == == == =
+
+                   if (userExists(username)) {
+        return false;
+      }
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
+      == == == =
 >>>>>>> Merna
-  QSqlQuery updateQuery(db);
-  updateQuery.prepare(
-      "UPDATE users SET last_login = CURRENT_TIMESTAMP "
-      "WHERE username = ?");
-  updateQuery.addBindValue(username);
-  updateQuery.exec();
+                   QString hashedPassword = hashPassword(password);
 
-  // Load full user data
-  if (currentUser) {
-    delete currentUser;
-  }
+      QSqlQuery query(db);
+      query.prepare("INSERT INTO users (...)");
+      query.addBindValue(username);
+      query.addBindValue(hashedPassword);
+      query.addBindValue(email);
 
-  currentUser = new User();
-  *currentUser = loadUserFromDatabase(username);
+      if (!query.exec()) {
+        qDebug() << "Error registering user:" << query.lastError().text();
+        return false;
+      }
 
-  return true;
-}
+<<<<<<< HEAD
+      == == == =
 
-/// @brief Logs out the current user and saves their data.
-void UserManager::logoutUser() {
-  if (currentUser) {
-    saveUserData();
-    delete currentUser;
-    currentUser = nullptr;
-  }
-}
+                   if (!query.exec()) {
+        qDebug() << "Error registering user:" << query.lastError().text();
+        return false;
+      }
 
-/// @brief Checks if a username already exists in the database.
-/// @param username The username to check.
-/// @return True if user exists, false otherwise.
-bool UserManager::userExists(const QString& username) const {
-  QSqlQuery query(db);
-  query.prepare("SELECT COUNT(*) FROM users WHERE username = ?");
-  query.addBindValue(username);
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
+      == == == =
+>>>>>>> Merna
+                   return true;
+    }
 
-  if (query.exec() && query.next()) {
-    return query.value(0).toInt() > 0;
-  }
+    /// @brief Logs in a user if credentials are valid.
+    /// @param username The username to log in.
+    /// @param password The plain-text password to verify.
+    /// @return True if login was successful.
+    bool UserManager::loginUser(const QString& username,
+                                const QString& password) {
+<<<<<<< HEAD
+      if (!userExists(username)) {
+        return false;
+      }
 
-  return false;
-}
+      QString hashedPassword = hashPassword(password);
 
-/// @brief Retrieves all registered usernames from the database.
-/// @return A list of all usernames.
-QStringList UserManager::getAllUsernames() const {
-  QStringList usernames;
-  QSqlQuery query("SELECT username FROM users ORDER BY username", db);
+      QSqlQuery query(db);
+      query.prepare("SELECT password FROM users WHERE username = ?");
+      query.addBindValue(username);
 
-  while (query.next()) {
-    usernames << query.value(0).toString();
-  }
+      if (!query.exec() || !query.next()) {
+        return false;
+      }
 
-  return usernames;
-}
+      QString storedPassword = query.value(0).toString();
+      if (storedPassword != hashedPassword) {
+        return false;
+      }
 
-/// @brief Hashes a plaintext password using SHA-256.
-/// @param password The input plaintext password.
-/// @return A hexadecimal hash string.
-QString UserManager::hashPassword(const QString& password) const {
-  QCryptographicHash hash(QCryptographicHash::Sha256);
-  hash.addData(password.toUtf8());
-  return hash.result().toHex();
-}
+<<<<<<< HEAD
+      // Update last login timestamp
+      == == == =
+                   // Update last login timestamp
+>>>>>>> Merna
+          QSqlQuery updateQuery(db);
+      updateQuery.prepare(
+          "UPDATE users SET last_login = CURRENT_TIMESTAMP "
+          "WHERE username = ?");
+      updateQuery.addBindValue(username);
+      updateQuery.exec();
 
-/// @brief Saves the current user's data and game history to the database.
-void UserManager::saveUserData() {
-  if (!currentUser) return;
+      // Load full user data
+      if (currentUser) {
+        delete currentUser;
+      }
 
-  saveUserToDatabase(*currentUser);
-  saveGameHistoryToDatabase(currentUser->getUsername(),
-                            currentUser->getGameHistory());
-}
+      currentUser = new User();
+      *currentUser = loadUserFromDatabase(username);
 
-/// @brief Dummy compatibility method for future use.
-/// Loads user data — currently a no-op.
-void UserManager::loadUserData() {
-  // This method is kept for interface compatibility
-  // Data is loaded on-demand when user logs in
-}
+      return true;
+    }
 
-/// @brief Updates a user's statistics in the database.
-/// @param user The User object containing updated data.
-/// @return True if update was successful.
-bool UserManager::saveUserToDatabase(const User& user) {
-  QSqlQuery query(db);
-  query.prepare(R"(
+    /// @brief Logs out the current user and saves their data.
+    void UserManager::logoutUser() {
+      if (currentUser) {
+        saveUserData();
+        delete currentUser;
+        currentUser = nullptr;
+      }
+    }
+
+    /// @brief Checks if a username already exists in the database.
+    /// @param username The username to check.
+    /// @return True if user exists, false otherwise.
+    bool UserManager::userExists(const QString& username) const {
+      QSqlQuery query(db);
+      query.prepare("SELECT COUNT(*) FROM users WHERE username = ?");
+      query.addBindValue(username);
+
+      if (query.exec() && query.next()) {
+        return query.value(0).toInt() > 0;
+      }
+
+      return false;
+    }
+
+    /// @brief Retrieves all registered usernames from the database.
+    /// @return A list of all usernames.
+    QStringList UserManager::getAllUsernames() const {
+      QStringList usernames;
+      QSqlQuery query("SELECT username FROM users ORDER BY username", db);
+
+      while (query.next()) {
+        usernames << query.value(0).toString();
+      }
+
+      return usernames;
+    }
+
+    /// @brief Hashes a plaintext password using SHA-256.
+    /// @param password The input plaintext password.
+    /// @return A hexadecimal hash string.
+    QString UserManager::hashPassword(const QString& password) const {
+      QCryptographicHash hash(QCryptographicHash::Sha256);
+      hash.addData(password.toUtf8());
+      return hash.result().toHex();
+    }
+
+    /// @brief Saves the current user's data and game history to the database.
+    void UserManager::saveUserData() {
+      if (!currentUser) return;
+
+      saveUserToDatabase(*currentUser);
+      saveGameHistoryToDatabase(currentUser->getUsername(),
+                                currentUser->getGameHistory());
+    }
+
+    /// @brief Dummy compatibility method for future use.
+    /// Loads user data — currently a no-op.
+    void UserManager::loadUserData() {
+      // This method is kept for interface compatibility
+      // Data is loaded on-demand when user logs in
+    }
+
+    /// @brief Updates a user's statistics in the database.
+    /// @param user The User object containing updated data.
+    /// @return True if update was successful.
+    bool UserManager::saveUserToDatabase(const User& user) {
+      QSqlQuery query(db);
+      query.prepare(R"(
       UPDATE users
       SET email = ?, games_won = ?, games_lost = ?, games_tied = ?
       WHERE username = ?
   )");
 
-  query.addBindValue(user.getEmail());
-  query.addBindValue(user.getGamesWon());
-  query.addBindValue(user.getGamesLost());
-  query.addBindValue(user.getGamesTied());
-  query.addBindValue(user.getUsername());
-  == == == = if (!userExists(username)) { return false; }
+      query.addBindValue(user.getEmail());
+      query.addBindValue(user.getGamesWon());
+      query.addBindValue(user.getGamesLost());
+      query.addBindValue(user.getGamesTied());
+      query.addBindValue(user.getUsername());
+      == == == = if (!userExists(username)) { return false; }
 
 <<<<<<< HEAD
-  QString hashedPassword = hashPassword(password);
+      QString hashedPassword = hashPassword(password);
 
-  QSqlQuery query(db);
-  query.prepare("SELECT password FROM users WHERE username = ?");
-  query.addBindValue(username);
+      QSqlQuery query(db);
+      query.prepare("SELECT password FROM users WHERE username = ?");
+      query.addBindValue(username);
 
-  if (!query.exec() || !query.next()) {
-    return false;
-  }
+      if (!query.exec() || !query.next()) {
+        return false;
+      }
 
-  QString storedPassword = query.value(0).toString();
-  if (storedPassword != hashedPassword) {
-    return false;
-  }
-  == == == =
+      QString storedPassword = query.value(0).toString();
+      if (storedPassword != hashedPassword) {
+        return false;
+      }
+      == == == =
 
-               QString hashedPassword = hashPassword(password);
+                   QString hashedPassword = hashPassword(password);
 >>>>>>> Merna
 
-  if (!query.exec()) {
-    qDebug() << "Error saving user data:" << query.lastError().text();
+      if (!query.exec()) {
+        qDebug() << "Error saving user data:" << query.lastError().text();
+        return false;
+      }
+
+<<<<<<< HEAD
+      return true;
+    }
+
+    == == == = if (!query.exec() || !query.next()) { return false; }
+
+    QString storedPassword = query.value(0).toString();
+    if (storedPassword != hashedPassword) {
+      return false;
+    }
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
+
+    // Update last login timestamp
+    QSqlQuery updateQuery(db);
+    updateQuery.prepare(
+        "UPDATE users SET last_login = CURRENT_TIMESTAMP "
+        "WHERE username = ?");
+    updateQuery.addBindValue(username);
+    updateQuery.exec();
+
+    // Load full user data
+    if (currentUser) {
+      delete currentUser;
+    }
+
+<<<<<<< HEAD
+    currentUser = new User();
+    *currentUser = loadUserFromDatabase(username);
+
+    == == == =
+
+                 currentUser = new User();
+    *currentUser = loadUserFromDatabase(username);
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
+    return true;
+  }
+
+  /// @brief Logs out the current user and saves their data.
+  void UserManager::logoutUser() {
+    if (currentUser) {
+      saveUserData();
+      delete currentUser;
+      currentUser = nullptr;
+    }
+  }
+
+  /// @brief Checks if a username already exists in the database.
+  /// @param username The username to check.
+  /// @return True if user exists, false otherwise.
+  bool UserManager::userExists(const QString& username) const {
+    QSqlQuery query(db);
+    query.prepare("SELECT COUNT(*) FROM users WHERE username = ?");
+    query.addBindValue(username);
+
+<<<<<<< HEAD
+    if (query.exec() && query.next()) {
+      return query.value(0).toInt() > 0;
+    }
+
+    == == == =
+
+                 if (query.exec() && query.next()) {
+      return query.value(0).toInt() > 0;
+    }
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
     return false;
   }
 
-<<<<<<< HEAD
-  return true;
-}
-
-== == == = if (!query.exec() || !query.next()) { return false; }
-
-QString storedPassword = query.value(0).toString();
-if (storedPassword != hashedPassword) {
-  return false;
-}
-
->>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
-
-// Update last login timestamp
-QSqlQuery updateQuery(db);
-updateQuery.prepare(
-    "UPDATE users SET last_login = CURRENT_TIMESTAMP "
-    "WHERE username = ?");
-updateQuery.addBindValue(username);
-updateQuery.exec();
-
-// Load full user data
-if (currentUser) {
-  delete currentUser;
-}
+  /// @brief Retrieves all registered usernames from the database.
+  /// @return A list of all usernames.
+  QStringList UserManager::getAllUsernames() const {
+    QStringList usernames;
+    QSqlQuery query("SELECT username FROM users ORDER BY username", db);
 
 <<<<<<< HEAD
-currentUser = new User();
-*currentUser = loadUserFromDatabase(username);
+    while (query.next()) {
+      usernames << query.value(0).toString();
+    }
 
-== == == =
+    == == == =
 
-             currentUser = new User();
-*currentUser = loadUserFromDatabase(username);
-
->>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
-return true;
-}
-
-/// @brief Logs out the current user and saves their data.
-void UserManager::logoutUser() {
-  if (currentUser) {
-    saveUserData();
-    delete currentUser;
-    currentUser = nullptr;
-  }
-}
-
-/// @brief Checks if a username already exists in the database.
-/// @param username The username to check.
-/// @return True if user exists, false otherwise.
-bool UserManager::userExists(const QString& username) const {
-  QSqlQuery query(db);
-  query.prepare("SELECT COUNT(*) FROM users WHERE username = ?");
-  query.addBindValue(username);
-
-<<<<<<< HEAD
-  if (query.exec() && query.next()) {
-    return query.value(0).toInt() > 0;
-  }
-
-  == == == =
-
-               if (query.exec() && query.next()) {
-    return query.value(0).toInt() > 0;
-  }
+                 while (query.next()) {
+      usernames << query.value(0).toString();
+    }
 
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
-  return false;
-}
-
-/// @brief Retrieves all registered usernames from the database.
-/// @return A list of all usernames.
-QStringList UserManager::getAllUsernames() const {
-  QStringList usernames;
-  QSqlQuery query("SELECT username FROM users ORDER BY username", db);
-
-<<<<<<< HEAD
-  while (query.next()) {
-    usernames << query.value(0).toString();
+    return usernames;
   }
 
-  == == == =
-
-               while (query.next()) {
-    usernames << query.value(0).toString();
+  /// @brief Hashes a plaintext password using SHA-256.
+  /// @param password The input plaintext password.
+  /// @return A hexadecimal hash string.
+  QString UserManager::hashPassword(const QString& password) const {
+    QCryptographicHash hash(QCryptographicHash::Sha256);
+    hash.addData(password.toUtf8());
+    return hash.result().toHex();
   }
 
->>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
-  return usernames;
-}
+  /// @brief Saves the current user's data and game history to the database.
+  void UserManager::saveUserData() {
+    if (!currentUser) return;
 
-/// @brief Hashes a plaintext password using SHA-256.
-/// @param password The input plaintext password.
-/// @return A hexadecimal hash string.
-QString UserManager::hashPassword(const QString& password) const {
-  QCryptographicHash hash(QCryptographicHash::Sha256);
-  hash.addData(password.toUtf8());
-  return hash.result().toHex();
-}
+    saveUserToDatabase(*currentUser);
+    saveGameHistoryToDatabase(currentUser->getUsername(),
+                              currentUser->getGameHistory());
+  }
 
-/// @brief Saves the current user's data and game history to the database.
-void UserManager::saveUserData() {
-  if (!currentUser) return;
+  /// @brief Dummy compatibility method for future use.
+  /// Loads user data — currently a no-op.
+  void UserManager::loadUserData() {
+    // This method is kept for interface compatibility
+    // Data is loaded on-demand when user logs in
+  }
 
-  saveUserToDatabase(*currentUser);
-  saveGameHistoryToDatabase(currentUser->getUsername(),
-                            currentUser->getGameHistory());
-}
-
-/// @brief Dummy compatibility method for future use.
-/// Loads user data — currently a no-op.
-void UserManager::loadUserData() {
-  // This method is kept for interface compatibility
-  // Data is loaded on-demand when user logs in
-}
-
-/// @brief Updates a user's statistics in the database.
-/// @param user The User object containing updated data.
-/// @return True if update was successful.
-bool UserManager::saveUserToDatabase(const User& user) {
-  QSqlQuery query(db);
-  query.prepare(R"(
+  /// @brief Updates a user's statistics in the database.
+  /// @param user The User object containing updated data.
+  /// @return True if update was successful.
+  bool UserManager::saveUserToDatabase(const User& user) {
+    QSqlQuery query(db);
+    query.prepare(R"(
       UPDATE users
       SET email = ?, games_won = ?, games_lost = ?, games_tied = ?
       WHERE username = ?
   )");
 
-  query.addBindValue(user.getEmail());
-  query.addBindValue(user.getGamesWon());
-  query.addBindValue(user.getGamesLost());
-  query.addBindValue(user.getGamesTied());
-  query.addBindValue(user.getUsername());
+    query.addBindValue(user.getEmail());
+    query.addBindValue(user.getGamesWon());
+    query.addBindValue(user.getGamesLost());
+    query.addBindValue(user.getGamesTied());
+    query.addBindValue(user.getUsername());
 
-  if (!query.exec()) {
-    qDebug() << "Error saving user data:" << query.lastError().text();
-    return false;
-  }
+    if (!query.exec()) {
+      qDebug() << "Error saving user data:" << query.lastError().text();
+      return false;
+    }
 
 <<<<<<< HEAD
-  == == == =
+    == == == =
 
-               query.addBindValue(user.getEmail());
-  query.addBindValue(user.getGamesWon());
-  query.addBindValue(user.getGamesLost());
-  query.addBindValue(user.getGamesTied());
-  query.addBindValue(user.getUsername());
+                 query.addBindValue(user.getEmail());
+    query.addBindValue(user.getGamesWon());
+    query.addBindValue(user.getGamesLost());
+    query.addBindValue(user.getGamesTied());
+    query.addBindValue(user.getUsername());
 
-  if (!query.exec()) {
-    qDebug() << "Error saving user data:" << query.lastError().text();
-    return false;
-  }
+    if (!query.exec()) {
+      qDebug() << "Error saving user data:" << query.lastError().text();
+      return false;
+    }
 
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
-  return true;
-}
+    return true;
+  }
 
 
 >>>>>>> Merna
-=======
-  return true;
+  == == == = return true;
 }
 
 >>>>>>> Merna
@@ -625,8 +628,7 @@ return user;
 
 
 >>>>>>> Merna
-=======
-  return user;
+== == == = return user;
 }
 
 >>>>>>> Merna
@@ -699,33 +701,31 @@ bool UserManager::saveGameHistoryToDatabase(const QString& username,
 >>>>>>> Merna
                  if (!insertQuery.exec()) {
       qDebug() << "Error saving game record:" << insertQuery.lastError().text();
-=======
-    if (!insertQuery.exec()) {
-      qDebug() << "Error saving game record:"
-               << insertQuery.lastError().text();
+      == == == = if (!insertQuery.exec()) {
+        qDebug() << "Error saving game record:"
+                 << insertQuery.lastError().text();
 >>>>>>> Merna
-      return false;
-    }
+        return false;
+      }
 <<<<<<< HEAD
-    == == == =
+      == == == =
 
 >>>>>>> Merna
+    }
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+    return true;
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  return true;
-}
-
-== == == =
+  == == == =
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
-             return true;
+               return true;
 }
 
 
 >>>>>>> Merna
-=======
-  return true;
+== == == = return true;
 }
 
 >>>>>>> Merna
@@ -795,10 +795,10 @@ else {
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
 return history;
 >>>>>>> Merna
-=======
-  }
+== == == =
+}
 
-  return history;
+return history;
 >>>>>>> Merna
 }
 
@@ -872,10 +872,10 @@ return history;
 
 
 >>>>>>> Merna
-=======
-  }
+== == == =
+}
 
-  return history;
+return history;
 }
 
 >>>>>>> Merna
@@ -904,9 +904,9 @@ QVector<GameMove> UserManager::movesFromString(const QString& movesStr) const {
   if (movesStr.isEmpty()) return moves;
 
 <<<<<<< HEAD
-=======
+  == == == =
 >>>>>>> Merna
-  QStringList moveStrings = movesStr.split(";");
+               QStringList moveStrings = movesStr.split(";");
   for (const QString& moveStr : moveStrings) {
     QStringList parts = moveStr.split(",");
     if (parts.size() == 3) {
@@ -935,6 +935,6 @@ QVector<GameMove> UserManager::movesFromString(const QString& movesStr) const {
 >>>>>>> Merna
       }
       return moves;
-=======
+      == == == =
 >>>>>>> Merna
     }
