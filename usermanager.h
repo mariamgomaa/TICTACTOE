@@ -1,22 +1,18 @@
 #ifndef USERMANAGER_H
 #define USERMANAGER_H
 
-#include <QCryptographicHash>
-#include <QDebug>
-#include <QDir>
+#include "user.h"
 #include <QSqlDatabase>
-#include <QSqlError>
 #include <QSqlQuery>
+#include <QSqlError>
 #include <QStandardPaths>
+#include <QDir>
+#include <QDebug>
+#include <QCryptographicHash>
 #include <QString>
 
-<<<<<<< HEAD
 /// @brief Handles all user-related operations including authentication,
 /// data persistence, and game history management.
-=======
-
-/// @brief Manages user authentication, session control, and data persistence.
->>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
 class UserManager {
  public:
   /// @brief Constructs a new UserManager and initializes the database.
@@ -116,19 +112,10 @@ class UserManager {
           /// @return A compact string format for storage.
   QString movesToString(const QVector<GameMove> &moves) const;
 
-<<<<<<< HEAD
           /// @brief Parses a move string back into a vector of GameMove.
           /// @param movesStr The serialized move data.
           /// @return Deserialized list of moves.
   QVector<GameMove> movesFromString(const QString &movesStr) const;
 };
 
-=======
-    /// @brief Deserializes a string of moves from the database.
-    /// @param movesStr Encoded move string.
-    /// @return Vector of GameMove.
-    QVector<GameMove> movesFromString(const QString &movesStr) const;
-
-
->>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
 #endif  // USERMANAGER_H
