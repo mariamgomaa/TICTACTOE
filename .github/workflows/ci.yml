@@ -27,6 +27,16 @@ jobs:
           clang-format -i $_.FullName
         }
 
+    # Commit back formatted files (only works on push, not PRs from forks)
+    - name: Commit formatted code
+      if: github.ref == 'refs/heads/main'
+      run: |
+        git config --global user.email "mariam.mostafa04@eng-st.cu.edu.eg"
+        git config --global user.name "GitHub Actions"
+        git add .
+        git diff --cached --quiet || git commit -m "Auto-format code with clang-format"
+        git push
+
     - name: Build project
       run: |
         qmake TicTacToe.pro
