@@ -31,7 +31,7 @@ jobs:
     - name: Commit formatted code
       if: github.ref == 'refs/heads/main'
       run: |
-        git config --global user.email "mariam.mostafa04@eng-st.cu.edu.eg"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --global user.name "GitHub Actions"
         git add .
         git diff --cached --quiet || git commit -m "Auto-format code with clang-format"
