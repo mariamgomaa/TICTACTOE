@@ -24,3 +24,4 @@ void User::addGameToHistory(const GameRecord& record) {
   gameHistory.prepend(record);
   // No longer limit to 5 games - let database handle the full history
 }
+  
