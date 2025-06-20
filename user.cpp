@@ -13,9 +13,9 @@ User::User() : gamesWon(0), gamesLost(0), gamesTied(0)
 /// @param email Optional email address.
 User::User(const QString &username, const QString &password, const QString &email)
     : username(username), password(password), email(email),
-    gamesWon(0), gamesLost(0), gamesTied(0)
+      gamesWon(0), gamesLost(0), gamesTied(0)
 {
-    lastLogin = QDateTime::currentDateTime();
+  lastLogin = QDateTime::currentDateTime();
 }
 
 /// @brief Calculates the win rate as a percentage.
@@ -23,9 +23,9 @@ User::User(const QString &username, const QString &password, const QString &emai
 /// If no games played, returns 0.0.
 double User::getWinRate() const
 {
-    int total = getTotalGames();
-    if (total == 0) return 0.0;
-    return (double)gamesWon / total * 100.0;
+  int total = getTotalGames();
+  if (total == 0) return 0.0;
+  return (double)gamesWon / total * 100.0;
 }
 
 /// @brief Adds a completed game record to the user's history.
@@ -34,5 +34,5 @@ double User::getWinRate() const
 /// @param record The GameRecord to add.
 void User::addGameToHistory(const GameRecord &record)
 {
-    gameHistory.prepend(record);
+  gameHistory.prepend(record);
 }
