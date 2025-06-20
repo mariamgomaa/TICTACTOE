@@ -1,14 +1,18 @@
 #include "user.h"
 
 // Default constructor that initializes win/loss/tie counters to zero
-User::User() : gamesWon(0), gamesLost(0), gamesTied(0) {
-}
+User::User() : gamesWon(0), gamesLost(0), gamesTied(0) {}
 
 // Constructor that sets user credentials and initializes statistics.
 // Also sets the last login time to the current system time.
-User::User(const QString &username, const QString &password, const QString &email)
-    : username(username), password(password), email(email),
-      gamesWon(0), gamesLost(0), gamesTied(0) {
+User::User(const QString& username, const QString& password,
+           const QString& email)
+    : username(username),
+      password(password),
+      email(email),
+      gamesWon(0),
+      gamesLost(0),
+      gamesTied(0) {
   lastLogin = QDateTime::currentDateTime();
 }
 
@@ -22,6 +26,6 @@ double User::getWinRate() const {
 
 // Adds a completed game record to the user's game history.
 // The new record is inserted at the beginning of the history list.
-void User::addGameToHistory(const GameRecord &record) {
+void User::addGameToHistory(const GameRecord& record) {
   gameHistory.prepend(record);
 }
