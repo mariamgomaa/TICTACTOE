@@ -1,15 +1,17 @@
 #ifndef USERMANAGER_H
 #define USERMANAGER_H
 
-#include <QCryptographicHash>
-#include <QDebug>
-#include <QDir>
+#include "user.h"
 #include <QSqlDatabase>
-#include <QSqlError>
 #include <QSqlQuery>
+#include <QSqlError>
 #include <QStandardPaths>
+#include <QDir>
+#include <QDebug>
+#include <QCryptographicHash>
 #include <QString>
 
+<<<<<<< HEAD
 #include "user.h"
 
 <<<<<<< HEAD == == ==
@@ -24,6 +26,11 @@
                  /// data persistence.
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
     class UserManager {
+=======
+/// @brief Handles all user-related operations including authentication,
+/// data persistence, and game history management.
+class UserManager {
+>>>>>>> Merna
  public:
   /// @brief Constructs a new UserManager and initializes the database.
   UserManager();
@@ -122,6 +129,7 @@
   QString movesToString(const QVector<GameMove>& moves) const;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /// @brief Parses a move string back into a vector of GameMove.
   /// @param movesStr The serialized move data.
   /// @return Deserialized list of moves.
@@ -142,5 +150,13 @@
 
 
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
+=======
+          /// @brief Parses a move string back into a vector of GameMove.
+          /// @param movesStr The serialized move data.
+          /// @return Deserialized list of moves.
+  QVector<GameMove> movesFromString(const QString &movesStr) const;
+};
+
+>>>>>>> Merna
 #endif  // USERMANAGER_H
              >>>>>>> Merna

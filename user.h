@@ -1,14 +1,15 @@
 #ifndef USER_H
 #define USER_H
 
-#include <QDateTime>
-#include <QList>
 #include <QMetaType>
 #include <QString>
+#include <QDateTime>
+#include <QList>
 #include <QVector>
 
 /// @brief Represents a single move made during a Tic Tac Toe game.
 struct GameMove {
+<<<<<<< HEAD
 <<<<<<< HEAD
   == == == =
 <<<<<<< HEAD
@@ -47,10 +48,24 @@ struct GameMove {
 
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
 >>>>>>> Merna
+=======
+  int row;     ///< The row index of the move (0-2).
+  int col;     ///< The column index of the move (0-2).
+  int player;  ///< The player who made the move: 1 for 'X', 2 for 'O'.
+
+  GameMove() = default;
+
+          /// @brief Constructs a GameMove with specified position and player.
+          /// @param r Row index (0-2).
+          /// @param c Column index (0-2).
+          /// @param p Player identifier (1 = X, 2 = O).
+  GameMove(int r, int c, int p) : row(r), col(c), player(p) {}
+>>>>>>> Merna
 };
 
 /// @brief Stores data about a completed game session.
 struct GameRecord {
+<<<<<<< HEAD
 <<<<<<< HEAD
   == == == =
 <<<<<<< HEAD
@@ -101,10 +116,34 @@ struct GameRecord {
               result(res),
               gameMode(mode),
               playerSymbol(symbol) {}
+=======
+  QDateTime timestamp;         ///< Time when the game was played.
+  QString opponent;            ///< Name of the opponent.
+  QString result;              ///< Result of the game: Win/Loss/Tie.
+  QString gameMode;            ///< Game mode (e.g., PvP or PvAI).
+  QString playerSymbol;        ///< Player's symbol: 'X' or 'O'.
+  QVector<GameMove> moves;     ///< All moves made in the game for replay.
+
+  GameRecord() = default;
+
+          /// @brief Constructs a GameRecord with given game summary info.
+          /// @param opp Opponent's name.
+          /// @param res Result of the game.
+          /// @param mode Game mode (PvP, PvAI).
+          /// @param symbol Player's symbol used in the game.
+  GameRecord(const QString &opp, const QString &res,
+             const QString &mode, const QString &symbol)
+      : timestamp(QDateTime::currentDateTime()),
+        opponent(opp),
+        result(res),
+        gameMode(mode),
+        playerSymbol(symbol) {}
+>>>>>>> Merna
 };
 
 /// @brief Represents a user with authentication data and game stats.
 class User {
+<<<<<<< HEAD
 <<<<<<< HEAD
   == == == =
 <<<<<<< HEAD
@@ -118,6 +157,11 @@ class User {
       /// @brief Default constructor. Initializes stats to zero.
       User();
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
+=======
+ public:
+  /// @brief Default constructor. Initializes stats to zero.
+  User();
+>>>>>>> Merna
 
   /// @brief Constructs a User with basic credentials.
   /// @param username The user's username.
@@ -202,6 +246,7 @@ class User {
   double getWinRate() const;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
  private:
   QString username;                       ///< Unique username.
@@ -225,6 +270,17 @@ class User {
 
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
 >>>>>>> Merna
+=======
+ private:
+  QString username;              ///< Unique username.
+  QString password;              ///< Encrypted or hashed password.
+  QString email;                 ///< Optional email address.
+  QDateTime lastLogin;           ///< Last login time.
+  int gamesWon;                  ///< Number of wins.
+  int gamesLost;                 ///< Number of losses.
+  int gamesTied;                 ///< Number of ties.
+  QList<GameRecord> gameHistory; ///< List of all game records.
+>>>>>>> Merna
 };
 
 /// @brief Enables GameMove to be used in QVariant and Qt meta system.
@@ -233,7 +289,11 @@ Q_DECLARE_METATYPE(GameMove)
 /// @brief Enables GameRecord to be used in QVariant and Qt meta system.
 Q_DECLARE_METATYPE(GameRecord)
 
+<<<<<<< HEAD
 #endif  // USER_H
 <<<<<<< HEAD == == == =
 
+>>>>>>> Merna
+=======
+#endif // USER_H
 >>>>>>> Merna

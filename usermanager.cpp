@@ -1,9 +1,11 @@
 #include "usermanager.h"
-
-#include <QSqlError>
 #include <QSqlQuery>
+<<<<<<< HEAD
 
 <<<<<<< HEAD == == == =
+=======
+#include <QSqlError>
+>>>>>>> Merna
 
 >>>>>>> Merna
                /// @brief Constructs the UserManager object.
@@ -27,6 +29,7 @@
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 == == == =
 
 >>>>>>> Merna
@@ -34,6 +37,12 @@
              /// Saves user data and cleans up the database and memory.
     UserManager::~UserManager() {
 <<<<<<< HEAD
+=======
+/// @brief Destructor for UserManager.
+/// Saves user data and cleans up the database and memory.
+UserManager::~UserManager()
+{
+>>>>>>> Merna
   if (currentUser) {
     saveUserData();
     delete currentUser;
@@ -76,6 +85,7 @@ bool UserManager::initializeDatabase() {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 == == == =
 
 >>>>>>> Merna
@@ -83,6 +93,12 @@ bool UserManager::initializeDatabase() {
              /// @return True if tables were created or already exist.
     bool UserManager::createTables() {
 <<<<<<< HEAD
+=======
+/// @brief Creates required database tables if they do not exist.
+/// @return True if tables were created or already exist.
+bool UserManager::createTables()
+{
+>>>>>>> Merna
   QSqlQuery query(db);
 
   // Create users table
@@ -92,6 +108,7 @@ bool UserManager::initializeDatabase() {
     qDebug() << "Error creating users table:" << query.lastError().text();
     return false;
   }
+<<<<<<< HEAD
 
   // Create game_history table with moves_data column
   QString createHistoryTable = R"(...)";
@@ -110,6 +127,8 @@ bool UserManager::initializeDatabase() {
   }
 <<<<<<< HEAD
   == == == =
+=======
+>>>>>>> Merna
 
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
 >>>>>>> Merna
@@ -136,10 +155,14 @@ bool UserManager::initializeDatabase() {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   == == == =
 
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
                return true;
+=======
+  return true;
+>>>>>>> Merna
 }
 
 /// @brief Registers a new user by inserting into the database.
@@ -153,11 +176,11 @@ bool UserManager::registerUser(const QString& username, const QString& password,
     return false;
   }
 
-<<<<<<< HEAD
   if (userExists(username)) {
     return false;
   }
 
+<<<<<<< HEAD
   == == == =
 
                if (userExists(username)) {
@@ -165,6 +188,8 @@ bool UserManager::registerUser(const QString& username, const QString& password,
   }
 
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
+=======
+>>>>>>> Merna
   QString hashedPassword = hashPassword(password);
 
   QSqlQuery query(db);
@@ -173,12 +198,12 @@ bool UserManager::registerUser(const QString& username, const QString& password,
   query.addBindValue(hashedPassword);
   query.addBindValue(email);
 
-<<<<<<< HEAD
   if (!query.exec()) {
     qDebug() << "Error registering user:" << query.lastError().text();
     return false;
   }
 
+<<<<<<< HEAD
   == == == =
 
                if (!query.exec()) {
@@ -187,6 +212,8 @@ bool UserManager::registerUser(const QString& username, const QString& password,
   }
 
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
+=======
+>>>>>>> Merna
   return true;
 }
 
@@ -215,7 +242,11 @@ bool UserManager::loginUser(const QString& username, const QString& password) {
     return false;
   }
 
+<<<<<<< HEAD
   // Update last login timestamp
+=======
+          // Update last login timestamp
+>>>>>>> Merna
   QSqlQuery updateQuery(db);
   updateQuery.prepare(
       "UPDATE users SET last_login = CURRENT_TIMESTAMP "
@@ -467,7 +498,6 @@ bool UserManager::saveUserToDatabase(const User& user) {
       WHERE username = ?
   )");
 
-<<<<<<< HEAD
   query.addBindValue(user.getEmail());
   query.addBindValue(user.getGamesWon());
   query.addBindValue(user.getGamesLost());
@@ -479,6 +509,7 @@ bool UserManager::saveUserToDatabase(const User& user) {
     return false;
   }
 
+<<<<<<< HEAD
   == == == =
 
                query.addBindValue(user.getEmail());
@@ -496,6 +527,11 @@ bool UserManager::saveUserToDatabase(const User& user) {
   return true;
 }
 
+
+>>>>>>> Merna
+=======
+  return true;
+}
 
 >>>>>>> Merna
 /// @brief Loads a User object from the database using the username.
@@ -548,6 +584,7 @@ User UserManager::loadUserFromDatabase(const QString& username) {
       for (int i = 0; i < gamesTied; i++) user.addTie();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       QList<GameRecord> history = loadGameHistoryFromDatabase(username);
       user.setGameHistory(history);
     }
@@ -586,6 +623,11 @@ User UserManager::loadUserFromDatabase(const QString& username) {
 return user;
 }
 
+
+>>>>>>> Merna
+=======
+  return user;
+}
 
 >>>>>>> Merna
 /// @brief Saves all game records for a user to the database.
@@ -627,6 +669,7 @@ bool UserManager::saveGameHistoryToDatabase(const QString& username,
     insertQuery.addBindValue(movesToString(record.moves));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     == == == = QSqlQuery insertQuery(db);
     insertQuery.prepare(R"(
       INSERT INTO game_history (username, timestamp, opponent,
@@ -656,6 +699,11 @@ bool UserManager::saveGameHistoryToDatabase(const QString& username,
 >>>>>>> Merna
                  if (!insertQuery.exec()) {
       qDebug() << "Error saving game record:" << insertQuery.lastError().text();
+=======
+    if (!insertQuery.exec()) {
+      qDebug() << "Error saving game record:"
+               << insertQuery.lastError().text();
+>>>>>>> Merna
       return false;
     }
 <<<<<<< HEAD
@@ -665,6 +713,7 @@ bool UserManager::saveGameHistoryToDatabase(const QString& username,
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   return true;
 }
 
@@ -673,6 +722,11 @@ bool UserManager::saveGameHistoryToDatabase(const QString& username,
              return true;
 }
 
+
+>>>>>>> Merna
+=======
+  return true;
+}
 
 >>>>>>> Merna
 /// @brief Loads the last 5 game records from the database.
@@ -710,11 +764,11 @@ QList<GameRecord> UserManager::loadGameHistoryFromDatabase(
         record.moves = movesFromString(movesData);
       }
 
-<<<<<<< HEAD
       history.append(record);
     }
   } else {
     qDebug() << "Error loading game history:" << query.lastError().text();
+<<<<<<< HEAD
     == == == = QString movesData = query.value("moves_data").toString();
     if (!movesData.isEmpty()) {
       record.moves = movesFromString(movesData);
@@ -740,6 +794,11 @@ else {
 
 >>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
 return history;
+>>>>>>> Merna
+=======
+  }
+
+  return history;
 >>>>>>> Merna
 }
 
@@ -777,11 +836,11 @@ QList<GameRecord> UserManager::loadAllGameHistoryFromDatabase(
         record.moves = movesFromString(movesData);
       }
 
-<<<<<<< HEAD
       history.append(record);
     }
   } else {
     qDebug() << "Error loading all game history:" << query.lastError().text();
+<<<<<<< HEAD
     == == == = QString movesData = query.value("moves_data").toString();
     if (!movesData.isEmpty()) {
       record.moves = movesFromString(movesData);
@@ -813,6 +872,13 @@ return history;
 
 
 >>>>>>> Merna
+=======
+  }
+
+  return history;
+}
+
+>>>>>>> Merna
 /// @brief Serializes a vector of moves into a string for database storage.
 /// @param moves A vector of GameMove.
 /// @return A semicolon-separated move string.
@@ -833,10 +899,13 @@ QVector<GameMove> UserManager::movesFromString(const QString& movesStr) const {
   QVector<GameMove> moves;
   if (movesStr.isEmpty()) return moves;
 
+<<<<<<< HEAD
   == == == = QVector<GameMove> moves;
   if (movesStr.isEmpty()) return moves;
 
 <<<<<<< HEAD
+=======
+>>>>>>> Merna
   QStringList moveStrings = movesStr.split(";");
   for (const QString& moveStr : moveStrings) {
     QStringList parts = moveStr.split(",");
@@ -846,6 +915,7 @@ QVector<GameMove> UserManager::movesFromString(const QString& movesStr) const {
       move.col = parts[1].toInt();
       move.player = parts[2].toInt();
       moves.append(move);
+<<<<<<< HEAD
       == == == =
 >>>>>>> Merna
                    QStringList moveStrings = movesStr.split(";");
@@ -865,4 +935,6 @@ QVector<GameMove> UserManager::movesFromString(const QString& movesStr) const {
 >>>>>>> Merna
       }
       return moves;
+=======
+>>>>>>> Merna
     }

@@ -1,26 +1,38 @@
 #include "user.h"
 
-User::User() : gamesWon(0), gamesLost(0), gamesTied(0) {}
+/// @brief Default constructor.
+/// Initializes game statistics to zero.
+User::User() : gamesWon(0), gamesLost(0), gamesTied(0)
+{
+}
 
-User::User(const QString& username, const QString& password,
-           const QString& email)
-    : username(username),
-      password(password),
-      email(email),
-      gamesWon(0),
-      gamesLost(0),
-      gamesTied(0) {
+/// @brief Constructs a User with credentials and optional email.
+/// Initializes statistics and sets last login to current time.
+/// @param username The username for the account.
+/// @param password The user's password (assumed hashed).
+/// @param email Optional email address.
+User::User(const QString &username, const QString &password, const QString &email)
+    : username(username), password(password), email(email),
+      gamesWon(0), gamesLost(0), gamesTied(0)
+{
   lastLogin = QDateTime::currentDateTime();
 }
 
-double User::getWinRate() const {
+/// @brief Calculates the win rate as a percentage.
+/// @return Percentage of games won out of total played.
+/// If no games played, returns 0.0.
+double User::getWinRate() const
+{
   int total = getTotalGames();
   if (total == 0) return 0.0;
   return (double)gamesWon / total * 100.0;
 }
 
-void User::addGameToHistory(const GameRecord& record) {
-  // Add to beginning and keep all games (database will handle storage)
+/// @brief Adds a completed game record to the user's history.
+/// The game is added to the beginning of the list. All games
+/// are preserved (database will handle any trimming or sync).
+/// @param record The GameRecord to add.
+void User::addGameToHistory(const GameRecord &record)
+{
   gameHistory.prepend(record);
-  // No longer limit to 5 games - let database handle the full history
 }
