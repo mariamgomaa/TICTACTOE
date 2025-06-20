@@ -1,14 +1,15 @@
 #ifndef USER_H
 #define USER_H
 
-#include <QMetaType>
-#include <QString>
 #include <QDateTime>
 #include <QList>
+#include <QMetaType>
+#include <QString>
 #include <QVector>
 
 /// @brief Represents a single move made during a Tic Tac Toe game.
 struct GameMove {
+
     int row;     ///< The row index of the move (0-2).
     int col;     ///< The column index of the move (0-2).
     int player;  ///< The player who made the move: 1 for 'X', 2 for 'O'.
@@ -20,10 +21,12 @@ struct GameMove {
     /// @param c Column index (0-2).
     /// @param p Player identifier (1 = X, 2 = O).
     GameMove(int r, int c, int p) : row(r), col(c), player(p) {}
+
 };
 
 /// @brief Stores data about a completed game session.
 struct GameRecord {
+
     QDateTime timestamp;         ///< Time when the game was played.
     QString opponent;            ///< Name of the opponent.
     QString result;              ///< Result of the game: Win/Loss/Tie.
@@ -41,6 +44,7 @@ struct GameRecord {
     GameRecord(const QString &opp, const QString &res,
                const QString &mode, const QString &symbol)
         : timestamp(QDateTime::currentDateTime()),
+
         opponent(opp),
         result(res),
         gameMode(mode),
@@ -49,6 +53,7 @@ struct GameRecord {
 
 /// @brief Represents a user with authentication data and game stats.
 class User {
+
 public:
     /// @brief Default constructor. Initializes stats to zero.
     User();
@@ -144,6 +149,7 @@ private:
     int gamesLost;                 ///< Number of losses.
     int gamesTied;                 ///< Number of ties.
     QList<GameRecord> gameHistory; ///< List of all game records.
+
 };
 
 /// @brief Enables GameMove to be used in QVariant and Qt meta system.
@@ -153,3 +159,4 @@ Q_DECLARE_METATYPE(GameMove)
 Q_DECLARE_METATYPE(GameRecord)
 
 #endif // USER_H
+

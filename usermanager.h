@@ -1,15 +1,15 @@
 #ifndef USERMANAGER_H
 #define USERMANAGER_H
 
-#include "user.h"
-#include <QSqlDatabase>
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QStandardPaths>
-#include <QDir>
-#include <QDebug>
 #include <QCryptographicHash>
+#include <QDebug>
+#include <QDir>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QStandardPaths>
 #include <QString>
+
 
 /// @brief Manages user authentication, session control, and data persistence.
 class UserManager {
@@ -115,6 +115,6 @@ private:
     /// @param movesStr Encoded move string.
     /// @return Vector of GameMove.
     QVector<GameMove> movesFromString(const QString &movesStr) const;
-};
 
-#endif // USERMANAGER_H
+
+#endif  // USERMANAGER_H
