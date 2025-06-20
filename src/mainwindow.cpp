@@ -2662,6 +2662,292 @@ void MainWindow::showGameReplay() {
 }
 
 void MainWindow::onGameSelected() {
+<<<<<<< HEAD
+    QListWidgetItem* item = gameListWidget->currentItem();
+    if (!item) return;
+    
+    // Get the GameRecord directly from the item data
+    GameRecord record = item->data(Qt::UserRole).value<GameRecord>();
+    
+    // Initialize replay with the correct game record
+    initializeReplay(record);
+}
+
+void MainWindow::initializeReplay(const GameRecord& record) {
+  currentReplayGame = record;
+  currentReplayMoveIndex = 0;
+  isReplaying = false;
+
+  resetReplayBoard();
+  updateReplayBoard();
+
+  QString info = QString("🎮 %1 vs %2 | %3 | %4")
+                     .arg(record.playerSymbol == "X" ? "You (X)"
+                                                     : record.opponent + " (X)")
+                     .arg(record.playerSymbol == "O" ? "You (O)"
+                                                     : record.opponent + " (O)")
+                     .arg(record.gameMode)
+                     .arg(record.result);
+
+  replayInfoLabel->setText(info);
+  replayStatusLabel->setText("🎬 Ready to replay - Press Play!");
+
+  // Enable controls
+  playBtn->setEnabled(true);
+  pauseBtn->setEnabled(false);
+  resetBtn->setEnabled(true);
+}
+
+void MainWindow::onReplayPlay() {
+  if (currentReplayGame.moves.isEmpty()) return;
+
+  isReplaying = true;
+  playBtn->setEnabled(false);
+  pauseBtn->setEnabled(true);
+
+  int speed = speedSlider->value();
+  int interval = 2000 - (speed - 1) * 300;  // 1700ms to 500ms
+  replayTimer->start(interval);
+
+  replayStatusLabel->setText("▶️ Playing replay...");
+}
+
+void MainWindow::onReplayPause() {
+  isReplaying = false;
+  replayTimer->stop();
+
+  playBtn->setEnabled(true);
+  pauseBtn->setEnabled(false);
+
+  replayStatusLabel->setText("⏸️ Replay paused");
+}
+
+void MainWindow::onReplayReset() {
+  isReplaying = false;
+  replayTimer->stop();
+  currentReplayMoveIndex = 0;
+
+  resetReplayBoard();
+  updateReplayBoard();
+
+  playBtn->setEnabled(true);
+  pauseBtn->setEnabled(false);
+
+  replayStatusLabel->setText("🔄 Replay reset - Ready to play!");
+}
+
+void MainWindow::onReplaySpeedChanged(int speed) {
+  if (isReplaying) {
+    int interval = 2000 - (speed - 1) * 300;
+    replayTimer->setInterval(interval);
+  }
+}
+
+void MainWindow::replayNextMove() {
+  if (currentReplayMoveIndex >= currentReplayGame.moves.size()) {
+    // Replay finished
+    onReplayPause();
+    replayStatusLabel->setText("🎉 Replay completed!");
+    return;
+  }
+
+  const GameMove& move = currentReplayGame.moves[currentReplayMoveIndex];
+  replayBoard[move.row][move.col] = move.player;
+
+  updateReplayBoard();
+
+  QString playerName = (move.player == 1) ? "X" : "O";
+  replayStatusLabel->setText(QString("▶️ Move %1: %2 played at (%3, %4)")
+                                 .arg(currentReplayMoveIndex + 1)
+                                 .arg(playerName)
+                                 .arg(move.row + 1)
+                                 .arg(move.col + 1));
+
+  currentReplayMoveIndex++;
+}
+
+void MainWindow::updateReplayBoard() {
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < 3; ++j) {
+      QString text = "";
+      QString color = "#ffffff";
+      QString textColor = "#2c3e50";
+
+      if (replayBoard[i][j] == 1) {
+        text = "X";
+        color = "#28a745";  // Solid green for X
+        textColor = "#ffffff";
+      } else if (replayBoard[i][j] == 2) {
+        text = "O";
+        color = "#dc3545";  // Solid red for O
+        textColor = "#ffffff";
+      }
+
+      replayCells[i][j]->setText(text);
+      replayCells[i][j]->setStyleSheet(
+          QString("QPushButton {"
+                  "font-size: 16px; font-weight: bold; background: %1;"
+                  "border: 1px solid #bdc3c7; border-radius: 8px; color: %2;"
+                  "}")
+              .arg(color, textColor));
+    }
+  }
+}
+
+void MainWindow::resetReplayBoard() {
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < 3; ++j) {
+      replayBoard[i][j] = 0;
+    }
+  }
+}
+
+void MainWindow::showPlayerNamesInput() {
+  stackedWidget->setCurrentWidget(playerNamesWidget);
+  setWindowTitle("👥 Tic Tac Toe - Player Names");
+
+  // Pre-fill player 1 with logged-in user's name
+  if (userManager->isUserLoggedIn()) {
+    player1NameEdit->setText(userManager->getCurrentUser()->getUsername());
+  } else {
+    player1NameEdit->setText("Player 1");
+  }
+
+  player2NameEdit->setText("Player 2");
+  player2NameEdit->setFocus();
+  player2NameEdit->selectAll();
+}
+
+void MainWindow::onPlayerNamesConfirmed() {
+  QString p1Name = player1NameEdit->text().trimmed();
+  QString p2Name = player2NameEdit->text().trimmed();
+
+  if (p1Name.isEmpty()) p1Name = "Player 1";
+  if (p2Name.isEmpty()) p2Name = "Player 2";
+
+  player1Name = p1Name;
+  player2Name = p2Name;
+
+  // Show game and start playing
+  showGame();
+  newGame();
+}
+
+void MainWindow::animateButton(QPushButton* button) {
+  // Animate the clicked button
+  QPropertyAnimation* buttonAnimation =
+      new QPropertyAnimation(button, "geometry");
+  QRect originalGeometry = button->geometry();
+  QRect scaledGeometry = originalGeometry;
+  scaledGeometry.setWidth(originalGeometry.width() * 1.05);  // REDUCED scale
+  scaledGeometry.setHeight(originalGeometry.height() * 1.05);
+  scaledGeometry.moveCenter(originalGeometry.center());
+
+  buttonAnimation->setDuration(100);  // REDUCED duration
+  buttonAnimation->setStartValue(originalGeometry);
+  buttonAnimation->setEndValue(scaledGeometry);
+  buttonAnimation->setEasingCurve(QEasingCurve::OutBack);
+
+  // Scale back
+  connect(buttonAnimation, &QPropertyAnimation::finished, [=]() {
+    QPropertyAnimation* scaleBack = new QPropertyAnimation(button, "geometry");
+    scaleBack->setDuration(100);  // REDUCED duration
+    scaleBack->setStartValue(scaledGeometry);
+    scaleBack->setEndValue(originalGeometry);
+    scaleBack->setEasingCurve(QEasingCurve::InBack);
+    scaleBack->start(QAbstractAnimation::DeleteWhenStopped);
+  });
+
+  buttonAnimation->start(QAbstractAnimation::DeleteWhenStopped);
+}
+
+void MainWindow::showGameSetup() {
+  if (!userManager->isUserLoggedIn()) {
+    showLoginScreen();
+    return;
+  }
+
+  stackedWidget->setCurrentWidget(setupWidget);
+  setWindowTitle("🎮 Tic Tac Toe - Game Setup");
+
+  // Reset setup to initial state - NO DEFAULT SELECTIONS
+  modeButtonGroup->setExclusive(false);
+  pvpModeBtn->setChecked(false);
+  pvaiModeBtn->setChecked(false);
+  modeButtonGroup->setExclusive(true);
+
+  difficultyButtonGroup->setExclusive(false);
+  easyBtn->setChecked(false);
+  mediumBtn->setChecked(false);
+  hardBtn->setChecked(false);
+  difficultyButtonGroup->setExclusive(true);
+
+  symbolButtonGroup->setExclusive(false);
+  xSymbolBtn->setChecked(false);
+  oSymbolBtn->setChecked(false);
+  symbolButtonGroup->setExclusive(true);
+}
+
+void MainWindow::showGame() {
+  stackedWidget->setCurrentWidget(gameWidget);
+  setWindowTitle("🎮 Tic Tac Toe - Playing!");
+}
+
+void MainWindow::startGameSetup() { showGameSetup(); }
+
+void MainWindow::onModeSelected() {
+  QRadioButton* senderBtn = qobject_cast<QRadioButton*>(sender());
+  if (!senderBtn) return;
+
+  isPvP = pvpModeBtn->isChecked();
+
+  if (isPvP) {
+    game->setGameMode(true);
+    QTimer::singleShot(300, this, [this]() {  // REDUCED delay
+      showPlayerNamesInput();
+    });
+  } else {
+    QTimer::singleShot(300, this, [this]() {  // REDUCED delay
+      stackedWidget->setCurrentWidget(difficultyWidget);
+    });
+  }
+}
+
+void MainWindow::onDifficultySelected() {
+  QRadioButton* senderBtn = qobject_cast<QRadioButton*>(sender());
+  if (!senderBtn) return;
+
+  if (easyBtn->isChecked())
+    selectedDifficulty = 1;
+  else if (mediumBtn->isChecked())
+    selectedDifficulty = 2;
+  else
+    selectedDifficulty = 3;
+
+  game->setDifficulty(selectedDifficulty);
+
+  QTimer::singleShot(300, this, [this]() {  // REDUCED delay
+    stackedWidget->setCurrentWidget(symbolWidget);
+  });
+}
+
+void MainWindow::onSymbolSelected() {
+  QRadioButton* senderBtn = qobject_cast<QRadioButton*>(sender());
+  if (!senderBtn) return;
+
+  isPlayerX = xSymbolBtn->isChecked();
+
+  if (isPlayerX) {
+    humanPlayer = HUMAN;
+    aiPlayer = AI;
+  } else {
+    humanPlayer = AI;
+    aiPlayer = HUMAN;
+  }
+
+  game->setGameMode(false);
+
+=======
   QListWidgetItem* item = gameListWidget->currentItem();
   if (!item) return;
 
@@ -2949,6 +3235,7 @@ void MainWindow::onSymbolSelected() {
 
   game->setGameMode(false);
 
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
   QTimer::singleShot(300, this, [this]() {  // REDUCED delay
     showGame();
     newGame();
