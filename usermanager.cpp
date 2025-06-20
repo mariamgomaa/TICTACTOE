@@ -1,11 +1,11 @@
 #include "usermanager.h"
-#include <QSqlQuery>
-#include <QSqlError>
 
-// Constructor: initializes user manager, sets DB path, and connects
-UserManager::UserManager() : currentUser(nullptr)
-{
-  // Store DB in the user's Documents/TicTacToe folder
+#include <QSqlError>
+#include <QSqlQuery>
+
+// Constructor: sets up database path and initializes database
+UserManager::UserManager() : currentUser(nullptr) {
+  // Set database path in user's documents folder
   QString documentsPath =
       QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
   QDir().mkpath(documentsPath + "/TicTacToe");
@@ -14,9 +14,8 @@ UserManager::UserManager() : currentUser(nullptr)
   initializeDatabase();
 }
 
-// Destructor: saves current user and closes database connection
-UserManager::~UserManager()
-{
+// Destructor: saves user data and closes database connection
+UserManager::~UserManager() {
   if (currentUser) {
     saveUserData();
     delete currentUser;
@@ -27,9 +26,8 @@ UserManager::~UserManager()
   }
 }
 
-// Opens the SQLite database and creates required tables
-bool UserManager::initializeDatabase()
-{
+// Initializes SQLite connection and creates required tables
+bool UserManager::initializeDatabase() {
   db = QSqlDatabase::addDatabase("QSQLITE");
   db.setDatabaseName(dbPath);
 
@@ -41,21 +39,44 @@ bool UserManager::initializeDatabase()
   return createTables();
 }
 
-// Creates users and game_history tables if they do not already exist
-bool UserManager::createTables()
-{
+// Creates 'users' and 'game_history' tables if not existing
+bool UserManager::createTables() {
   QSqlQuery query(db);
 
           // Create users table
-  QString createUsersTable = R"(...)";  // Full SQL omitted for brevity
+  QString createUsersTable = R"(
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL,
+            email TEXT,
+            last_login DATETIME,
+            games_won INTEGER DEFAULT 0,
+            games_lost INTEGER DEFAULT 0,
+            games_tied INTEGER DEFAULT 0,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    )";
 
   if (!query.exec(createUsersTable)) {
     qDebug() << "Error creating users table:" << query.lastError().text();
     return false;
   }
 
-          // Create game_history table
-  QString createHistoryTable = R"(...)";
+          // Create game history table
+  QString createHistoryTable = R"(
+        CREATE TABLE IF NOT EXISTS game_history (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL,
+            timestamp DATETIME NOT NULL,
+            opponent TEXT NOT NULL,
+            result TEXT NOT NULL,
+            game_mode TEXT NOT NULL,
+            player_symbol TEXT NOT NULL,
+            moves_data TEXT,
+            FOREIGN KEY (username) REFERENCES users(username)
+        )
+    )";
 
   if (!query.exec(createHistoryTable)) {
     qDebug() << "Error creating game_history table:"
@@ -63,14 +84,14 @@ bool UserManager::createTables()
     return false;
   }
 
-          // Add column for move data (if not already present)
+          // Attempt to add moves_data column if missing
   QString alterTable = "ALTER TABLE game_history ADD COLUMN moves_data TEXT";
-  query.exec(alterTable);  // May fail silently if already added
+  query.exec(alterTable);  // Fails silently if already added
 
-          // Create index to speed up history lookups
+          // Create index for faster username lookups in game history
   QString createIndex =
-      "CREATE INDEX IF NOT EXISTS idx_game_history_username "
-      "ON game_history(username)";
+      "CREATE INDEX IF NOT EXISTS idx_game_history_username ON "
+      "game_history(username)";
   if (!query.exec(createIndex)) {
     qDebug() << "Error creating index:" << query.lastError().text();
   }
@@ -78,11 +99,10 @@ bool UserManager::createTables()
   return true;
 }
 
-// Registers a new user by inserting their hashed credentials into the DB
-bool UserManager::registerUser(const QString &username,
-                               const QString &password,
-                               const QString &email)
-{
+// Registers a new user after validating input and uniqueness
+bool UserManager::registerUser(const QString& username,
+                               const QString& password,
+                               const QString& email) {
   if (username.isEmpty() || password.isEmpty()) {
     return false;
   }
@@ -94,7 +114,9 @@ bool UserManager::registerUser(const QString &username,
   QString hashedPassword = hashPassword(password);
 
   QSqlQuery query(db);
-  query.prepare("INSERT INTO users (...)");
+  query.prepare(
+      "INSERT INTO users (username, password, email, last_login) VALUES (?, ?, "
+      "?, CURRENT_TIMESTAMP)");
   query.addBindValue(username);
   query.addBindValue(hashedPassword);
   query.addBindValue(email);
@@ -107,10 +129,9 @@ bool UserManager::registerUser(const QString &username,
   return true;
 }
 
-// Authenticates the user and loads their profile into memory
-bool UserManager::loginUser(const QString &username,
-                            const QString &password)
-{
+// Logs in user by verifying credentials and loading profile
+bool UserManager::loginUser(const QString& username,
+                            const QString& password) {
   if (!userExists(username)) {
     return false;
   }
@@ -130,14 +151,14 @@ bool UserManager::loginUser(const QString &username,
     return false;
   }
 
-          // Update login time
+          // Update login timestamp
   QSqlQuery updateQuery(db);
-  updateQuery.prepare("UPDATE users SET last_login = CURRENT_TIMESTAMP "
-      "WHERE username = ?");
+  updateQuery.prepare(
+      "UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE username = ?");
   updateQuery.addBindValue(username);
   updateQuery.exec();
 
-          // Replace previous user instance if exists
+          // Replace current user with loaded profile
   if (currentUser) {
     delete currentUser;
   }
@@ -148,9 +169,8 @@ bool UserManager::loginUser(const QString &username,
   return true;
 }
 
-// Logs out the user, saves data, and frees memory
-void UserManager::logoutUser()
-{
+// Logs out current user and saves their data
+void UserManager::logoutUser() {
   if (currentUser) {
     saveUserData();
     delete currentUser;
@@ -158,9 +178,8 @@ void UserManager::logoutUser()
   }
 }
 
-// Checks if a user with the given username exists in the database
-bool UserManager::userExists(const QString &username) const
-{
+// Checks if a username already exists in the database
+bool UserManager::userExists(const QString& username) const {
   QSqlQuery query(db);
   query.prepare("SELECT COUNT(*) FROM users WHERE username = ?");
   query.addBindValue(username);
@@ -172,9 +191,8 @@ bool UserManager::userExists(const QString &username) const
   return false;
 }
 
-// Fetches all usernames currently stored in the database
-QStringList UserManager::getAllUsernames() const
-{
+// Returns a list of all registered usernames
+QStringList UserManager::getAllUsernames() const {
   QStringList usernames;
   QSqlQuery query("SELECT username FROM users ORDER BY username", db);
 
@@ -185,17 +203,15 @@ QStringList UserManager::getAllUsernames() const
   return usernames;
 }
 
-// Uses SHA-256 hashing to secure the user's password
-QString UserManager::hashPassword(const QString &password) const
-{
+// Returns SHA-256 hash of a given password
+QString UserManager::hashPassword(const QString& password) const {
   QCryptographicHash hash(QCryptographicHash::Sha256);
   hash.addData(password.toUtf8());
   return hash.result().toHex();
 }
 
-// Saves the current user's profile and game history
-void UserManager::saveUserData()
-{
+// Saves current user data and game history to the database
+void UserManager::saveUserData() {
   if (!currentUser) return;
 
   saveUserToDatabase(*currentUser);
@@ -203,21 +219,20 @@ void UserManager::saveUserData()
                             currentUser->getGameHistory());
 }
 
-// Placeholder for future compatibility (currently unused)
-void UserManager::loadUserData()
-{
-   // Reserved for future use
+// Placeholder method for future expansion
+void UserManager::loadUserData() {
+  // This method is kept for interface compatibility
+  // Data is loaded on-demand when user logs in
 }
 
-// Updates an existing user's stats and metadata in the database
-bool UserManager::saveUserToDatabase(const User &user)
-{
+// Updates user statistics and email in database
+bool UserManager::saveUserToDatabase(const User& user) {
   QSqlQuery query(db);
   query.prepare(R"(
-      UPDATE users
-      SET email = ?, games_won = ?, games_lost = ?, games_tied = ?
-      WHERE username = ?
-  )");
+        UPDATE users
+        SET email = ?, games_won = ?, games_lost = ?, games_tied = ?
+        WHERE username = ?
+    )");
 
   query.addBindValue(user.getEmail());
   query.addBindValue(user.getGamesWon());
@@ -233,17 +248,15 @@ bool UserManager::saveUserToDatabase(const User &user)
   return true;
 }
 
-// Loads a User object from the database by username
-User UserManager::loadUserFromDatabase(const QString &username)
-{
+// Loads user profile, stats, and game history from database
+User UserManager::loadUserFromDatabase(const QString& username) {
   User user;
 
   QSqlQuery query(db);
   query.prepare(R"(
-      SELECT username, password, email, last_login,
-             games_won, games_lost, games_tied
-      FROM users WHERE username = ?
-  )");
+        SELECT username, password, email, last_login, games_won, games_lost, games_tied
+        FROM users WHERE username = ?
+    )");
   query.addBindValue(username);
 
   if (query.exec() && query.next()) {
@@ -260,6 +273,7 @@ User UserManager::loadUserFromDatabase(const QString &username)
     for (int i = 0; i < gamesLost; i++) user.addLoss();
     for (int i = 0; i < gamesTied; i++) user.addTie();
 
+            // Load recent game history for display
     QList<GameRecord> history = loadGameHistoryFromDatabase(username);
     user.setGameHistory(history);
   }
@@ -267,10 +281,9 @@ User UserManager::loadUserFromDatabase(const QString &username)
   return user;
 }
 
-// Stores all game records for the user in the database
+// Saves all games in user's history to the database
 bool UserManager::saveGameHistoryToDatabase(
-    const QString &username, const QList<GameRecord> &history)
-{
+    const QString& username, const QList<GameRecord>& history) {
   QSqlQuery deleteQuery(db);
   deleteQuery.prepare("DELETE FROM game_history WHERE username = ?");
   deleteQuery.addBindValue(username);
@@ -283,13 +296,11 @@ bool UserManager::saveGameHistoryToDatabase(
 
   QSqlQuery insertQuery(db);
   insertQuery.prepare(R"(
-      INSERT INTO game_history (username, timestamp, opponent,
-                                result, game_mode, player_symbol,
-                                moves_data)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
-  )");
+        INSERT INTO game_history (username, timestamp, opponent, result, game_mode, player_symbol, moves_data)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    )");
 
-  for (const GameRecord &record : history) {
+  for (const GameRecord& record : history) {
     insertQuery.addBindValue(username);
     insertQuery.addBindValue(record.timestamp);
     insertQuery.addBindValue(record.opponent);
@@ -299,8 +310,7 @@ bool UserManager::saveGameHistoryToDatabase(
     insertQuery.addBindValue(movesToString(record.moves));
 
     if (!insertQuery.exec()) {
-      qDebug() << "Error saving game record:"
-               << insertQuery.lastError().text();
+      qDebug() << "Error saving game record:" << insertQuery.lastError().text();
       return false;
     }
   }
@@ -308,21 +318,19 @@ bool UserManager::saveGameHistoryToDatabase(
   return true;
 }
 
-// Loads the 5 most recent game records from the database
+// Loads the last 5 game records for a user
 QList<GameRecord> UserManager::loadGameHistoryFromDatabase(
-    const QString &username)
-{
+    const QString& username) {
   QList<GameRecord> history;
 
   QSqlQuery query(db);
   query.prepare(R"(
-      SELECT timestamp, opponent, result,
-             game_mode, player_symbol, moves_data
-      FROM game_history
-      WHERE username = ?
-      ORDER BY timestamp DESC
-      LIMIT 5
-  )");
+        SELECT timestamp, opponent, result, game_mode, player_symbol, moves_data
+        FROM game_history
+        WHERE username = ?
+        ORDER BY timestamp DESC
+        LIMIT 5
+    )");
   query.addBindValue(username);
 
   if (query.exec()) {
@@ -348,20 +356,18 @@ QList<GameRecord> UserManager::loadGameHistoryFromDatabase(
   return history;
 }
 
-// Loads the full game history (not limited to 5) for the user
+// Loads all game records ever played by a user
 QList<GameRecord> UserManager::loadAllGameHistoryFromDatabase(
-    const QString &username)
-{
+    const QString& username) {
   QList<GameRecord> history;
 
   QSqlQuery query(db);
   query.prepare(R"(
-      SELECT timestamp, opponent, result,
-             game_mode, player_symbol, moves_data
-      FROM game_history
-      WHERE username = ?
-      ORDER BY timestamp DESC
-  )");
+        SELECT timestamp, opponent, result, game_mode, player_symbol, moves_data
+        FROM game_history
+        WHERE username = ?
+        ORDER BY timestamp DESC
+    )");
   query.addBindValue(username);
 
   if (query.exec()) {
@@ -387,28 +393,24 @@ QList<GameRecord> UserManager::loadAllGameHistoryFromDatabase(
   return history;
 }
 
-// Converts a vector of GameMove objects to a string
-QString UserManager::movesToString(const QVector<GameMove> &moves) const
-{
+// Converts move list to semicolon-separated string
+QString UserManager::movesToString(const QVector<GameMove>& moves) const {
   QStringList moveStrings;
-  for (const GameMove &move : moves) {
-    moveStrings << QString("%1,%2,%3")
-    .arg(move.row)
-        .arg(move.col)
-        .arg(move.player);
+  for (const GameMove& move : moves) {
+    moveStrings
+        << QString("%1,%2,%3").arg(move.row).arg(move.col).arg(move.player);
   }
   return moveStrings.join(";");
 }
 
-// Converts a serialized move string back into a vector of GameMove
+// Converts serialized move string back to move list
 QVector<GameMove> UserManager::movesFromString(
-    const QString &movesStr) const
-{
+    const QString& movesStr) const {
   QVector<GameMove> moves;
   if (movesStr.isEmpty()) return moves;
 
   QStringList moveStrings = movesStr.split(";");
-  for (const QString &moveStr : moveStrings) {
+  for (const QString& moveStr : moveStrings) {
     QStringList parts = moveStr.split(",");
     if (parts.size() == 3) {
       GameMove move;

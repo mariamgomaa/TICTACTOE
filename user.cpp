@@ -1,27 +1,32 @@
 #include "user.h"
 
-// Default constructor that initializes win/loss/tie counters to zero
-User::User() : gamesWon(0), gamesLost(0), gamesTied(0) {
-}
+// Default constructor initializes game counters to zero
+User::User() : gamesWon(0), gamesLost(0), gamesTied(0) {}
 
-// Constructor that sets user credentials and initializes statistics.
-// Also sets the last login time to the current system time.
-User::User(const QString &username, const QString &password, const QString &email)
-    : username(username), password(password), email(email),
-      gamesWon(0), gamesLost(0), gamesTied(0) {
+// Parameterized constructor to initialize user credentials and email
+// Also sets the last login time to the current time
+User::User(const QString& username, const QString& password,
+           const QString& email)
+    : username(username),
+      password(password),
+      email(email),
+      gamesWon(0),
+      gamesLost(0),
+      gamesTied(0) {
   lastLogin = QDateTime::currentDateTime();
 }
 
-// Calculates and returns the user's win rate as a percentage.
-// Returns 0.0 if the user has not played any games.
+// Computes and returns the win rate as a percentage
 double User::getWinRate() const {
   int total = getTotalGames();
   if (total == 0) return 0.0;
   return (double)gamesWon / total * 100.0;
 }
 
-// Adds a completed game record to the user's game history.
-// The new record is inserted at the beginning of the history list.
-void User::addGameToHistory(const GameRecord &record) {
+// Adds a game record to the beginning of the history list
+// Keeps all games; database is responsible for managing storage
+void User::addGameToHistory(const GameRecord& record) {
+  // Add to beginning and keep all games (database will handle storage)
   gameHistory.prepend(record);
+  // No longer limit to 5 games - let database handle the full history
 }
