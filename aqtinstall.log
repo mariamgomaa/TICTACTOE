@@ -2174,3 +2174,314 @@
 2025-06-20 02:34:41,013 - aqt.updater - INFO - updater 508 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\qtmain.prl
 2025-06-20 02:34:41,013 - aqt.main - INFO - installer 508 Finished installation
 2025-06-20 02:34:41,013 - aqt.main - INFO - installer 508 Time elapsed: 16.09297730 second
+2025-06-20 03:15:45,649 - aqt.main - INFO - installer 2840 aqtinstall(aqt) v3.1.21 on Python 3.11.9 [CPython MSC v.1938 64 bit (AMD64)]
+2025-06-20 03:15:45,649 - aqt.helper - DEBUG - helper 2840 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/Updates.xml.sha256
+2025-06-20 03:15:48,389 - aqt.helper - DEBUG - helper 5852 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtbase-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:48,404 - aqt.helper - DEBUG - helper 5236 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtactiveqt-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:48,420 - aqt.helper - DEBUG - helper 5304 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qttranslations-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:48,520 - aqt.helper - DEBUG - helper 6696 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtsvg-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:48,796 - aqt.helper - INFO - helper 5852 Downloading qtbase...
+2025-06-20 03:15:48,796 - aqt.installer - DEBUG - installer 5852 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtbase-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:48,811 - aqt.helper - INFO - helper 5236 Downloading qtactiveqt...
+2025-06-20 03:15:48,811 - aqt.installer - DEBUG - installer 5236 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtactiveqt-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:48,828 - aqt.helper - INFO - helper 5304 Downloading qttranslations...
+2025-06-20 03:15:48,828 - aqt.installer - DEBUG - installer 5304 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qttranslations-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:48,921 - aqt.helper - INFO - helper 6696 Downloading qtsvg...
+2025-06-20 03:15:48,921 - aqt.installer - DEBUG - installer 6696 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtsvg-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:49,202 - aqt.helper - DEBUG - helper 5852 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtbase-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:49,202 - aqt.helper - INFO - helper 5852 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:49,217 - aqt.helper - DEBUG - helper 5236 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtactiveqt-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:49,217 - aqt.helper - INFO - helper 5236 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:49,233 - aqt.helper - DEBUG - helper 5304 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qttranslations-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:49,233 - aqt.helper - INFO - helper 5304 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:49,327 - aqt.helper - DEBUG - helper 6696 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtsvg-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:49,327 - aqt.helper - INFO - helper 6696 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:49,780 - aqt.helper - DEBUG - helper 6696 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtdeclarative-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:49,764 - aqt.installer - INFO - installer 6696 Finished installation of qtsvg-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 1.25716380
+2025-06-20 03:15:50,093 - aqt.helper - DEBUG - helper 5304 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtgraphicaleffects-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:50,078 - aqt.installer - INFO - installer 5304 Finished installation of qttranslations-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 1.66810530
+2025-06-20 03:15:50,156 - aqt.installer - INFO - installer 5236 Finished installation of qtactiveqt-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 1.75389430
+2025-06-20 03:15:50,171 - aqt.helper - DEBUG - helper 5236 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtmultimedia-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:50,187 - aqt.helper - INFO - helper 6696 Downloading qtdeclarative...
+2025-06-20 03:15:50,187 - aqt.installer - DEBUG - installer 6696 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtdeclarative-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:50,499 - aqt.helper - INFO - helper 5304 Downloading qtgraphicaleffects...
+2025-06-20 03:15:50,499 - aqt.installer - DEBUG - installer 5304 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtgraphicaleffects-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:50,577 - aqt.helper - INFO - helper 5236 Downloading qtmultimedia...
+2025-06-20 03:15:50,577 - aqt.installer - DEBUG - installer 5236 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtmultimedia-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:50,593 - aqt.helper - DEBUG - helper 6696 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtdeclarative-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:50,593 - aqt.helper - INFO - helper 6696 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:50,906 - aqt.helper - DEBUG - helper 5304 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtgraphicaleffects-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:50,906 - aqt.helper - INFO - helper 5304 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:50,984 - aqt.helper - DEBUG - helper 5236 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtmultimedia-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:50,984 - aqt.helper - INFO - helper 5236 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:50,999 - aqt.installer - INFO - installer 5304 Finished installation of qtgraphicaleffects-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 0.90992060
+2025-06-20 03:15:51,124 - aqt.helper - DEBUG - helper 5304 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtwinextras-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:51,390 - aqt.installer - INFO - installer 5236 Finished installation of qtmultimedia-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 1.21935190
+2025-06-20 03:15:51,515 - aqt.helper - INFO - helper 5304 Downloading qtwinextras...
+2025-06-20 03:15:51,562 - aqt.helper - DEBUG - helper 5236 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qttools-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:51,515 - aqt.installer - DEBUG - installer 5304 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtwinextras-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:51,969 - aqt.helper - INFO - helper 5236 Downloading qttools...
+2025-06-20 03:15:52,017 - aqt.helper - DEBUG - helper 5304 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtwinextras-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:52,017 - aqt.helper - INFO - helper 5304 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:52,110 - aqt.installer - INFO - installer 5304 Finished installation of qtwinextras-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 0.99500690
+2025-06-20 03:15:52,126 - aqt.helper - DEBUG - helper 5304 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtimageformats-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:51,969 - aqt.installer - DEBUG - installer 5236 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qttools-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:52,532 - aqt.helper - INFO - helper 5304 Downloading qtimageformats...
+2025-06-20 03:15:52,532 - aqt.installer - DEBUG - installer 5304 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtimageformats-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:52,626 - aqt.helper - DEBUG - helper 5236 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qttools-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:52,626 - aqt.helper - INFO - helper 5236 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:52,720 - aqt.installer - INFO - installer 6696 Finished installation of qtdeclarative-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 2.93807150
+2025-06-20 03:15:52,751 - aqt.helper - DEBUG - helper 6696 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtsensors-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:52,939 - aqt.helper - DEBUG - helper 5304 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtimageformats-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:52,939 - aqt.helper - INFO - helper 5304 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:53,064 - aqt.installer - INFO - installer 5304 Finished installation of qtimageformats-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 0.93534900
+2025-06-20 03:15:53,142 - aqt.helper - INFO - helper 6696 Downloading qtsensors...
+2025-06-20 03:15:53,142 - aqt.installer - DEBUG - installer 6696 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtsensors-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:53,189 - aqt.helper - DEBUG - helper 5304 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtwebchannel-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:53,596 - aqt.helper - DEBUG - helper 6696 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtsensors-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:53,596 - aqt.helper - INFO - helper 6696 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:53,611 - aqt.helper - INFO - helper 5304 Downloading qtwebchannel...
+2025-06-20 03:15:53,752 - aqt.installer - INFO - installer 6696 Finished installation of qtsensors-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 1.00520310
+2025-06-20 03:15:53,767 - aqt.helper - DEBUG - helper 6696 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtwebsockets-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:53,611 - aqt.installer - DEBUG - installer 5304 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtwebchannel-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:54,159 - aqt.helper - INFO - helper 6696 Downloading qtwebsockets...
+2025-06-20 03:15:54,174 - aqt.installer - DEBUG - installer 6696 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtwebsockets-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:54,440 - aqt.helper - DEBUG - helper 5304 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtwebchannel-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:54,455 - aqt.helper - INFO - helper 5304 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:54,534 - aqt.installer - INFO - installer 5304 Finished installation of qtwebchannel-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 1.34512520
+2025-06-20 03:15:54,549 - aqt.helper - DEBUG - helper 5304 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtlocation-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:54,565 - aqt.helper - DEBUG - helper 6696 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtwebsockets-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:54,565 - aqt.helper - INFO - helper 6696 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:54,674 - aqt.installer - INFO - installer 6696 Finished installation of qtwebsockets-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 0.92152430
+2025-06-20 03:15:54,956 - aqt.helper - INFO - helper 5304 Downloading qtlocation...
+2025-06-20 03:15:54,956 - aqt.installer - DEBUG - installer 5304 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtlocation-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:55,065 - aqt.helper - DEBUG - helper 6696 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtserialport-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:55,363 - aqt.helper - DEBUG - helper 5304 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtlocation-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:55,363 - aqt.helper - INFO - helper 5304 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:55,473 - aqt.helper - INFO - helper 6696 Downloading qtserialport...
+2025-06-20 03:15:55,473 - aqt.installer - DEBUG - installer 6696 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtserialport-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:56,099 - aqt.helper - DEBUG - helper 6696 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtserialport-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:56,099 - aqt.helper - INFO - helper 6696 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:56,130 - aqt.installer - INFO - installer 5852 Finished installation of qtbase-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 7.73960280
+2025-06-20 03:15:56,161 - aqt.helper - DEBUG - helper 5852 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtconnectivity-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:56,208 - aqt.helper - DEBUG - helper 6696 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtquickcontrols-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:56,193 - aqt.installer - INFO - installer 6696 Finished installation of qtserialport-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 1.12231980
+2025-06-20 03:15:56,224 - aqt.installer - INFO - installer 5236 Finished installation of qttools-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 4.66552090
+2025-06-20 03:15:56,239 - aqt.helper - DEBUG - helper 5236 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtxmlpatterns-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:56,333 - aqt.installer - INFO - installer 5304 Finished installation of qtlocation-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 1.78248970
+2025-06-20 03:15:56,349 - aqt.helper - DEBUG - helper 5304 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtquickcontrols2-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:56,552 - aqt.helper - INFO - helper 5852 Downloading qtconnectivity...
+2025-06-20 03:15:56,552 - aqt.installer - DEBUG - installer 5852 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtconnectivity-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:56,598 - aqt.helper - INFO - helper 6696 Downloading qtquickcontrols...
+2025-06-20 03:15:56,598 - aqt.installer - DEBUG - installer 6696 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtquickcontrols-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:56,630 - aqt.helper - INFO - helper 5236 Downloading qtxmlpatterns...
+2025-06-20 03:15:56,630 - aqt.installer - DEBUG - installer 5236 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtxmlpatterns-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:56,755 - aqt.helper - INFO - helper 5304 Downloading qtquickcontrols2...
+2025-06-20 03:15:56,755 - aqt.installer - DEBUG - installer 5304 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtquickcontrols2-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:56,959 - aqt.helper - DEBUG - helper 5852 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtconnectivity-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:56,959 - aqt.helper - INFO - helper 5852 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:57,009 - aqt.helper - DEBUG - helper 6696 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtquickcontrols-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:57,009 - aqt.helper - INFO - helper 6696 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:57,039 - aqt.helper - DEBUG - helper 5236 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtxmlpatterns-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:57,039 - aqt.helper - INFO - helper 5236 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:57,180 - aqt.helper - DEBUG - helper 5304 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtquickcontrols2-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:57,180 - aqt.helper - INFO - helper 5304 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:57,195 - aqt.installer - INFO - installer 5852 Finished installation of qtconnectivity-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 1.03983840
+2025-06-20 03:15:57,227 - aqt.helper - DEBUG - helper 5852 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtserialbus-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:57,633 - aqt.helper - INFO - helper 5852 Downloading qtserialbus...
+2025-06-20 03:15:57,633 - aqt.installer - DEBUG - installer 5852 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtserialbus-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:57,696 - aqt.installer - INFO - installer 6696 Finished installation of qtquickcontrols-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 1.49826620
+2025-06-20 03:15:57,727 - aqt.helper - DEBUG - helper 6696 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtgamepad-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:57,727 - aqt.installer - INFO - installer 5236 Finished installation of qtxmlpatterns-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 1.49141740
+2025-06-20 03:15:57,742 - aqt.helper - DEBUG - helper 5236 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtremoteobjects-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:57,789 - aqt.installer - INFO - installer 5304 Finished installation of qtquickcontrols2-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 1.44530910
+2025-06-20 03:15:57,805 - aqt.helper - DEBUG - helper 5304 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qt3d-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:58,102 - aqt.helper - DEBUG - helper 5852 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtserialbus-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:58,102 - aqt.helper - INFO - helper 5852 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:58,133 - aqt.helper - INFO - helper 6696 Downloading qtgamepad...
+2025-06-20 03:15:58,133 - aqt.installer - DEBUG - installer 6696 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtgamepad-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:58,149 - aqt.helper - INFO - helper 5236 Downloading qtremoteobjects...
+2025-06-20 03:15:58,149 - aqt.installer - DEBUG - installer 5236 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtremoteobjects-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:58,196 - aqt.helper - INFO - helper 5304 Downloading qt3d...
+2025-06-20 03:15:58,196 - aqt.installer - DEBUG - installer 5304 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qt3d-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:58,211 - aqt.installer - INFO - installer 5852 Finished installation of qtserialbus-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 0.98560030
+2025-06-20 03:15:58,227 - aqt.helper - DEBUG - helper 5852 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtscxml-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:58,540 - aqt.helper - DEBUG - helper 6696 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtgamepad-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:58,540 - aqt.helper - INFO - helper 6696 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:58,540 - aqt.helper - DEBUG - helper 5236 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtremoteobjects-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:58,556 - aqt.helper - INFO - helper 5236 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:58,603 - aqt.helper - DEBUG - helper 5304 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qt3d-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:58,603 - aqt.helper - INFO - helper 5304 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:58,618 - aqt.helper - INFO - helper 5852 Downloading qtscxml...
+2025-06-20 03:15:58,634 - aqt.helper - DEBUG - helper 6696 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtspeech-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z.sha256
+2025-06-20 03:15:58,618 - aqt.installer - INFO - installer 6696 Finished installation of qtgamepad-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 0.89375280
+2025-06-20 03:15:58,618 - aqt.installer - DEBUG - installer 5852 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtscxml-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:58,728 - aqt.helper - DEBUG - helper 5236 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602x86_64-8.1.0-release-posix-seh-rt_v6-rev0-runtime.7z.sha256
+2025-06-20 03:15:58,696 - aqt.installer - INFO - installer 5236 Finished installation of qtremoteobjects-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 0.96017820
+2025-06-20 03:15:59,040 - aqt.helper - DEBUG - helper 5852 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtscxml-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:59,040 - aqt.helper - INFO - helper 5852 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:59,040 - aqt.helper - INFO - helper 6696 Downloading qtspeech...
+2025-06-20 03:15:59,040 - aqt.installer - DEBUG - installer 6696 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtspeech-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:59,134 - aqt.helper - INFO - helper 5236 Downloading x86_64...
+2025-06-20 03:15:59,134 - aqt.installer - DEBUG - installer 5236 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602x86_64-8.1.0-release-posix-seh-rt_v6-rev0-runtime.7z
+2025-06-20 03:15:59,165 - aqt.installer - INFO - installer 5852 Finished installation of qtscxml-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 0.95088460
+2025-06-20 03:15:59,181 - aqt.helper - DEBUG - helper 5852 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602d3dcompiler_47-x64.7z.sha256
+2025-06-20 03:15:59,447 - aqt.helper - DEBUG - helper 6696 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602qtspeech-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z
+2025-06-20 03:15:59,447 - aqt.helper - INFO - helper 6696 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:59,525 - aqt.installer - INFO - installer 6696 Finished installation of qtspeech-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 0.88816140
+2025-06-20 03:15:59,540 - aqt.helper - DEBUG - helper 5236 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602x86_64-8.1.0-release-posix-seh-rt_v6-rev0-runtime.7z
+2025-06-20 03:15:59,540 - aqt.helper - INFO - helper 5236 Redirected: qt.mirror.constant.com
+2025-06-20 03:15:59,572 - aqt.installer - INFO - installer 5304 Finished installation of qt3d-Windows-Windows_10-Mingw-Windows-Windows_10-X86_64.7z in 1.76496600
+2025-06-20 03:15:59,587 - aqt.helper - INFO - helper 5852 Downloading d3dcompiler_47...
+2025-06-20 03:15:59,587 - aqt.installer - DEBUG - installer 5852 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602d3dcompiler_47-x64.7z
+2025-06-20 03:15:59,650 - aqt.installer - INFO - installer 5236 Finished installation of x86_64-8.1.0-release-posix-seh-rt_v6-rev0-runtime.7z in 0.91760710
+2025-06-20 03:16:00,040 - aqt.helper - DEBUG - helper 5852 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602d3dcompiler_47-x64.7z
+2025-06-20 03:16:00,040 - aqt.helper - INFO - helper 5852 Redirected: qt.mirror.constant.com
+2025-06-20 03:16:00,275 - aqt.installer - INFO - installer 5852 Finished installation of d3dcompiler_47-x64.7z in 1.09549990
+2025-06-20 03:16:00,290 - aqt.helper - DEBUG - helper 5852 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602opengl32sw-64-mesa_12_0_rc2.7z.sha256
+2025-06-20 03:16:00,697 - aqt.helper - INFO - helper 5852 Downloading opengl32sw...
+2025-06-20 03:16:00,697 - aqt.installer - DEBUG - installer 5852 Download URL: https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602opengl32sw-64-mesa_12_0_rc2.7z
+2025-06-20 03:16:01,104 - aqt.helper - DEBUG - helper 5852 Asked to redirect(302) to: https://qt.mirror.constant.com/online/qtsdkrepository/windows_x86/desktop/qt5_5152/qt.qt5.5152.win64_mingw81/5.15.2-0-202011130602opengl32sw-64-mesa_12_0_rc2.7z
+2025-06-20 03:16:01,104 - aqt.helper - INFO - helper 5852 Redirected: qt.mirror.constant.com
+2025-06-20 03:16:01,620 - aqt.installer - INFO - installer 5852 Finished installation of opengl32sw-64-mesa_12_0_rc2.7z in 1.33715380
+2025-06-20 03:16:01,792 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\bin\qmake.exe
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt53DAnimation.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt53DCore.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt53DExtras.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt53DInput.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt53DLogic.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt53DQuick.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt53DQuickAnimation.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt53DQuickExtras.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt53DQuickInput.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt53DQuickRender.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt53DQuickScene2D.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt53DRender.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5AxBase.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5AxContainer.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5AxServer.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Bluetooth.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Concurrent.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Core.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5DBus.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Designer.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Gamepad.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Gui.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Help.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Location.pc
+2025-06-20 03:16:01,808 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Multimedia.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5MultimediaWidgets.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Network.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Nfc.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5OpenGL.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5OpenGLExtensions.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Positioning.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5PositioningQuick.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5PrintSupport.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Qml.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5QmlModels.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5QmlWorkerScript.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Quick.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5QuickControls2.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5QuickTemplates2.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5QuickTest.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5QuickWidgets.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5RemoteObjects.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Scxml.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Sensors.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5SerialBus.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5SerialPort.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Sql.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Svg.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Test.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5TextToSpeech.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5UiTools.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5WebChannel.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5WebSockets.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Widgets.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5WinExtras.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5Xml.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\pkgconfig\Qt5XmlPatterns.pc
+2025-06-20 03:16:01,823 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\libEGL.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\libGLESv2.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt53DAnimation.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt53DCore.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt53DExtras.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt53DInput.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt53DLogic.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt53DQuick.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt53DQuickAnimation.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt53DQuickExtras.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt53DQuickInput.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt53DQuickRender.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt53DQuickScene2D.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt53DRender.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5AccessibilitySupport.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5AxBase.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5AxContainer.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5AxServer.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Bluetooth.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Bootstrap.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Concurrent.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Core.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5DBus.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Designer.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5DesignerComponents.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5DeviceDiscoverySupport.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5EdidSupport.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5EglSupport.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5EventDispatcherSupport.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5FbSupport.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5FontDatabaseSupport.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Gamepad.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Gui.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Help.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Location.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Multimedia.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5MultimediaQuick.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5MultimediaWidgets.prl
+2025-06-20 03:16:01,839 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Network.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Nfc.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5OpenGL.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5OpenGLExtensions.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5PacketProtocol.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5PlatformCompositorSupport.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Positioning.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5PositioningQuick.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5PrintSupport.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Qml.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5QmlDebug.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5QmlDevTools.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5QmlModels.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5QmlWorkerScript.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Quick.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5QuickControls2.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5QuickParticles.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5QuickShapes.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5QuickTemplates2.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5QuickTest.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5QuickWidgets.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5RemoteObjects.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Scxml.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Sensors.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5SerialBus.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5SerialPort.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Sql.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Svg.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Test.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5TextToSpeech.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5ThemeSupport.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5UiTools.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5VulkanSupport.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5WebChannel.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5WebSockets.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Widgets.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5WindowsUIAutomationSupport.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5WinExtras.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5Xml.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\Qt5XmlPatterns.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\qtfreetype.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\qtlibpng.prl
+2025-06-20 03:16:01,855 - aqt.updater - INFO - updater 2840 Patching D:\a\TICTACTOE\Qt\5.15.2\mingw81_64\lib\qtmain.prl
+2025-06-20 03:16:01,855 - aqt.main - INFO - installer 2840 Finished installation
+2025-06-20 03:16:01,855 - aqt.main - INFO - installer 2840 Time elapsed: 16.20597770 second
