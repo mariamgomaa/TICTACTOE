@@ -1,6 +1,8 @@
 #include "usermanager.h"
-#include <QSqlQuery>
+
 #include <QSqlError>
+#include <QSqlQuery>
+
 
 /// @brief Constructs the UserManager object.
 /// Initializes the SQLite database and sets up necessary paths.
@@ -15,6 +17,7 @@ UserManager::UserManager() : currentUser(nullptr)
   initializeDatabase();
 }
 
+
 /// @brief Destructor for UserManager.
 /// Saves user data and cleans up the database and memory.
 UserManager::~UserManager()
@@ -24,6 +27,10 @@ UserManager::~UserManager()
     delete currentUser;
   }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
   if (db.isOpen()) {
     db.close();
   }
@@ -44,6 +51,7 @@ bool UserManager::initializeDatabase()
   return createTables();
 }
 
+
 /// @brief Creates required database tables if they do not exist.
 /// @return True if tables were created or already exist.
 bool UserManager::createTables()
@@ -53,10 +61,18 @@ bool UserManager::createTables()
           // Create users table
   QString createUsersTable = R"(...)";  // See code for full definition
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
   if (!query.exec(createUsersTable)) {
     qDebug() << "Error creating users table:" << query.lastError().text();
     return false;
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
 
           // Create game_history table with moves_data column
   QString createHistoryTable = R"(...)";
@@ -79,8 +95,13 @@ bool UserManager::createTables()
     qDebug() << "Error creating index:" << query.lastError().text();
   }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
   return true;
 }
+
 
 /// @brief Registers a new user by inserting into the database.
 /// @param username The new username.
@@ -95,10 +116,18 @@ bool UserManager::registerUser(const QString &username,
     return false;
   }
 
+<<<<<<< HEAD
   if (userExists(username)) {
     return false;
   }
 
+=======
+
+  if (userExists(username)) {
+    return false;
+  }
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
   QString hashedPassword = hashPassword(password);
 
   QSqlQuery query(db);
@@ -107,11 +136,20 @@ bool UserManager::registerUser(const QString &username,
   query.addBindValue(hashedPassword);
   query.addBindValue(email);
 
+<<<<<<< HEAD
   if (!query.exec()) {
     qDebug() << "Error registering user:" << query.lastError().text();
     return false;
   }
 
+=======
+
+  if (!query.exec()) {
+    qDebug() << "Error registering user:" << query.lastError().text();
+    return false;
+  }
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
   return true;
 }
 
@@ -125,6 +163,23 @@ bool UserManager::loginUser(const QString &username,
   if (!userExists(username)) {
     return false;
   }
+
+<<<<<<< HEAD
+  QString hashedPassword = hashPassword(password);
+
+  QSqlQuery query(db);
+  query.prepare("SELECT password FROM users WHERE username = ?");
+  query.addBindValue(username);
+
+  if (!query.exec() || !query.next()) {
+    return false;
+  }
+
+  QString storedPassword = query.value(0).toString();
+  if (storedPassword != hashedPassword) {
+    return false;
+  }
+=======
 
   QString hashedPassword = hashPassword(password);
 
@@ -141,6 +196,8 @@ bool UserManager::loginUser(const QString &username,
     return false;
   }
 
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
+
           // Update last login timestamp
   QSqlQuery updateQuery(db);
   updateQuery.prepare("UPDATE users SET last_login = CURRENT_TIMESTAMP "
@@ -153,11 +210,19 @@ bool UserManager::loginUser(const QString &username,
     delete currentUser;
   }
 
+<<<<<<< HEAD
   currentUser = new User();
   *currentUser = loadUserFromDatabase(username);
 
+=======
+
+  currentUser = new User();
+  *currentUser = loadUserFromDatabase(username);
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
   return true;
 }
+
 
 /// @brief Logs out the current user and saves their data.
 void UserManager::logoutUser()
@@ -178,12 +243,21 @@ bool UserManager::userExists(const QString &username) const
   query.prepare("SELECT COUNT(*) FROM users WHERE username = ?");
   query.addBindValue(username);
 
+<<<<<<< HEAD
   if (query.exec() && query.next()) {
     return query.value(0).toInt() > 0;
   }
 
+=======
+
+  if (query.exec() && query.next()) {
+    return query.value(0).toInt() > 0;
+  }
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
   return false;
 }
+
 
 /// @brief Retrieves all registered usernames from the database.
 /// @return A list of all usernames.
@@ -192,12 +266,21 @@ QStringList UserManager::getAllUsernames() const
   QStringList usernames;
   QSqlQuery query("SELECT username FROM users ORDER BY username", db);
 
+<<<<<<< HEAD
   while (query.next()) {
     usernames << query.value(0).toString();
   }
 
+=======
+
+  while (query.next()) {
+    usernames << query.value(0).toString();
+  }
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
   return usernames;
 }
+
 
 /// @brief Hashes a plaintext password using SHA-256.
 /// @param password The input plaintext password.
@@ -239,6 +322,7 @@ bool UserManager::saveUserToDatabase(const User &user)
       WHERE username = ?
   )");
 
+<<<<<<< HEAD
   query.addBindValue(user.getEmail());
   query.addBindValue(user.getGamesWon());
   query.addBindValue(user.getGamesLost());
@@ -250,8 +334,23 @@ bool UserManager::saveUserToDatabase(const User &user)
     return false;
   }
 
+=======
+
+  query.addBindValue(user.getEmail());
+  query.addBindValue(user.getGamesWon());
+  query.addBindValue(user.getGamesLost());
+  query.addBindValue(user.getGamesTied());
+  query.addBindValue(user.getUsername());
+
+  if (!query.exec()) {
+    qDebug() << "Error saving user data:" << query.lastError().text();
+    return false;
+  }
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
   return true;
 }
+
 
 /// @brief Loads a User object from the database using the username.
 /// @param username The target username.
@@ -286,8 +385,33 @@ User UserManager::loadUserFromDatabase(const QString &username)
     user.setGameHistory(history);
   }
 
+<<<<<<< HEAD
+=======
+
+  if (query.exec() && query.next()) {
+    user.setUsername(query.value("username").toString());
+    user.setPassword(query.value("password").toString());
+    user.setEmail(query.value("email").toString());
+    user.setLastLogin(query.value("last_login").toDateTime());
+
+    // Load game statistics
+    int gamesWon = query.value("games_won").toInt();
+    int gamesLost = query.value("games_lost").toInt();
+    int gamesTied = query.value("games_tied").toInt();
+
+    for (int i = 0; i < gamesWon; i++) user.addWin();
+    for (int i = 0; i < gamesLost; i++) user.addLoss();
+    for (int i = 0; i < gamesTied; i++) user.addTie();
+
+    // Load only last 5 games for display, but keep reference to all
+    QList<GameRecord> history = loadGameHistoryFromDatabase(username);
+    user.setGameHistory(history);
+  }
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
   return user;
 }
+
 
 /// @brief Saves all game records for a user to the database.
 /// @param username The user's username.
@@ -323,6 +447,7 @@ bool UserManager::saveGameHistoryToDatabase(
     insertQuery.addBindValue(record.playerSymbol);
     insertQuery.addBindValue(movesToString(record.moves));
 
+<<<<<<< HEAD
     if (!insertQuery.exec()) {
       qDebug() << "Error saving game record:"
                << insertQuery.lastError().text();
@@ -330,8 +455,20 @@ bool UserManager::saveGameHistoryToDatabase(
     }
   }
 
+=======
+        if (!insertQuery.exec()) {
+            qDebug() << "Error saving game record:"
+                     << insertQuery.lastError().text();
+            return false;
+        }
+
+    }
+  }
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
   return true;
 }
+
 
 /// @brief Loads the last 5 game records from the database.
 /// @param username The target username.
@@ -366,12 +503,25 @@ QList<GameRecord> UserManager::loadGameHistoryFromDatabase(
         record.moves = movesFromString(movesData);
       }
 
+<<<<<<< HEAD
       history.append(record);
     }
   } else {
     qDebug() << "Error loading game history:" << query.lastError().text();
   }
 
+=======
+            history.append(record);
+        }
+    } else {
+        qDebug() << "Error loading game history:" << query.lastError().text();
+
+    }
+  } else {
+    qDebug() << "Error loading game history:" << query.lastError().text();
+  }
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
   return history;
 }
 
@@ -407,14 +557,28 @@ QList<GameRecord> UserManager::loadAllGameHistoryFromDatabase(
         record.moves = movesFromString(movesData);
       }
 
+<<<<<<< HEAD
       history.append(record);
     }
   } else {
     qDebug() << "Error loading all game history:" << query.lastError().text();
   }
 
+=======
+            history.append(record);
+        }
+    } else {
+        qDebug() << "Error loading all game history:" << query.lastError().text();
+
+    }
+  } else {
+    qDebug() << "Error loading all game history:" << query.lastError().text();
+  }
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
   return history;
 }
+
 
 /// @brief Serializes a vector of moves into a string for database storage.
 /// @param moves A vector of GameMove.
@@ -440,6 +604,7 @@ QVector<GameMove> UserManager::movesFromString(
   QVector<GameMove> moves;
   if (movesStr.isEmpty()) return moves;
 
+<<<<<<< HEAD
   QStringList moveStrings = movesStr.split(";");
   for (const QString &moveStr : moveStrings) {
     QStringList parts = moveStr.split(",");
@@ -449,6 +614,19 @@ QVector<GameMove> UserManager::movesFromString(
       move.col = parts[1].toInt();
       move.player = parts[2].toInt();
       moves.append(move);
+=======
+    QStringList moveStrings = movesStr.split(";");
+    for (const QString &moveStr : moveStrings) {
+        QStringList parts = moveStr.split(",");
+        if (parts.size() == 3) {
+            GameMove move;
+            move.row = parts[0].toInt();
+            move.col = parts[1].toInt();
+            move.player = parts[2].toInt();
+            moves.append(move);
+        }
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
     }
   }
   return moves;

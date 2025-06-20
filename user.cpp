@@ -34,5 +34,10 @@ double User::getWinRate() const
 /// @param record The GameRecord to add.
 void User::addGameToHistory(const GameRecord &record)
 {
+<<<<<<< HEAD
   gameHistory.prepend(record);
+=======
+    gameHistory.prepend(record);
+
+>>>>>>> 2cb39a158de34bd848a6f2e8c8e460bfe63ddc37
 }
