@@ -2665,11 +2665,14 @@ void MainWindow::onGameSelected() {
   QListWidgetItem* item = gameListWidget->currentItem();
   if (!item) return;
 
-  // Get the GameRecord directly from the item data
-  GameRecord record = item->data(Qt::UserRole).value<GameRecord>();
+  int gameIndex = item->data(Qt::UserRole).toInt();
+  User* user = userManager->getCurrentUser();
+  if (!user) return;
 
-  // Initialize replay with the correct game record
-  initializeReplay(record);
+  QList<GameRecord> history = user->getGameHistory();
+  if (gameIndex >= 0 && gameIndex < history.size()) {
+    initializeReplay(history[gameIndex]);
+  }
 }
 
 void MainWindow::initializeReplay(const GameRecord& record) {
