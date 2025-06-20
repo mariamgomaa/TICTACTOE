@@ -8,17 +8,17 @@ TARGET = TicTacToe
 TEMPLATE = app
 
 SOURCES += \
-    main.cpp \
-    mainwindow.cpp \
-    tictactoegame.cpp \
-    user.cpp \
-    usermanager.cpp
+    src/main.cpp \
+    src/mainwindow.cpp \
+    src/tictactoegame.cpp \
+    src/user.cpp \
+    src/usermanager.cpp
 
 HEADERS += \
-    mainwindow.h \
-    tictactoegame.h \
-    user.h \
-    usermanager.h
+    src/mainwindow.h \
+    src/tictactoegame.h \
+    src/user.h \
+    src/usermanager.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
